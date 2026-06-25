@@ -1,6 +1,6 @@
 @extends('layout/client')
 @section('judul')
-    SKKNI | LSP
+    Formulir Pendaftaran | LSP
 @endsection
 
 @section('download')
@@ -12,11 +12,15 @@
         @charset "UTF-8";
 
         [data-toggle=collapse] i:before {
-            content: "";
+            content: "\f068";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
         }
 
         [data-toggle=collapse].collapsed i:before {
-            content: "";
+            content: "\f067";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
         }
 
         #accordion .card-header {
@@ -27,7 +31,7 @@
             position: relative;
             display: block;
             padding: 8px 0 8px 50px;
-            background: var(--primary-color);
+            background: #213744;
             border-radius: 8px;
             overflow: hidden;
             text-decoration: none;
@@ -77,7 +81,7 @@
         }
 
         #accordion .accordion-body li:before {
-            content: "";
+            content: "ï";
             padding-right: 5px;
             font-family: "Flaticon";
             font-size: 16px;
@@ -88,65 +92,41 @@
 @endsection
 
 @section('isi')
-    <!-- ***** Header ***** -->
     <div style="background-image: url('{{ asset($site_setting->header_image ?? 'general/assets/images/head1.jpg') }}')" class="page-heading header-text">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1><i class="fas fa-file-alt"></i> Standar Kompetensi Kerja Nasional Indonesia (SKKNI) </h1>
+                    <h1><i class="fas fa-file-alt"></i> Formulir Pendaftaran</h1>
                     <span>{{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }}</span>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ***** Akhir Header ***** -->
 
     <div class="container">
         <div id="accordion" class="py-5">
-
-            <div class="card border-0">
-                <div class="card-header p-0 border-0" id="heading-239">
-                    <button class="btn btn-link accordion-title border-0 collapse" data-toggle="collapse"
-                        data-target="#collapse-239" aria-expanded="true" aria-controls="#collapse-239"><i
-                            class="fas fa-minus text-center d-flex align-items-center justify-content-center h-100"></i>Pengertian
-                        SKKNI</button>
-                </div>
-                <div id="collapse-239" class="collapse show" aria-labelledby="heading-239" data-parent="#accordion">
-                    <div class="card-body accordion-body">
-                        <p>Standar Kompetensi Kerja Nasional Indonesia (SKKNI) adalah rumusan kemampuan kerja yang mencakup
-                            aspek pengetahuan, keterampilan, dan/atau keahlian serta sikap kerja yang relevan dengan
-                            pelaksanaan tugas dan syarat jabatan yang ditetapkan.
-                            SKKNI dikembangkan melalui konsultasi dengan industri terkait, untuk memastikan kesesuaian
-                            kebutuhan di tempat kerja. SKKNI digunakan terutama untuk merancang dan mengimplementasikan
-                            pelatihan kerja, melakukan asesmen (penilaian) keluaran pelatihan, serta asesmen tingkat
-                            keterampilan dan keahlian terkini yang dimiliki oleh seseorang. SKKNI ditetapkan oleh Menteri
-                            Ketenagakerjaan.
-                        </p>
-                    </div>
-                </div>
-            </div><br>
-
-            @foreach ($file as $asu)
+            @forelse ($file as $asu)
                 @if ($asu->file)
                 <div class="card border-0 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-                    <div class="card-header p-0 border-0" id="heading-240">
-                        <button class="btn btn-link accordion-title border-0 collapsed" data-toggle="collapse"
-                            data-target="#collapse-240" aria-expanded="false" aria-controls="#collapse-240"><i
+                    <div class="card-header p-0 border-0" id="heading-{{ $asu->id }}">
+                        <button class="btn btn-link accordion-title border-0 {{ $loop->first ? '' : 'collapsed' }}" data-toggle="collapse"
+                            data-target="#collapse-{{ $asu->id }}" aria-expanded="{{ $loop->first ? 'true' : 'false' }}" aria-controls="collapse-{{ $asu->id }}"><i
                                 class="fas fa-minus text-center d-flex align-items-center justify-content-center h-100"></i>
                             {{ $asu->file }}</button>
                     </div>
-                    <div id="collapse-240" class="collapse show" aria-labelledby="heading-240" data-parent="#accordion">
+                    <div id="collapse-{{ $asu->id }}" class="collapse {{ $loop->first ? 'show' : '' }}" aria-labelledby="heading-{{ $asu->id }}" data-parent="#accordion">
                         <div class="card-body accordion-body">
                             <embed src="{{ asset($asu->image) }}" width="100%" height="400px" type="application/pdf">
                         </div>
                     </div>
                 </div>
-                @else
-                <h2>DATA KOSONG</h2>
                 @endif
-            @endforeach
-
+            @empty
+                <div class="text-center py-5 text-muted">
+                    <i class="fas fa-file-alt fa-3x mb-3"></i><br>
+                    Belum ada Formulir Pendaftaran tersedia.
+                </div>
+            @endforelse
         </div>
-
     </div>
 @endsection

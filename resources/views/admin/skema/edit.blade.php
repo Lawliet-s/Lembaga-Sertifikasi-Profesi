@@ -63,7 +63,7 @@
                     <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Prodi</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="prodi_id">
+                            <select class="form-control select2-search" name="prodi_id" id="prodi_id">
                                 <option value="" holder></option>
                                 @foreach ($prodi as $result)
                                 <option value="{{ $result->id }}"
@@ -80,7 +80,7 @@
                     <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Penanggung Jawab</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="asesor_id">
+                            <select class="form-control select2-search" name="asesor_id" id="asesor_id">
                                 <option value="" holder></option>
                                 @foreach ($asesor as $result)
                                     <option value="{{ $result->id }}"
@@ -99,7 +99,7 @@
                     <div class="form-group row">
                     <label class="col-sm-3 col-form-label">TUK</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="tuk_id">
+                            <select class="form-control select2-search" name="tuk_id" id="tuk_id">
                                 <option value="" holder></option>
                                 @foreach ($tuk as $result)
                                     <option value="{{ $result->id }}"
@@ -116,7 +116,7 @@
                     <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Status</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="status_id">
+                            <select class="form-control select2-search" name="status_id" id="status_id">
                                 <option value="" holder>Pilih Status</option>
                                 <option value="Aktif" @if ($skema->status_id == 'Aktif') selected @endif>Aktif</option>
                                 <option value="Nonaktif" @if ($skema->status_id == 'Nonaktif') selected @endif>Nonaktif</option>
@@ -153,4 +153,16 @@
     </div>
 </div>
 
+@push('scripts')
+<script>
+$(function() {
+    $('.select2-search').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Pilih...',
+        allowClear: true,
+        width: '100%'
+    });
+});
+</script>
+@endpush
 @endsection

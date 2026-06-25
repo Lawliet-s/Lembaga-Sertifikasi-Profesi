@@ -68,6 +68,7 @@ Route::get('download', [ClientController::class, 'download'])->name('download');
 Route::get('client_skkni', [ClientController::class, 'skkni'])->name('client_skkni');
 Route::get('client_kkni', [ClientController::class, 'kkni'])->name('client_kkni');
 Route::get('client_filelain', [ClientController::class, 'filelain'])->name('client_filelain');
+Route::get('client_formulir', [ClientController::class, 'formulir'])->name('client_formulir');
 Route::get('client_skema', [ClientController::class, 'skema'])->name('client_skema');
 Route::get('skema_detail/{skema_detail}', [ClientController::class, 'skema_detail'])->name('skema_detail');
 Route::get('client_tuk', [ClientController::class, 'tuk'])->name('client_tuk');

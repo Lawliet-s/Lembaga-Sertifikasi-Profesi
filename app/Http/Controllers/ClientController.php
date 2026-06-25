@@ -130,7 +130,7 @@ class ClientController extends Controller
 
     public function asesor()
     {
-        $asesor = Asesor::where('id', '>', 1)->get();
+        $asesor = Asesor::all();
         return view('client/asesor', compact('asesor'));
     }
 
@@ -251,6 +251,13 @@ class ClientController extends Controller
     {
         $file = Filelain::all();
         return view('client/filelain', compact('file'));
+    }
+
+
+    public function formulir()
+    {
+        $file = File::all();
+        return view('client/formulir', compact('file'));
     }
 
 

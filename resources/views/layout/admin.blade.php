@@ -19,12 +19,53 @@
     <link rel="stylesheet" href="{{ asset('assets2/modules/codemirror/lib/codemirror.css') }}">
     <link rel="stylesheet" href="{{ asset('assets2/modules/codemirror/theme/duotone-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('assets2/modules/jquery-selectric/selectric.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css" />
     <link rel="shortcut icon" href="{{ asset($site_setting->favicon ?? 'general/assets/images/shortcut.jpg') }}" />
 
     <style>
         :root {
             --primary-color: {{ $site_setting->primary_color ?? '#9b0000e2' }};
             --secondary-color: {{ $site_setting->secondary_color ?? '#f84949e2' }};
+        }
+        .select2-container--bootstrap4 .select2-selection {
+            min-height: calc(1.5em + 0.75rem + 2px);
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+        .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+            line-height: calc(1.5em + 0.75rem);
+            padding-left: 0.75rem;
+        }
+        .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
+            position: absolute;
+            top: 50%;
+            right: 0.75rem;
+            transform: translateY(-50%);
+            width: auto;
+            height: auto;
+            background: transparent;
+            border: none;
+            pointer-events: none;
+        }
+        .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow::after {
+            content: '\f078';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: #6c757d;
+            font-size: 11px;
+        }
+        .select2-container--bootstrap4 .select2-selection__arrow b {
+            display: none;
+        }
+        .select2-container--bootstrap4 .select2-results__option--highlighted[aria-selected] {
+            background-color: var(--primary-color) !important;
+            color: #fff !important;
+        }
+        .select2-container--bootstrap4 .select2-results__option[aria-selected=true] {
+            background-color: var(--primary-color) !important;
+            color: #fff !important;
         }
         .btn-danger { background-color: var(--secondary-color); border-color: var(--secondary-color); }
         .btn-danger:hover { background-color: var(--secondary-color); opacity: 0.85; border-color: var(--secondary-color); }
@@ -432,8 +473,11 @@
     <script src="{{ asset('assets2/modules/codemirror/lib/codemirror.js') }}"></script>
     <script src="{{ asset('assets2/modules/codemirror/mode/javascript/javascript.js') }}"></script>
     <script src="{{ asset('assets2/modules/jquery-selectric/jquery.selectric.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="{{ asset('assets2/js/scripts.js') }}"></script>
     <script src="{{ asset('assets2/js/custom.js') }}"></script>
+
+    @stack('scripts')
 
 </body>
 

@@ -29,7 +29,7 @@
         }
 
         em{
-            color: #de1d1d
+            color: var(--secondary-color);
         }
 
         .h-100 {
@@ -134,9 +134,9 @@
 
         .card i {
             position: relative;
-            right: -50%;
-            top: 60%;
-            font-size: 12rem;
+            right: -30%;
+            top: 50%;
+            font-size: 8rem;
             line-height: 0;
             opacity: 0.2;
             color: white;
@@ -168,7 +168,7 @@
     <div style="margin-top: 0%" class="container h-100">
         <div class="row align-middle">
             <!-- SKKNI -->
-            <div class="col-md-6 col-lg-4 column">
+            <div class="col-md-4 column">
                 <div class="card gr-3">
                     <div class="txt">
                         <h1 class="font-weight-bold">SKKNI</h1>
@@ -181,7 +181,7 @@
                 </div>
             </div>
             <!-- Dokumen LAIN -->
-            <div class="col-md-6 col-lg-4 column">
+            <div class="col-md-4 column">
                 <div class="card gr-2">
                     <div class="txt">
                         <h1 class="font-weight-bold">Dokumen Lain</h1>
@@ -190,6 +190,19 @@
                     <a href="{{ route('client_filelain') }}" class="">more</a>
                     <div class="ico-card">
                         <i class="fa fa-codepen"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- Formulir Pendaftaran -->
+            <div class="col-md-4 column">
+                <div class="card gr-1">
+                    <div class="txt">
+                        <h1 class="font-weight-bold">Formulir Pendaftaran</h1>
+                        <p>-</p>
+                    </div>
+                    <a href="{{ route('client_formulir') }}" class="">more</a>
+                    <div class="ico-card">
+                        <i class="fa fa-file"></i>
                     </div>
                 </div>
             </div>

@@ -68,11 +68,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Prodi</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="prodi_id">
+                                        <select class="form-control select2-search" name="prodi_id" id="prodi_id">
                                             <option value="" holder>Pilih Prodi</option>
                                             @foreach ($prodi as $result)
                                                 <option value="{{ $result->id }}">{{ $result->prodi }}</option>
-                                                select
                                             @endforeach
                                         </select>
                                         @error('prodi_id')
@@ -85,11 +84,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Penanggung Jawab</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="asesor_id">
+                                        <select class="form-control select2-search" name="asesor_id" id="asesor_id">
                                             <option value="" holder>Pilih Penanggung Jawab</option>
                                             @foreach ($asesor as $result)
                                                 <option value="{{ $result->id }}">{{ $result->nama }}</option>
-                                                select
                                             @endforeach
                                         </select>
                                     </div>
@@ -101,11 +99,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">TUK</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="tuk_id">
+                                        <select class="form-control select2-search" name="tuk_id" id="tuk_id">
                                             <option value="" holder>Pilih TUK</option>
                                             @foreach ($tuk as $result)
                                                 <option value="{{ $result->id }}">{{ $result->tuk }}</option>
-                                                select
                                             @endforeach
                                         </select>
                                     </div>
@@ -115,7 +112,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Status Skema</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="status_id">
+                                        <select class="form-control select2-search" name="status_id" id="status_id">
                                             <option value="" holder>Pilih Status Skema</option>
                                             <option value="Aktif">Aktif</option>
                                             <option value="Nonaktif">Nonaktif</option>
@@ -286,4 +283,16 @@
             </div>
         </div>
     @endforeach
+@push('scripts')
+<script>
+$(function() {
+    $('.select2-search').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Pilih...',
+        allowClear: true,
+        width: '100%'
+    });
+});
+</script>
+@endpush
 @endsection

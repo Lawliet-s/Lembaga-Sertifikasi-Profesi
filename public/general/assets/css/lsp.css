@@ -94,6 +94,11 @@ a.border-button:hover {
     color: #1e1e1e;
 }
 
+.section-heading h2 em {
+    font-style: normal;
+    color: var(--secondary-color);
+}
+
 
 /* joEm */
 
@@ -109,6 +114,10 @@ more-info-content .section-heading em {
     font-size: 15px;
     color: #666;
     letter-spacing: 1px;
+}
+
+.section-heading span em {
+    color: var(--secondary-color);
 }
 
 
@@ -840,6 +849,7 @@ ul.slick-dots {
 
 .more-info .left-content {
     padding: 45px 45px 45px 30px;
+    text-align: center;
 }
 
 .more-info .left-content span {
@@ -1473,8 +1483,22 @@ footer .contact-form button.filled-button:hover {
         margin-right: 0px;
         margin-bottom: 30px;
     }
-    .more-info .right-content {
-        padding: 30px;
+    .more-info .right-content,
+    .more-info .left-content {
+        padding: 25px;
+        text-align: center;
+    }
+    .more-info-content {
+        overflow-x: hidden;
+    }
+    .more-info .left-content ul {
+        padding-left: 0;
+        overflow-x: hidden;
+        text-align: center;
+    }
+    .more-info .left-content ul,
+    .more-info .left-content ul * {
+        text-align: center;
     }
     footer {
         padding: 80px 0px 20px 0px;
@@ -1501,6 +1525,15 @@ footer .contact-form button.filled-button:hover {
     .contact-item {
         margin-bottom: 30px;
     }
+}
+
+/* Summernote content images */
+.left-content img,
+.inner-content img,
+.more-info-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 @media (max-width: 992px) {
