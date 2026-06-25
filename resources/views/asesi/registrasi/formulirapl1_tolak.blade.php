@@ -74,13 +74,13 @@
                                 @foreach ($identitas as $data)
                                     <tbody>
                                         <tr>
-                                            <td>{!! $data->koreksi !!}</td>
+                                            <td>{{ $data->koreksi }}</td>
                                             <td>{{ $data->name }}</td>
                                             <td> <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                                     data-target="#exampleModal-{{ $data->id }}"><i
                                                         class="fas fa-cloud-upload-alt"></i> Upload Dokumen</button></td>
                                             <td>
-                                                {!! $data->status !!}
+                                                {{ $data->status }}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -130,14 +130,14 @@
                             @forelse ($xnxx as $data)
                                 <tbody>
                                     <tr>
-                                        <td>{!! $data->koreksi !!}</td>
+                                        <td>{{ $data->koreksi }}</td>
                                         <td>{{ $data->unikom_kode }}</td>
                                         <td>{{ $data->asesmen_name }}</td>
                                         <td> <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                                 data-target="#exampleModal-{{ $data->id }}"><i
                                                     class="fas fa-cloud-upload-alt"></i> Upload Bukti</button></td>
                                         <td>
-                                            {!! $data->status !!}
+                                            {{ $data->status }}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -179,7 +179,7 @@
                                 <div><label style="color: rgb(158, 46, 46)" class="font-weight-bold" for="">Kriteria Unjuk
                                         Kerja :</label></div>
                                 <span style="color: rgb(0, 0, 0)"
-                                    class="font-weight-bold">{!! $data->kriteria !!}</span><br><br>
+                                    class="font-weight-bold">{{ $data->kriteria }}</span><br><br>
                                 <input type="hidden" name="status"
                                     value="<label class='badge badge-outline-success badge-pill'><i class='fas fa-check-circle'></i> Kompeten</label>">
                                 <input type="hidden" name="koreksi"

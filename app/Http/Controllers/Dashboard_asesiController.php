@@ -22,24 +22,24 @@ class Dashboard_asesiController extends Controller
         $skema = Skema::where('status_id', '1')->get();
         $jurusan = Jurusan::all();
         $datasertifikat = Data_register::where('nik', auth()->user()->nik)
-            ->where('status', "<h4 style='color: rgb(0, 0, 0)'>Sertifikasi Selesai</h4>")->count();
+            ->where('status', 'LIKE', '%Sertifikasi Selesai%')->count();
         $upload = Upload_file::where('user_id', auth()->user()->id)->get();
         $datareg = Data_register::where('user_id', auth()->user()->id)
-            ->where('status', "<h4 style='color: rgb(163, 129, 8)'>Lengkapi Data Anda</h4>")
+            ->where('status', 'LIKE', '%Lengkapi Data Anda%')
             ->get();
         $datareg1 = Data_register::where('user_id', auth()->user()->id)
-            ->where('status', "<h4 style='color: green'>Menunggu Validasi...</h4>")
+            ->where('status', 'LIKE', '%Menunggu Validasi%')
             ->get();
         $datareg2 = Data_register::where('user_id', auth()->user()->id)
-            ->where('status', "<h4 style='color: rgb(34, 123, 138)'>Pendaftaran Divalidasi</h4>")
+            ->where('status', 'LIKE', '%Pendaftaran Divalidasi%')
             ->get();
         $datareg3 = Data_register::where('user_id', auth()->user()->id)
-            ->where('status', "<h4 style='color: rgb(141, 7, 7)'>Pendaftaran Ditolak</h4>")
+            ->where('status', 'LIKE', '%Pendaftaran Ditolak%')
             ->get();
         $datareg4 = Data_register::where('nik', auth()->user()->nik)
-            ->where('status', "<h4 style='color: rgb(0, 0, 0)'>Sertifikasi Selesai</h4>")->get();
+            ->where('status', 'LIKE', '%Sertifikasi Selesai%')->get();
         $datareg5 = Data_register::where('nik', auth()->user()->nik)
-            ->where('status', "<h4 style='color: #000'>Pendaftaran Sementara Diblokir</h4>")->get();
+            ->where('status', 'LIKE', '%Pendaftaran Sementara Diblokir%')->get();
         return view('asesion', compact
         (
             'datareg',

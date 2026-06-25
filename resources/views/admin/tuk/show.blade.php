@@ -131,7 +131,7 @@
                 <h4 class="card-title">Kode TUK : {{ $tuk->kode }}</h4>
                 <h4 class="card-title">Penanggung Jawab : {{ $tuk->pengelola }}</h4>
                 <h4 class="card-title">Jenis TUK : {{ $tuk->jenis_tuk ?? '-' }}</h4>
-                <p class="card-title">Alamat : {!! $tuk->alamat !!}</p>
+                <p class="card-title">Alamat : {{ $tuk->alamat }}</p>
             </div>
         </div>
     </div>

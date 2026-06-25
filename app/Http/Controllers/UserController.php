@@ -26,7 +26,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'min:1', 'max:100'],
             'nik' => ['nullable', 'string', 'max:50', 'unique:users,nik'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:4'],
+            'password' => ['required', 'string', 'min:8', 'max:255', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/'],
         ]);
 
         $user = User::create([
@@ -56,57 +56,42 @@ class UserController extends Controller
             'name' => ['min:1', 'max:100', 'required'],
             'email' => ['min:3', 'required'],
             'email2' => ['email','min:3', 'max:100', 'required', 'unique:users,email2,'.auth()->id()],
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ]);
 
-        if ($request->has('image'))
-        {
-            $image = $request->image;
-            $new_image = time().$image->getClientOriginalName();
+        $user_data = [
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'email' => $request->email,
+            'sex_id' => $request->sex_id,
+            'tgl_lahir' => $request->tgl_lahir,
+            'negara' => $request->negara,
+            'alamat' => $request->alamat,
+            'tempat_lahir' => $request->tempat_lahir,
+            'no_hp' => $request->no_hp,
+            'postal' => $request->postal,
+            'email2' => $request->email2,
+            'telp' => $request->telp,
+            'fax' => $request->fax,
+            'email3' => $request->email3,
+            'jabatan' => $request->jabatan,
+            'alamat_kantor' => $request->alamat_kantor,
+            'institusi' => $request->institusi,
+        ];
+
+        if ($request->filled('password')) {
+            $request->validate(['password' => ['string', 'min:8', 'max:255', 'confirmed', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/']]);
+            $user_data['password'] = bcrypt($request->password);
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/beranda_img2/', $new_image);
-            $user_data = [
-                'name' => $request->name,
-                'nik' => $request->nik,
-                'email' => $request->email,
-                'sex_id' => $request->sex_id,
-                'tgl_lahir' => $request->tgl_lahir,
-                'negara' => $request->negara,
-                'alamat' => $request->alamat,
-                'tempat_lahir' => $request->tempat_lahir,
-                'no_hp' => $request->no_hp,
-                'postal' => $request->postal,
-                'email2' => $request->email2,
-                'telp' => $request->telp,
-                'fax' => $request->fax,
-                'email3' => $request->email3,
-                'jabatan' => $request->jabatan,
-                'alamat_kantor' => $request->alamat_kantor,
-                'institusi' => $request->institusi,
-                'password' => bcrypt($request->password),
-                'image' => 'uploads/beranda_img2/'.$new_image,
-            ];
+            $user_data['image'] = 'uploads/beranda_img2/'.$new_image;
         }
-        else{
-            $user_data = [
-                'name' => $request->name,
-                'nik' => $request->nik,
-                'email' => $request->email,
-                'sex_id' => $request->sex_id,
-                'tgl_lahir' => $request->tgl_lahir,
-                'negara' => $request->negara,
-                'alamat' => $request->alamat,
-                'tempat_lahir' => $request->tempat_lahir,
-                'no_hp' => $request->no_hp,
-                'postal' => $request->postal,
-                'email2' => $request->email2,
-                'telp' => $request->telp,
-                'fax' => $request->fax,
-                'email3' => $request->email3,
-                'jabatan' => $request->jabatan,
-                'alamat_kantor' => $request->alamat_kantor,
-                'institusi' => $request->institusi,
-                'password' => bcrypt($request->password),
-            ];
-        }
+
         User::whereId($id)->update($user_data);
         return back()->with('success', ' Data Profil Pengguna Berhasil diUpdate');
     }
@@ -115,8 +100,8 @@ class UserController extends Controller
         $request->validate([
             'name' => ['min:1', 'max:100', 'required'],
             'nik' => ['nullable', 'string', 'max:50'],
-            'email' => ['required'],
-            'password' => ['min:4', 'required'],
+            'email' => ['required', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/'],
         ]);
 
         $user_data = [

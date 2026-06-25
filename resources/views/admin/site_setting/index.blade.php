@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                         <th>Footer Text</th>
-                        <td>{!! $setting->footer_text !!}</td>
+                        <td>{{ $setting->footer_text }}</td>
                     </tr>
                     <tr>
                         <th>Maps Embed</th>

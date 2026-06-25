@@ -5,6 +5,7 @@
 /vendor
 .env
 .env.backup
+.env.production
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -12,3 +13,17 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+example env.txt
+jodata.txt
+routes.txt
+tables.txt
+/storage/logs/*.log
+/storage/debugbar
+.DS_Store
+Thumbs.db
+*.log
+docker-compose.override.yml
+
+# Ignore uploaded files but track .htaccess security files
+/public/uploads/*
+!/public/uploads/**/.htaccess

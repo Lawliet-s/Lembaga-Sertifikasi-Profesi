@@ -1,0 +1,14 @@
+Options -Indexes
+php_flag engine off
+
+# Deny access to PHP files
+<FilesMatch "\.(php|phps|php4|php5|phtml)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Deny access to htaccess files
+<FilesMatch "^\.ht">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>

@@ -105,7 +105,7 @@
                                         </div>
                                     </td>
                                     <td>{{ $asu->asesmen }}</td>
-                                    <td>{!! $asu->kriteria !!}</td>
+                                    <td>{{ $asu->kriteria }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -140,7 +140,7 @@
                         <br>
                         <label for="">Kriteria</label>
                         <textarea type="text" class="summernote" maxlength="1000" class="form-control" name="kriteria"
-                            placeholder="Kriteria" aria-label="Recipient's username">{!! $asu->kriteria !!}</textarea>
+                            placeholder="Kriteria" aria-label="Recipient's username">{{ $asu->kriteria }}</textarea>
                         @error('kriteria')
                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>
                         @enderror

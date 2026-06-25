@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 use app\Models\Sex;
 use app\Models\Semester;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -20,14 +20,12 @@ class User extends Authenticatable
     protected $dates = ['created_at'];
 
     protected $fillable = [
-        'id',
         'role',
         'name',
         'nik',
         'email',
         'password',
         'kode',
-        'id',
         'nim',
         'nama',
         'institusi',
@@ -66,6 +64,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new \Illuminate\Auth\Notifications\VerifyEmail);
+    }
 
     public function sex(){
         return $this->belongsTo(Sex::class);

@@ -16,8 +16,8 @@ class Apl02Controller extends Controller
     {
         $registrations = Data_register::where('user_id', auth()->user()->id)
             ->where(function ($q) {
-                $q->where('status', "<h4 style='color: rgb(34, 123, 138)'>Pendaftaran Divalidasi</h4>")
-                  ->orWhere('status', "<h4 style='color: rgb(0, 0, 0)'>Sertifikasi Selesai</h4>");
+                $q->where('status', 'LIKE', '%Pendaftaran Divalidasi%')
+                  ->orWhere('status', 'LIKE', '%Sertifikasi Selesai%');
             })
             ->get();
 
@@ -26,7 +26,7 @@ class Apl02Controller extends Controller
 
     public function create($id)
     {
-        $registration = Data_register::findOrFail($id);
+        $registration = Data_register::where('user_id', auth()->id())->findOrFail($id);
         $skema = Skema::findOrFail($registration->skema_id);
 
         $unikoms = Unikom::where('skema_id', $skema->id)
@@ -53,7 +53,7 @@ class Apl02Controller extends Controller
         ]);
 
         $dataRegisterId = $request->data_register_id;
-        $registration = Data_register::findOrFail($dataRegisterId);
+        $registration = Data_register::where('user_id', auth()->id())->findOrFail($dataRegisterId);
 
         foreach ($request->elemen_id as $i => $elemenId) {
             $elemen = Asesmen::with('unikom')->findOrFail($elemenId);
@@ -63,14 +63,13 @@ class Apl02Controller extends Controller
             $imagePath = null;
             if ($request->hasFile('image.' . $i)) {
                 $file = $request->file('image.' . $i);
-                $filename = time() . '_' . $file->getClientOriginalName();
+                $safeName = \Illuminate\Support\Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+                $filename = time() . '_' . $safeName;
                 $file->move('uploads/formulir_apl2/', $filename);
                 $imagePath = 'uploads/formulir_apl2/' . $filename;
             }
 
-            $statusLabel = $request->status[$i] === 'kompeten'
-                ? "<label class='badge badge-outline-success badge-pill'>&#10004; Kompeten</label>"
-                : "<label class='badge badge-outline-danger badge-pill'>&#10008; Tidak Kompeten</label>";
+            $statusValue = $request->status[$i] === 'kompeten' ? 'kompeten' : 'tidak_kompeten';
 
             Xnxx::updateOrCreate(
                 [
@@ -87,9 +86,9 @@ class Apl02Controller extends Controller
                     'skema_id' => $registration->skema_id,
                     'skema_name' => $registration->skema_name,
                     'kode' => $kode,
-                    'status' => $statusLabel,
+                    'status' => $statusValue,
                     'image' => $imagePath,
-                    'koreksi' => "<label class='badge badge-outline-warning badge-pill'>Belum Dikoreksi</label>",
+                    'koreksi' => 'Belum Dikoreksi',
                 ]
             );
         }
@@ -100,7 +99,7 @@ class Apl02Controller extends Controller
 
     public function show($id)
     {
-        $registration = Data_register::findOrFail($id);
+        $registration = Data_register::where('user_id', auth()->id())->findOrFail($id);
         $xnxxes = Xnxx::where('data_register_id', $registration->id)
             ->where('user_id', auth()->user()->id)
             ->get()

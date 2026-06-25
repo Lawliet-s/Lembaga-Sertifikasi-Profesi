@@ -86,7 +86,7 @@
                                     <h5 class="mb-1 text-dark">{{ $validasi->user_name }}</h5>
                                     <h5 class="mb-0 text-dark">{{ $validasi->skema_name }}</h5>
                                 </div>
-                                <button class="btn btn-light text-white" style="pointer-events:none">{!! $validasi->status !!}</button>
+                                @include('partials.status_badge', ['status' => $validasi->status])
                             </div>
                             <hr>
 
@@ -185,7 +185,7 @@
                                             @foreach ($validasi->xnxxes as $data)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{!! $data->status !!}</td>
+                                                    <td>@include('partials.status_badge', ['status' => $data->status])</td>
                                                     <td>{{ $data->asesmen_name }}</td>
                                                     <td>
                                                         @if ($data->image)

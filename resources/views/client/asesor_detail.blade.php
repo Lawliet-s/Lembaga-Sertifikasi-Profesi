@@ -14,7 +14,7 @@
                 data-animation-name="customAnimationIn" data-animation-duration="1000">
                 <div class="u-container-layout u-container-layout-1">
                     <h2 class="u-custom-font u-font-merriweather u-text u-text-1">{{ $asesor->nama }}</h2>
-                    <p class="u-text u-text-2">{{ $asesor->nik }}</p>
+                    <p class="u-text u-text-2">{{ $asesor->no_registrasi }}</p>
                     <p class="u-text u-text-3">{{ $asesor->no_hp }}</p>
                     <p class="u-text u-text-3">{{ $asesor->email }}</p>
                     <p class="u-text u-text-3">{{ $asesor->skema }}</p>

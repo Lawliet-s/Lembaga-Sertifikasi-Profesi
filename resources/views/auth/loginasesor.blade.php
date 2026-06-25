@@ -102,6 +102,7 @@
                                     <label class="custom-control-label text-muted" for="remember" style="margin-left: 5px;">Ingatkan saya</label>
                                 </div>
                             </div>
+                            @include('partials.honeypot')
                             <div class="row mb-3 px-3">
                                 <button type="submit" class="btn text-center" style="background-color: var(--primary-color); color: #fff; border: none;">Login</button>
                             </div>

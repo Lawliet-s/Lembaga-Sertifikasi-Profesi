@@ -28,11 +28,12 @@ class TukController extends Controller
             'tuk' => ['required'],
             'kode' => ['required'],
             'alamat' => ['required'],
-            // 'image' => ['required']
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ]);
         if ($request->hasFile('image')) {
-            $image = $request->image;
-            $new_image = time().$image->getClientOriginalName();
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/tuk/', $new_image);
             $tuk = Tuk::create([
             'tuk' => $request->tuk,
@@ -59,9 +60,13 @@ class TukController extends Controller
     public function update(Request $request, $id)
     {
         $tuk = Tuk::findorfail($id);
+        $request->validate([
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
+        ]);
         if ($request->hasFile('image')) {
-            $image = $request->image;
-            $new_image = time().$image->getClientOriginalName();
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/tuk/', $new_image);
             $tuk_data = [
                 'tuk' => $request->tuk,

@@ -55,7 +55,7 @@
                             <div class="col-md-12">
                                 <label for="">Status Berita</label>
                                 <select class="form-control" name="status">
-                                    <option value="{{ $berita->status }}" holder>{!! $berita->status !!}</option>
+                                    <option value="{{ $berita->status }}" holder>{{ $berita->status }}</option>
                                     <option value='<label class="badge badge-info">Posting</label>'>Posting</option>
                                     <option value='<label class="badge badge-danger">Tidak di Posting</label>'>Tidak Di Posting</option>
                                 </select>

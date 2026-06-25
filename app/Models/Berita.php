@@ -9,7 +9,7 @@ class Berita extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['kategori_id', 'title', 'excerpt', 'body', 'image', 'status'];
 
     protected $dates = ['created_at'];
 

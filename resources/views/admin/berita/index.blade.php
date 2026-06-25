@@ -132,7 +132,7 @@
                                     {{ $asu->created_at->diffforhumans() }}
                                 </td>
                                 <td>
-                                    {!! $asu->status !!}
+                                    {{ $asu->status }}
                                 </td>
                             </tr>
                         @endforeach

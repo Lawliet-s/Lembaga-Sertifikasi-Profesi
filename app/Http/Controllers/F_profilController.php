@@ -22,11 +22,11 @@ class F_profilController extends Controller
     public function store(Request $request)
     {
         $profil_data = [
-            'profil' => $request->profil,
-            'isi' => $request->isi,
-            'visi' => $request->visi,
-            'misi' => $request->misi,
-            'motto' => $request->motto,
+            'profil' => \App\Helpers\HtmlSanitizer::sanitize($request->profil),
+            'isi' => \App\Helpers\HtmlSanitizer::sanitize($request->isi),
+            'visi' => \App\Helpers\HtmlSanitizer::sanitize($request->visi),
+            'misi' => \App\Helpers\HtmlSanitizer::sanitize($request->misi),
+            'motto' => \App\Helpers\HtmlSanitizer::sanitize($request->motto),
         ];
 
         F_profil::create($profil_data);
@@ -44,11 +44,11 @@ class F_profilController extends Controller
     {
         $profil = F_profil::findorfail($id);
         $profil_data = [
-            'profil' => $request->profil,
-            'visi' => $request->visi,
-            'isi' => $request->isi,
-            'misi' => $request->misi,
-            'motto' => $request->motto,
+            'profil' => \App\Helpers\HtmlSanitizer::sanitize($request->profil),
+            'visi' => \App\Helpers\HtmlSanitizer::sanitize($request->visi),
+            'isi' => \App\Helpers\HtmlSanitizer::sanitize($request->isi),
+            'misi' => \App\Helpers\HtmlSanitizer::sanitize($request->misi),
+            'motto' => \App\Helpers\HtmlSanitizer::sanitize($request->motto),
         ];
 
         $profil->update($profil_data);

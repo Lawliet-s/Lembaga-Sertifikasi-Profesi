@@ -58,10 +58,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">NIK</label>
+                                    <label class="col-sm-3 col-form-label">No. Registrasi</label>
                                     <div class="col-sm-9">
-                                        <input type="text" maxlength="50" name="nik" class="form-control">
-                                        @error('nik')
+                                        <input type="text" maxlength="19" name="no_registrasi" class="form-control" placeholder="Contoh: MET.000.004118 2019">
+                                        @error('no_registrasi')
                                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -164,6 +164,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" minlength="4" name="password" class="form-control">
+                                        @error('password')
+                                            <div class="text-danger mt-2 text-sm">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-rounded btn-success btn-icon-text btn-block">
                             <i class="fa fa-save btn-icon-prepend"></i>
@@ -206,7 +217,7 @@
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Customer: activate to sort column ascending"
-                                                    style="width: 175.75px;">Kode</th>
+                                                    style="width: 175.75px;">No. Registrasi</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Customer: activate to sort column ascending"
@@ -245,7 +256,7 @@
                                                                     class="fa fa-trash "></i> Hapus</button>
                                                         </div>
                                                     </td>
-                                                    <td>{{ $asu->nik }}</td>
+                                                    <td>{{ $asu->no_registrasi }}</td>
                                                     <td>
                                                         @if ($asu->image)
                                                             <img src="{{ asset($asu->image) }}" alt="">

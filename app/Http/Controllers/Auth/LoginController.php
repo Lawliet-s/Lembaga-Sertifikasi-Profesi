@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -26,6 +27,14 @@ class LoginController extends Controller
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
+
+            Log::channel('auth')->warning('Account locked due to too many attempts', [
+                'email' => $request->input('email'),
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'timestamp' => now(),
+            ]);
+
             return $this->sendLockoutResponse($request);
         }
 
@@ -39,6 +48,15 @@ class LoginController extends Controller
             ) {
                 $this->guard()->logout();
                 $this->incrementLoginAttempts($request);
+
+                Log::channel('auth')->warning('Login failed - role mismatch', [
+                    'email' => $request->input('email'),
+                    'expected_role' => $expectedRole,
+                    'actual_roles' => $user->getRoleNames(),
+                    'ip' => $request->ip(),
+                    'timestamp' => now(),
+                ]);
+
                 return $this->sendFailedLoginResponse($request);
             }
 
@@ -46,11 +64,46 @@ class LoginController extends Controller
                 $request->session()->put('auth.password_confirmed_at', time());
             }
 
+            Log::channel('auth')->info('Login successful', [
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'role' => $user->getRoleNames()->implode(', '),
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'timestamp' => now(),
+            ]);
+
             return $this->sendLoginResponse($request);
         }
 
         $this->incrementLoginAttempts($request);
+
+        Log::channel('auth')->warning('Login failed - invalid credentials', [
+            'email' => $request->input('email'),
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'timestamp' => now(),
+        ]);
+
         return $this->sendFailedLoginResponse($request);
+    }
+
+    public function logout(Request $request)
+    {
+        $user = Auth::user();
+
+        Log::channel('auth')->info('User logout', [
+            'user_id' => $user?->id,
+            'email' => $user?->email,
+            'ip' => $request->ip(),
+            'timestamp' => now(),
+        ]);
+
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return $this->loggedOut($request) ?: redirect('/');
     }
 
     protected function authenticated(Request $request, $user)

@@ -31,7 +31,8 @@ class XnxxController extends Controller
                 if ($request->hasFile('image')) {
                     $images = $request->image;
                     foreach ($images as $image) {
-                        $new_image = time() . $image->getClientOriginalName();
+                        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+                        $new_image = time() . '_' . $safeName;
                         $image->move('uploads/formulir_apl2/', $new_image);
                         $laptop = Xnxx::create([
                             'image' => 'uploads/formulir_apl2/' . $new_image,
@@ -45,7 +46,7 @@ class XnxxController extends Controller
                                     'unikom_id' => $data['unikom_id'][$item],
                                     'unikom_kode' => $data['unikom_kode'][$item],
                                     'data_register_id' => $data['data_register_id'][$item],
-                                    'user_id' => $data['user_id'][$item],
+                                    'user_id' => auth()->id(),
                                     'status' => $data['status'][$item],
                                     'kode' => $data['kode'][$item],
                                     'kode_elemen' => $data['kode_elemen'][$item],
@@ -63,20 +64,23 @@ class XnxxController extends Controller
 
     public function update(Request $request, $id )
     {
-        // dd($request->all());
         $request->validate([
-            'image' => ['required', 'max:2000']
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2000'],
+            'status' => ['nullable', 'string', 'max:500'],
+            'koreksi' => ['nullable', 'string', 'max:2000'],
             ]);
-            $image = $request->image;
-            $new_image = time() . $image->getClientOriginalName();
+            $image = $request->file('image');
+            $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeName = \Illuminate\Support\Str::slug($originalName) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/formulir_apl2/', $new_image);
             $data = [
-                'status' => $request->status,
-                'koreksi' => $request->koreksi,
+                'status' => strip_tags($request->status),
+                'koreksi' => strip_tags($request->koreksi),
                 'image' => 'uploads/formulir_apl2/' . $new_image,
             ];
 
-        xnxx::whereId($id)->update($data);
+        xnxx::where('id', $id)->where('user_id', auth()->id())->update($data);
         return back()->with('success', 'Dokumen Berhasil Disimpan');
     }
 
@@ -91,7 +95,7 @@ class XnxxController extends Controller
         $xnxx = Upload_file::create([
             'data_register_id' => $request->data_register_id,
             'name' => $request->name,
-            'user_id' => $request->user_id,
+            'user_id' => auth()->id(),
             'kode' => $request->kode,
             'status' => $request->status,
         ]);
@@ -101,7 +105,7 @@ class XnxxController extends Controller
 
     public function destroy3($id)
     {
-        $identitas = Upload_file::findorfail($id);
+        $identitas = Upload_file::where('user_id', auth()->id())->findOrFail($id);
         $identitas->delete();
         return back();
     }
@@ -128,7 +132,7 @@ class XnxxController extends Controller
 
         $xnxx = Token::create([
             'token' => $request->token,
-            'user_id' => $request->user_id
+            'user_id' => auth()->id()
         ]);
         return redirect()->route('register.last');
     }
@@ -136,7 +140,7 @@ class XnxxController extends Controller
 
     public function destroy($id)
     {
-        $xnxx = Xnxx::findorfail($id);
+        $xnxx = Xnxx::where('user_id', auth()->id())->findOrFail($id);
         $xnxx->delete();
         return redirect()->back()->with('success','Data Berhasil Dihapus');
     }
@@ -157,8 +161,8 @@ class XnxxController extends Controller
         $xnxx = Register::create([
             'kode_register' => $request->kode_register,
             'skema_id' => $request->skema_id,
-            'user_id' => $request->user_id,
-            'user_name' => $request->user_name,
+            'user_id' => auth()->id(),
+            'user_name' => auth()->user()->name,
             'skema_name' => $request->skema_name,
             'status' => $request->status
         ]);
@@ -176,7 +180,7 @@ class XnxxController extends Controller
 
     public function destroy2($id)
     {
-        $register = Register::findorfail($id);
+        $register = Register::where('user_id', auth()->id())->findOrFail($id);
         $register->delete();
         return back();
     }

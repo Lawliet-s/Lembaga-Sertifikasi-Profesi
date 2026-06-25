@@ -235,7 +235,7 @@
                                     </h5>
                                 </div>
                             </div>
-                            <button class="btn btn-light text-white">{!! $validasi->status !!}</button>
+                            <button class="btn btn-light text-white">{{ $validasi->status }}</button>
                             <h4 class="card-title"></h4>
                         </div><br>
                         <div class="d-flex">
@@ -282,7 +282,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                {!! $data->status !!}
+                                                {{ $data->status }}
                                             </td>
                                             <td>{{ $data->asesmen_name }}</td>
                                             <td>

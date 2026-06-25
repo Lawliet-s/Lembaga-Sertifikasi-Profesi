@@ -10,6 +10,20 @@
 
 @section('isi')
     @include('layout/verifikasi')
+    <style>
+        .card-body img {
+            max-width: 100%;
+            height: auto;
+        }
+        .card-body {
+            overflow-x: hidden;
+        }
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 15px !important;
+            }
+        }
+    </style>
     {{-- <---------------------- PAGE HEADER ----------------------> --}}
     <div class="page-header">
         <h3>

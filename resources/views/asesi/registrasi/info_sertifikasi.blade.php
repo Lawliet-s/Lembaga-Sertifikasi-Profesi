@@ -121,7 +121,7 @@
                             <div class="media-body">
                                 <h6 class="mb-1">Keterangan :</h6>
                                 <p class="mb-0 text-muted">
-                                    {!! $validasi->keterangan !!}
+                                    {{ $validasi->keterangan }}
                                 </p>
                             </div>
                         </div>

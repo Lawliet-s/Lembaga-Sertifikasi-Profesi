@@ -162,17 +162,18 @@
                 <div class="row g-3">
                     @php
                         $docs = [
-                            'dokumen_raport' => 'Raport / Ijazah',
                             'dokumen_sertifikat_pkl' => 'Sertifikat PKL / Pengalaman Kerja',
+                            'dokumen_raport' => 'Raport / Ijazah',
                             'dokumen_kartu_keluarga' => 'Kartu Keluarga',
-                            'dokumen_ktp' => 'KTP',
+                            'dokumen_ktp' => 'KTP / Kartu Pelajar',
                             'dokumen_foto' => 'Pas Foto 3x4',
                         ];
+                        $optional = ['dokumen_raport', 'dokumen_kartu_keluarga', 'dokumen_ktp'];
                     @endphp
                     @foreach ($docs as $field => $label)
                     <div class="col-md-6">
                         <div class="card border-dashed rounded p-3" style="border: 2px dashed #dee2e6;">
-                            <label class="form-label small fw-bold mb-2">{{ $label }} <span class="text-danger">*</span></label>
+                            <label class="form-label small fw-bold mb-2">{{ $label }} @if (!in_array($field, $optional))<span class="text-danger">*</span>@else<small class="text-muted">(opsional)</small>@endif</label>
                             <div class="custom-file">
                                 <input type="file" name="{{ $field }}" class="form-control-file" accept=".pdf,.jpg,.jpeg,.png" onchange="previewName(this, '{{ $field }}_name')">
                             </div>

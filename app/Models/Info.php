@@ -9,5 +9,5 @@ class Info extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['keterangan', 'image'];
 }

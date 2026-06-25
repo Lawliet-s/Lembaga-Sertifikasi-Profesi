@@ -130,7 +130,7 @@
                             </div>
                         </div>
                         <div class="d-inline-block">
-                            {!! $asu->status !!}
+                            {{ $asu->status }}
                         </div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                             </div>
                         </div>
                         <div class="d-inline-block">
-                            {!! $asu->status !!}
+                            {{ $asu->status }}
                         </div>
                     </div>
                 </div>
@@ -240,7 +240,7 @@
                             </div>
                         </div>
                         <div class="d-inline-block">
-                            {!! $asu->status !!}
+                            {{ $asu->status }}
                         </div>
                     </div>
                 </div>
@@ -260,7 +260,7 @@
                         <h4 class="card-title mb-0">{{ $asu->skema_name }}</h4>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-inline-block">{!! $asu->status !!}
+                        <div class="d-inline-block">{{ $asu->status }}
                         </div>
                     </div>
                 </div>
@@ -385,7 +385,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        {!! $asu->keterangan !!}
+                        {{ $asu->keterangan }}
                     </div>
                     <div class="modal-footer">
                         <form action="{{ route('registrasi.update', $asu->id) }}" method="POST">

@@ -45,8 +45,9 @@ class UiController extends Controller
         ]);
 
         $skema = Beranda::findorfail($id);
-        $image = $request->image;
-        $new_image = time().$image->getClientOriginalName();
+        $image = $request->file('image');
+        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+        $new_image = time() . '_' . $safeName;
         $image->move('uploads/info/', $new_image);
         $info_data = [
             'image' => 'uploads/info/'.$new_image,
@@ -169,7 +170,7 @@ class UiController extends Controller
     {
         $tuk = Tuk::where('id', '>', 1)->get();
         $asesor = Asesor::where('id', '>', 1)->get();
-        $sertifikat = Data_register::where('status', "<h4 style='color: rgb(0, 0, 0)'>Sertifikasi Selesai</h4>")->get();
+        $sertifikat = Data_register::where('status', 'Sertifikasi Selesai')->get();
         $skema = Skema::all();
         $info = Info::all();
         $carousel = Beranda_img1::all();

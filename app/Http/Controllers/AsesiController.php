@@ -46,7 +46,7 @@ class AsesiController extends Controller
 
     public function koleksi_sertifikat(){
         $datareg = Data_register::where('user_id', auth()->user()->id)
-            ->where('status', "<h4 style='color: rgb(0, 0, 0)'>Sertifikasi Selesai</h4>")
+            ->where('status', 'Sertifikasi Selesai')
             ->get();
         return view('asesi/koleksi', compact('datareg'));
     }
@@ -54,7 +54,7 @@ class AsesiController extends Controller
 
     public function sertifikat_show($id){
         $decryptID = Crypt::decryptString($id);
-        $validasi = Data_register::findorfail($decryptID);
+        $validasi = Data_register::where('user_id', auth()->id())->findOrFail($decryptID);
         return view('asesi/sertifikat_show', compact('validasi'));
     }
 
@@ -78,7 +78,7 @@ class AsesiController extends Controller
             'name'     => 'required|string|max:100',
             'nik'      => 'required|string|max:50',
             'email'    => 'required|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:4|confirmed',
+            'password' => 'nullable|string|min:8|max:255|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/',
             'image'    => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 

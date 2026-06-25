@@ -31,8 +31,18 @@ class MapsHelper
 
     private static function resolveShortUrl($url)
     {
-        if (!str_contains($url, 'goo.gl') && !str_contains($url, 'maps.app')) {
+        if (!str_contains($url, 'goo.gl/maps') && !str_contains($url, 'maps.app.goo.gl')) {
             return $url;
+        }
+
+        $host = parse_url($url, PHP_URL_HOST);
+        if ($host) {
+            $resolvedIp = gethostbyname($host);
+            if ($resolvedIp !== $host) {
+                if (filter_var($resolvedIp, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+                    return $url;
+                }
+            }
         }
 
         $ch = curl_init();
@@ -42,8 +52,9 @@ class MapsHelper
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_NOBODY => true,
-            CURLOPT_TIMEOUT => 10,
-            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_TIMEOUT => 5,
+            CURLOPT_MAXREDIRS => 3,
+            CURLOPT_SSL_VERIFYPEER => true,
         ]);
         curl_exec($ch);
         $finalUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);

@@ -40,7 +40,7 @@ class ClientController extends Controller
         $dataasesi = User::where('id', '>', 2)->count();
         $dataskema = Skema::all()->count();
         $dataprodi = Prodi::all()->count();
-        $datasertifikat = Data_register::where('status', "<h4 style='color: rgb(0, 0, 0)'>Sertifikasi Selesai</h4>")->count();
+        $datasertifikat = Data_register::where('status', 'Sertifikasi Selesai')->count();
         $dataasesor = Asesor::where('id', '>', 1)->count();
         $image2 = Beranda_img2::orderBy('created_at','desc')->take(4)->get();
         $carousel = Beranda_img1::all();
@@ -54,7 +54,7 @@ class ClientController extends Controller
         $sertifikat = Data_register::where('status', 'Sertifikasi Selesai')->get();
         $galeri = Galeri_foto::orderBy('created_at','desc')->get();
         $artikel = Berita::orderBy('created_at','desc')
-            ->where('status', '<label class="badge badge-info">Posting</label>')->take(3)->get();
+            ->where('status', 'Posting')->take(3)->get();
         $info = Info::all();
         $karyawan = Beranda_img2::all();
         return view('beranda', compact
@@ -84,7 +84,7 @@ class ClientController extends Controller
 
     public function berita()
     {
-        $berita = Berita::where('status', '<label class="badge badge-info">Posting</label>')
+        $berita = Berita::where('status', 'Posting')
             ->orderBy('created_at','desc')->paginate(4);
         return view('client.berita', compact('berita'));
     }
@@ -145,7 +145,7 @@ class ClientController extends Controller
 
     public function sertifikat()
     {
-        $sertifikat = Data_register::where('status', "<h4 style='color: rgb(0, 0, 0)'>Sertifikasi Selesai</h4>")->get();
+        $sertifikat = Data_register::where('status', 'Sertifikasi Selesai')->get();
         return view('client/sertifikat', compact('sertifikat'));
     }
 

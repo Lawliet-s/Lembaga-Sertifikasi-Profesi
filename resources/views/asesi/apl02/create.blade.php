@@ -56,7 +56,7 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $elemen->asesmen }}</td>
-                                                    <td><small>{!! $elemen->kriteria !!}</small></td>
+                                                    <td><small>{{ $elemen->kriteria }}</small></td>
                                                     <td>
                                                         <select name="status[{{ $loop->parent->iteration * 100 + $loop->iteration }}]" class="form-control form-control-sm" required>
                                                             <option value="">-- Pilih --</option>

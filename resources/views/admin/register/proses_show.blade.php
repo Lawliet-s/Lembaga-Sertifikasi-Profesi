@@ -86,7 +86,7 @@
                                     <h5 class="mb-1 text-dark">{{ $validasi->user_name }}</h5>
                                     <h5 class="mb-0 text-dark">{{ $validasi->skema_name }}</h5>
                                 </div>
-                                <button class="btn btn-light text-white" style="pointer-events:none">{!! $validasi->status !!}</button>
+                                @include('partials.status_badge', ['status' => $validasi->status])
                             </div>
                             <hr>
 
@@ -157,7 +157,7 @@
                                             @foreach ($validasi->xnxxes as $data)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{!! $data->status !!}</td>
+                                                    <td>@include('partials.status_badge', ['status' => $data->status])</td>
                                                     <td>{{ $data->asesmen_name }}</td>
                                                     <td>
                                                         @if ($data->image)
@@ -197,7 +197,7 @@
                 <div class="modal-footer">
                     <form action="{{ route('finish.update', $validasi->id) }}" method="POST">
                         @csrf @method('put')
-                        <input type="hidden" name="status" value="<h4 style='color: rgb(0, 0, 0)'>Sertifikasi Selesai</h4>">
+                        <input type="hidden" name="status" value="Sertifikasi Selesai">
                         <input type="hidden" name="kode" value="-">
                         <input type="hidden" name="skema_id" value="{{ $validasi->kode_skema }}{{ $validasi->user_id }}">
                         <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Mahasiswa Sudah Kompeten</button>

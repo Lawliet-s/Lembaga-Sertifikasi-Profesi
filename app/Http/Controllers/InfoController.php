@@ -22,15 +22,16 @@ class InfoController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'image' => ['required', 'max:1000']
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ],[
             'image.required' => 'Masukan Gambar Berita',
             'image.max' => 'Ukuran gambar maksimal 1 mb',
         ]);
-        $image = $request->image;
-        $new_image = time().$image->getClientOriginalName();
+        $image = $request->file('image');
+        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+        $new_image = time() . '_' . $safeName;
         $strorg = Info::create([
-            'keterangan' =>$request->keterangan,
+            'keterangan' => \App\Helpers\HtmlSanitizer::sanitize($request->keterangan),
             'image' => 'uploads/info/'.$new_image,
         ]);
         $image->move('uploads/info/', $new_image);
@@ -42,15 +43,16 @@ class InfoController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'image' => ['required', 'max:3000']
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ],[
             'image.required' => 'Masukan Gambar Berita',
             'image.max' => 'Ukuran gambar maksimal 3 mb',
         ]);
         $info = Info2::findorfail($id);
-        if ($request->has('image')) {
-            $image = $request->image;
-            $new_image = time().$image->getClientOriginalName();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/info/', $new_image);
             $info_data = [
                 'image' => 'uploads/info/'.$new_image,
@@ -66,24 +68,25 @@ class InfoController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'image' => ['max:20000']
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ],[
             // 'image.required' => 'Masukan Gambar Berita',
             'image.max' => 'Ukuran Video maksimal 20 mb',
         ]);
         $info = Info::findorfail($id);
-        if ($request->has('image')) {
-            $image = $request->image;
-            $new_image = time().$image->getClientOriginalName();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/info/', $new_image);
             $info_data = [
-                'keterangan' =>$request->keterangan,
+                'keterangan' => \App\Helpers\HtmlSanitizer::sanitize($request->keterangan),
                 'image' => 'uploads/info/'.$new_image,
             ];
         }
         else{
             $info_data = [
-                'keterangan' =>$request->keterangan,
+                'keterangan' => \App\Helpers\HtmlSanitizer::sanitize($request->keterangan),
             ];
         }
         Info::whereId($id)->update($info_data);

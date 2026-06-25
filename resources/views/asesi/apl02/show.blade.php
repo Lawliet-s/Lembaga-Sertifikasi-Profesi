@@ -85,8 +85,8 @@
                             <tr>
                                 <td style="text-align: center;">{{ $loop->iteration }}</td>
                                 <td>{{ $item->asesmen_name }}</td>
-                                <td><small>{!! $item->kriteria !!}</small></td>
-                                <td style="text-align: center;">{!! $item->status !!}</td>
+                                <td><small>{{ $item->kriteria }}</small></td>
+                                <td style="text-align: center;">@include('partials.status_badge', ['status' => $item->status])</td>
                                 <td style="text-align: center;">
                                     @if ($item->image)
                                         <a href="{{ asset($item->image) }}" target="_blank" class="btn btn-sm btn-outline-primary" title="Lihat Bukti">

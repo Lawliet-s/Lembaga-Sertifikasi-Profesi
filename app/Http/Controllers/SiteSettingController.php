@@ -22,7 +22,13 @@ class SiteSettingController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->only(['footer_text', 'title', 'maps_embed', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'primary_color', 'secondary_color']);
+        $data = $request->only(['title', 'maps_embed', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'primary_color', 'secondary_color']);
+        $data['footer_text'] = \App\Helpers\HtmlSanitizer::sanitize($request->footer_text ?? '');
+        foreach (['title', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email'] as $field) {
+            if (isset($data[$field])) {
+                $data[$field] = \App\Helpers\HtmlSanitizer::plain($data[$field]);
+            }
+        }
         $data['maps_embed'] = MapsHelper::convertToEmbed($data['maps_embed'] ?? '');
 
         if ($request->hasFile('logo')) {
@@ -69,7 +75,13 @@ class SiteSettingController extends Controller
     {
         $setting = SiteSetting::findorfail($id);
 
-        $data = $request->only(['footer_text', 'title', 'maps_embed', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'primary_color', 'secondary_color']);
+        $data = $request->only(['title', 'maps_embed', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'primary_color', 'secondary_color']);
+        $data['footer_text'] = \App\Helpers\HtmlSanitizer::sanitize($request->footer_text ?? '');
+        foreach (['title', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email'] as $field) {
+            if (isset($data[$field])) {
+                $data[$field] = \App\Helpers\HtmlSanitizer::plain($data[$field]);
+            }
+        }
         $data['maps_embed'] = MapsHelper::convertToEmbed($data['maps_embed'] ?? '');
 
         if ($request->hasFile('logo')) {

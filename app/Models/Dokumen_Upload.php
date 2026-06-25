@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Dokumen_Upload extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = ['name'];
 }

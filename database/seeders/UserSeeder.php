@@ -11,39 +11,37 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        // Upsert admin (aman dijalankan berkali-kali)
-        // Pastikan role tersedia sebelum menugaskan user
         Role::firstOrCreate(['name' => 'admin']);
         Role::firstOrCreate(['name' => 'asesi']);
         Role::firstOrCreate(['name' => 'asesor']);
 
         $admin = User::updateOrCreate(
-            ['email' => 'admin@admin.com'],
+            ['email' => env('SEEDER_ADMIN_EMAIL', 'admin@admin.com')],
             [
                 'name' => 'Admin Role',
-                'password' => bcrypt('admin'),
+                'password' => bcrypt(env('SEEDER_ADMIN_PASSWORD', 'admin123!')),
                 'jurusan_id' => 1,
             ]
         );
         $admin->syncRoles(['admin']);
 
-        // Upsert asesi biasa
         $user = User::updateOrCreate(
-            ['email' => 'asesi@asesi.com'],
+            ['email' => env('SEEDER_ASESIS_EMAIL', 'asesi@asesi.com')],
             [
                 'name' => 'Asesi',
                 'nik' => '1234567890123456',
-                'password' => bcrypt('asesi'),
+                'password' => bcrypt(env('SEEDER_ASESIS_PASSWORD', 'asesi123!')),
                 'jurusan_id' => 1,
             ]
         );
         $user->syncRoles(['asesi']);
 
         $asesor = User::updateOrCreate(
-            ['email' => 'asesor@asesor.com'],
+            ['email' => env('SEEDER_ASESOR_EMAIL', 'asesor@asesor.com')],
             [
                 'name' => 'Asesor',
-                'password' => bcrypt('asesor'),
+                'password' => bcrypt(env('SEEDER_ASESOR_PASSWORD', 'asesor123!')),
+                'role' => 'asesor',
                 'jurusan_id' => 1,
             ]
         );

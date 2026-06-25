@@ -53,7 +53,7 @@
                                                     </td>
                                                     <td class="font-weight-bold">{{ $item->skema_name }}</td>
                                                     <td><code>#{{ $item->id }}</code></td>
-                                                    <td>{!! $item->status !!}</td>
+                                                    <td>{{ $item->status }}</td>
                                                     <td>
                                                         @if ($frAk04)
                                                             @switch($frAk04->status)

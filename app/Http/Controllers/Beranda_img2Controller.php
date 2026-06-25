@@ -21,7 +21,7 @@ class Beranda_img2Controller extends Controller
     {
         // dd($request->all());
         $request->validate([
-            // 'image' => ['required'],
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
             'nama' => ['required'],
             'keterangan' => ['required'],
             // 'no_hp' => ['required', 'numeric']
@@ -30,8 +30,9 @@ class Beranda_img2Controller extends Controller
             'keterangan.required' => 'Jabatannya Tolong diisi',
         ]);
 
-        $image = $request->image;
-        $new_image = time().$image->getClientOriginalName();
+        $image = $request->file('image');
+        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+        $new_image = time() . '_' . $safeName;
         $beranda_img2 = Beranda_img2::create([
             'keterangan' =>$request->keterangan,
             'nama' =>$request->nama,
@@ -57,6 +58,7 @@ class Beranda_img2Controller extends Controller
     {
         // dd($request->all());
         $request->validate([
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
             'nama' => ['required'],
             'keterangan' => ['required'],
         ],[
@@ -64,9 +66,10 @@ class Beranda_img2Controller extends Controller
             'keterangan.required' => 'Jabatannya Tolong diisi',
         ]);
         $beranda_img2 = Beranda_img2::findorfail($id);
-        if ($request->has('image')) {
-            $image = $request->image;
-            $new_image = time().$image->getClientOriginalName();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/pengelola/', $new_image);
             $beranda_img2_data = [
                 'nama' =>$request->nama,

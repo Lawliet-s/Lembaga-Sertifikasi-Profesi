@@ -110,8 +110,8 @@
             <img src="{{ asset($pengelola->image) }}" width="200px">
             <div class="card-body">
                 <h4 class="card-text">Nama : {{ $pengelola->nama }}</h4>
-                <h5 class="card-text">Jabatan : {!! $pengelola->keterangan !!}</h5>
-                <h5 class="card-text">No HP : {!! $pengelola->no_hp !!}</h5>
+                <h5 class="card-text">Jabatan : {{ $pengelola->keterangan }}</h5>
+                <h5 class="card-text">No HP : {{ $pengelola->no_hp }}</h5>
                 <h5 class="card-text">Email : {{ $pengelola->email }}</h5>
             </div>
         </div>

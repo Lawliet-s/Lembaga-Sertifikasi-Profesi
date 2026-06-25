@@ -18,13 +18,14 @@ class StrorgController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'max:500'],
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ],[
             'image.required' => 'Gambarnya mana?',
             'image.max' => 'Gambarnya Kegedean?',
         ]);
-        $image = $request->image;
-        $new_image = time().$image->getClientOriginalName();
+        $image = $request->file('image');
+        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+        $new_image = time() . '_' . $safeName;
         $strorg = Strorg::create([
             'keterangan' =>$request->keterangan,
             'image' => 'uploads/strorg/'.$new_image,
@@ -37,15 +38,16 @@ class StrorgController extends Controller
     public function update(Request $request, $id)
     {
         $strorg = Strorg::findorfail($id);
-        if ($request->has('image')) {
+        if ($request->hasFile('image')) {
             $request->validate([
-                'image' => ['required', 'max:1000'],
+                'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
             ],[
                 'image.required' => 'Gambarnya mana?',
                 'image.max' => 'Gambarnya Kegedean.., ukuran gambar maksimal 1 mb',
             ]);
-            $image = $request->image;
-            $new_image = time().$image->getClientOriginalName();
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/strorg/', $new_image);
             $strorg_data = [
                 'keterangan' =>$request->keterangan,

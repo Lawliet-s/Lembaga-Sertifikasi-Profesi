@@ -90,6 +90,7 @@
                                 </span>
                                 @enderror
                             </div>
+                            @include('partials.honeypot')
                             <div class="row mb-3 px-3">
                                 <button type="submit" class="btn btn-block btn-danger text-center">Daftar</button>
                             </div>

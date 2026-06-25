@@ -11,7 +11,8 @@ class Asesor extends Model
 
     protected $table = 'asesor';
     protected $fillable = [
-        'nik',
+        'no_registrasi',
+        'user_id',
         'nama',
         'image',
         'alamat',

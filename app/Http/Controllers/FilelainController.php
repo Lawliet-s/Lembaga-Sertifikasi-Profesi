@@ -11,10 +11,11 @@ class FilelainController extends Controller
     {
         $request->validate([
             'file' => 'required',
-            'image' => 'required'
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ]);
-        $image = $request->image;
-        $new_image = time().$image->getClientOriginalName();
+        $image = $request->file('image');
+        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+        $new_image = time() . '_' . $safeName;
         $beranda_img1 = Filelain::create([
             'file' =>$request->file,
             'image' => 'uploads/file/'.$new_image,

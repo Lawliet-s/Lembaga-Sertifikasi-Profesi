@@ -15,7 +15,7 @@ class FrAk03Controller extends Controller
 
         $registrations = Data_register::where('user_id', $userId)
             ->where(function ($q) {
-                $q->where('status', "<h4 style='color: rgb(0, 0, 0)'>Sertifikasi Selesai</h4>")
+                $q->where('status', 'LIKE', '%Sertifikasi Selesai%')
                   ->orWhereHas('frAk03');
             })
             ->with('frAk03')

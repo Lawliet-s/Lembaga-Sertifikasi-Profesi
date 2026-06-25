@@ -51,7 +51,7 @@
                                 <tr class="header" style="background-color: var(--primary-color)">
                                     <th style="width:10px; color: #ddd">#</th>
                                     <th style="width:60%; color: #ddd">Nama</th>
-                                    <th style="width:40%; color: #ddd">Kode Asesor</th>
+                                    <th style="width:40%; color: #ddd">Nomor Registrasi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +59,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $asu->nama }}</td>
-                                        <td>{{ $asu->nik }}</td>
+                                        <td>{{ $asu->no_registrasi }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

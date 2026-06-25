@@ -12,14 +12,15 @@ class SkkniController extends Controller
         $request->validate([
             'file' => ['required'],
             'skema_id' => ['required'],
-            'image' => ['required', 'max:5000']
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ],[
             'file.required' => 'Nama File Perlu diisi',
             'image.required' => 'Gambarnya Mana?',
             'image.max' => 'Batas Ukuran Gambar 5 mb',
         ]);
-        $image = $request->image;
-        $new_image = time().$image->getClientOriginalName();
+        $image = $request->file('image');
+        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+        $new_image = time() . '_' . $safeName;
         $beranda_img1 = Skkni::create([
             'file' =>$request->file,
             'skema_id' =>$request->skema_id,

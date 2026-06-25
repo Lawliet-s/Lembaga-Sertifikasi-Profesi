@@ -30,8 +30,8 @@ class NoteController extends Controller
         ]);
 
         $note = Note::create([
-            'judul' => $request->judul,
-            'isi' => $request->isi
+            'judul' => \App\Helpers\HtmlSanitizer::plain($request->judul),
+            'isi' => \App\Helpers\HtmlSanitizer::sanitize($request->isi)
         ]);
         return redirect()->route('note.index')->with('success', 'Catatan anda berhasil disimpan');
     }
@@ -60,8 +60,8 @@ class NoteController extends Controller
         ]);
 
         $note_data = [
-            'judul' => $request->judul,
-            'isi' => $request->isi
+            'judul' => \App\Helpers\HtmlSanitizer::plain($request->judul),
+            'isi' => \App\Helpers\HtmlSanitizer::sanitize($request->isi)
         ];
         Note::whereId($id)->update($note_data);
         return back()->with('success', 'Catatan anda berhasil di ubah');

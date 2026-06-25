@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Skkni extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = ['file', 'skema_id', 'image'];
 
     public function skema(){
         return $this->belongsTo(Skema::class);

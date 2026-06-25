@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = ['judul', 'isi'];
     protected $dates = ['updated_at'];
 }

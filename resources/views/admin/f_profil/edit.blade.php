@@ -10,6 +10,26 @@
 
 @section('isi')
     @include('layout/verifikasi')
+    <style>
+        .note-toolbar {
+            overflow-x: auto;
+            flex-wrap: nowrap !important;
+        }
+        .note-toolbar-wrapper {
+            overflow-x: auto;
+        }
+        .note-editor {
+            max-width: 100%;
+        }
+        .card-body {
+            overflow-x: hidden;
+        }
+        @media (max-width: 768px) {
+            .note-editor .note-toolbar .note-btn-group {
+                flex-wrap: nowrap;
+            }
+        }
+    </style>
     {{-- <---------------------- PAGE HEADER ----------------------> --}}
     <div class="page-header">
         <h3>

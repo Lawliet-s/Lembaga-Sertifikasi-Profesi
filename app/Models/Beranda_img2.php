@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Beranda_img2 extends Model
 {
-    protected $guarded = ['id'];
+    protected $fillable = ['nama', 'keterangan', 'image', 'no_hp', 'email', 'facebook', 'twitter', 'instagram'];
     protected $table = 'pengelola';
 }

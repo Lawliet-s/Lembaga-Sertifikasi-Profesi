@@ -58,7 +58,7 @@
                                                     <td class="font-weight-bold">{{ $item->skema_name }}</td>
                                                     <td><code>#{{ $item->id }}</code></td>
                                                     <td>{{ $item->created_at->format('d M Y') }}</td>
-                                                    <td>{!! $item->status !!}</td>
+                                                    <td>@include('partials.status_badge', ['status' => $item->status])</td>
                                                 </tr>
                                             @empty
                                                 <tr role="row">

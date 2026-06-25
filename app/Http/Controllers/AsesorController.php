@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Asesor;
 use App\Models\Skema;
 use App\Models\Tuk;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 
 class AsesorController extends Controller
@@ -19,28 +21,37 @@ class AsesorController extends Controller
 
 
     public function store(Request $request) {
-        // dd($request->all());
         $request->validate([
-            'nik' => ['required', 'unique:asesor,nik'],
+            'no_registrasi' => ['required', 'max:19', 'unique:asesor,no_registrasi'],
             'nama' => ['required'],
-            'image' => ['max:1000'],
-            // 'alamat' => ['required'],
-            // 'sex' => ['required'],
-            // 'no_hp' => ['required'],
-            // 'email' => ['required', 'unique:asesor,email'],
-            // 'status' => ['required'],
-            // 'image' => ['required', 'image']
+            'password' => ['required', 'string', 'min:8', 'max:255', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/'],
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ],[
-            'nik.required' => 'Kode Asesor diperlukan',
+            'no_registrasi.required' => 'No. Registrasi diperlukan',
+            'no_registrasi.max' => 'No. Registrasi maksimal 19 karakter',
+            'no_registrasi.unique' => 'No. Registrasi sudah digunakan',
             'nama.required' => 'Namanya Mana?',
+            'password.required' => 'Password diperlukan',
+            'password.min' => 'Password minimal 4 karakter',
             'image.max' => 'Maksimal ukuran  gambar 1 mb',
         ]);
-        if ($request->has('image')) {
-            $image = $request->image;
-            $new_image = time().$image->getClientOriginalName();
+ 
+        $user = User::create([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'asesor',
+        ]);
+        $user->syncRoles(['asesor']);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/asesor/', $new_image);
             $asesor_data = Asesor::create([
-                'nik' => $request->nik,
+                'no_registrasi' => $request->no_registrasi,
+                'user_id' => $user->id,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
@@ -53,7 +64,8 @@ class AsesorController extends Controller
         }
         else{
             $asesor_data = Asesor::create( [
-                'nik' => $request->nik,
+                'no_registrasi' => $request->no_registrasi,
+                'user_id' => $user->id,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
@@ -63,7 +75,6 @@ class AsesorController extends Controller
                 'skema' => $request->skema,
             ]);
         }
-        // $image->move('uploads/asesor/', $new_image);
         return redirect()->route('asesor.index')->with('success','Asesor Berhasil Ditambah');
     }
 
@@ -78,25 +89,32 @@ class AsesorController extends Controller
 
     public function update(Request $request, $id) {
         $request->validate([
-            'nik' => ['required'],
+            'no_registrasi' => ['required', 'max:19', 'unique:asesor,no_registrasi,'.$id],
             'nama' => ['required'],
-            'image' => ['max:1000'],
-            // 'alamat' => ['required'],
-            // 'sex' => ['required'],
-            // 'no_hp' => ['required'],
-            // 'status' => ['required'],
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ],[
-            'nik.required' => 'Kode Asesor diperlukan',
+            'no_registrasi.required' => 'No. Registrasi diperlukan',
+            'no_registrasi.max' => 'No. Registrasi maksimal 19 karakter',
+            'no_registrasi.unique' => 'No. Registrasi sudah digunakan',
             'nama.required' => 'Namanya Mana?',
             'image.max' => 'Maksimal ukuran  gambar 1 mb',
         ]);
         $asesor = Asesor::findorfail($id);
-        if ($request->has('image')) {
-            $image = $request->image;
-            $new_image = time().$image->getClientOriginalName();
+
+        if ($asesor->user_id && $request->filled('password')) {
+            $user = User::find($asesor->user_id);
+            if ($user) {
+                $user->update(['password' => Hash::make($request->password)]);
+            }
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/asesor/', $new_image);
             $asesor_data = [
-                'nik' => $request->nik,
+                'no_registrasi' => $request->no_registrasi,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
@@ -109,7 +127,7 @@ class AsesorController extends Controller
         }
         else{
             $asesor_data = [
-                'nik' => $request->nik,
+                'no_registrasi' => $request->no_registrasi,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
@@ -120,12 +138,29 @@ class AsesorController extends Controller
             ];
         }
         $asesor->update($asesor_data);
+
+        if ($asesor->user_id) {
+            $user = User::find($asesor->user_id);
+            if ($user) {
+                $user->update([
+                    'name' => $request->nama,
+                    'email' => $request->email,
+                ]);
+            }
+        }
+
         return back()->with('success','Data Asesor anda berhasil di Update');
     }
 
 
     public function destroy($id){
         $asesor = Asesor::findorfail($id);
+        if ($asesor->user_id) {
+            $user = User::find($asesor->user_id);
+            if ($user) {
+                $user->delete();
+            }
+        }
         $asesor->delete();
         return redirect()->back()->with('success','Asesor Berhasil Dihapus');
     }

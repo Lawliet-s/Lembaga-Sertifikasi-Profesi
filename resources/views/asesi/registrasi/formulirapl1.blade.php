@@ -44,7 +44,7 @@
                         </ol>
 
                         <input type="hidden" name="skema_id" value="{{ $data->kode_skema }}{{ $data->user_id }}">
-                        <input type="hidden" name="status" value="<h4 style='color: green'>Menunggu Validasi...</h4>">
+                        <input type="hidden" name="status" value="Menunggu Validasi">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-rounded btn-success btn-block font-weight-bold">Kirim Data Pendaftaran
@@ -76,7 +76,7 @@
                             <input type="hidden" name="skema_id"
                                 value="belom{{ $data->kode_skema }}{{ $data->user_id }}">
                             <input type="hidden" name="status"
-                                value="<h4 style='color: green'>Menunggu Validasi...</h4>">
+                                value="Menunggu Validasi">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success btn-rounded btn-block font-weight-bold">Kirim Data
@@ -147,7 +147,7 @@
                                                                     class="fas fa-cloud-upload-alt"></i> Upload
                                                                 Dokumen</button></td>
                                                         <td>
-                                                            {!! $data->status !!}
+                                                            {{ $data->status }}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -219,7 +219,7 @@
                                                     data-target="#exampleModal-{{ $data->id }}"><i
                                                         class="fas fa-cloud-upload-alt"></i> Upload Bukti</button></td>
                                             <td>
-                                                {!! $data->status !!}
+                                                {{ $data->status }}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -265,7 +265,7 @@
                                     Unjuk
                                     Kerja :</label></div>
                             <span style="color: rgb(0, 0, 0)"
-                                class="font-weight-bold">{!! $data->kriteria !!}</span><br><br>
+                                class="font-weight-bold">{{ $data->kriteria }}</span><br><br>
                             <input type="hidden" name="status"
                                 value="<label class='badge badge-outline-success badge-pill'>&#10004; Kompeten</label>">
                             <input type="hidden" name="koreksi"

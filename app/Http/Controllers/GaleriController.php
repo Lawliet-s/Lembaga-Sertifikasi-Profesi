@@ -23,14 +23,15 @@ class GaleriController extends Controller
         // dd($request->all());
         $request->validate([
             'galeri' => ['required'],
-            'image' => ['max:10000']
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ],[
             'galeri.required' => 'Masukan Judul Album',
             'image.max' => 'Ukuran gambar maksimal 10 mb',
         ]);
-        if ($request->has('image')) {
-            $image = $request->image;
-            $new_image = time() . $image->getClientOriginalName();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/group-galeri/', $new_image);
             $galeri = Group_galeri::create([
                 'galeri' => $request->galeri,
@@ -66,14 +67,15 @@ class GaleriController extends Controller
         // dd($request->all());
         $request->validate([
             'galeri' => ['required'],
-            'image' => ['max:10000']
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ],[
             'galeri.required' => 'Masukan Judul Album',
             'image.max' => 'Ukuran gambar maksimal 10 mb',
         ]);
-        if ($request->has('image')) {
-            $image = $request->image;
-            $new_image = time() . $image->getClientOriginalName();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
             $image->move('uploads/group-galeri/', $new_image);
             $galeri_data = [
                 'galeri' => $request->galeri,
@@ -109,12 +111,13 @@ class GaleriController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'image' => ['required']
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ]);
         if ($request->hasFile('image')) {
-            $images = $request->image;
+            $images = $request->file('image');
             foreach ($images as $image) {
-                $new_image = time() . $image->getClientOriginalName();
+                $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+                $new_image = time() . '_' . $safeName;
                 $image->move('uploads/galeri/', $new_image);
                 $galeri = Galeri_foto::create([
                     'group_galeri_id' => $request->group_galeri_id,

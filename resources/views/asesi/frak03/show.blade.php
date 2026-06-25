@@ -34,7 +34,7 @@
                     <table class="table table-sm table-borderless">
                         <tr><td class="fw-bold" style="width: 140px;">Asesor</td><td>: {{ $registration->asesor?->nama ?? '-' }}</td></tr>
                         <tr><td class="fw-bold">TUK</td><td>: {{ $registration->tuk?->tuk ?? '-' }}</td></tr>
-                        <tr><td class="fw-bold">Status</td><td>: {!! $registration->status !!}</td></tr>
+                        <tr><td class="fw-bold">Status</td><td>: {{ $registration->status }}</td></tr>
                     </table>
                 </div>
             </div>

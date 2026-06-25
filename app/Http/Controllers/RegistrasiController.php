@@ -35,72 +35,76 @@ class RegistrasiController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
-            'kode' => ['required', 'unique:data_registers,kode'],
-            'skema_id' => ['required', 'unique:data_registers,skema_id'],
-            'id' => ['required', 'unique:data_registers,id'],
-            // 'sex_id' => ['required'],
-            'kode_skema' => ['required'],
-            'nik' => ['required'],
-            // 'tmpt_lahir' => ['required'],
-            // 'no_hp' => ['required'],
-            // 'semester_id' => ['required'],
-            // 'tgl_lahir' => ['required'],
-            // 'surel' => ['required'],
-            'jurusan_id' => ['required'],
-            // 'alamat' => ['required'],
-            // 'negara' => ['required'],
-            'id_skema' => ['required'],
-            // 'image' => ['required'],
-            // 'kode_post' => ['required'],
-            // 'provinsi' => ['required'],
-            // 'kabupaten' => ['required'],
-            // 'kecamatan' => ['required'],
-            // 'kota' => ['required']
-        ],[
-            'kode.unique' => 'Pendaftaran Sertifikasi Ditolak',
-            'skema_id.unique' => 'Harap periksa kembali status pendaftaran sertifikasi sebelumnya',
-            'id.unique' => ' Kemungkinan anda sudah mendaftar dengan skema ini',
+            'kode' => 'required|string|max:255',
+            'skema_id' => 'required|exists:skemas,id',
+            'kode_skema' => 'required|string|max:50',
+            'nik' => 'required|string|max:50',
+            'jurusan_id' => 'required|exists:jurusans,id',
+            'id_skema' => 'required|string|max:255',
+            'skema_name' => 'nullable|string|max:255',
+            'tuk_id' => 'nullable|exists:t_u_k_s,id',
+            'asesor_id' => 'nullable|exists:users,id',
+            'email' => 'nullable|email|max:255',
+            'sex_id' => 'nullable|exists:sexes,id',
+            'tgl_lahir' => 'nullable|date',
+            'tmpt_lahir' => 'nullable|string|max:100',
+            'negara' => 'nullable|string|max:100',
+            'alamat' => 'nullable|string|max:500',
+            'no_hp' => 'nullable|string|max:20',
+            'kode_post' => 'nullable|string|max:10',
+            'surel' => 'nullable|string|max:255',
+            'semester_id' => 'nullable|exists:semesters,id',
+            'image' => 'nullable|string|max:255',
+            'institusi' => 'nullable|string|max:255',
+            'jabatan' => 'nullable|string|max:255',
+            'email3' => 'nullable|string|max:255',
+            'fax' => 'nullable|string|max:50',
+            'telp' => 'nullable|string|max:20',
+            'postal' => 'nullable|string|max:10',
+            'jenis' => 'nullable|string|max:50',
+            'rmh' => 'nullable|string|max:255',
+            'ktr' => 'nullable|string|max:255',
+            'tmt' => 'nullable|string|max:255',
+            'alamat_kantor' => 'nullable|string|max:500',
         ]);
 
             $data_register = Data_register::create([
                 'id' => $request->id,
-                'kode' => $request->kode,
-                'nik' => $request->nik,
-                'skema_name' => $request->skema_name,
+                'kode' => \App\Helpers\HtmlSanitizer::plain($request->kode),
+                'nik' => \App\Helpers\HtmlSanitizer::plain($request->nik),
+                'skema_name' => \App\Helpers\HtmlSanitizer::plain($request->skema_name ?? ''),
                 'tuk_id' => $request->tuk_id,
-                'kode_skema' => $request->kode_skema,
+                'kode_skema' => \App\Helpers\HtmlSanitizer::plain($request->kode_skema),
                 'asesor_id' => $request->asesor_id,
-                'status' => $request->status,
+                'status' => \App\Helpers\HtmlSanitizer::plain($request->status ?? ''),
                 'skema_id' => $request->skema_id,
-                'user_id' => $request->user_id,
-                'id_skema' => $request->id_skema,
-                'user_name' => $request->user_name,
-                'status' => $request->status,
-                'email' => $request->email,
+                'user_id' => auth()->id(),
+                'id_skema' => \App\Helpers\HtmlSanitizer::plain($request->id_skema),
+                'user_name' => \App\Helpers\HtmlSanitizer::plain(auth()->user()->name),
+                'email' => \App\Helpers\HtmlSanitizer::plain($request->email ?? ''),
                 'sex_id' => $request->sex_id,
                 'tgl_lahir' => $request->tgl_lahir,
-                'tmpt_lahir' => $request->tmpt_lahir,
-                'negara' => $request->negara,
-                'alamat' => $request->alamat,
-                'no_hp' => $request->no_hp,
-                'kode_post' => $request->kode_post,
-                'surel' => $request->surel,
+                'tmpt_lahir' => \App\Helpers\HtmlSanitizer::plain($request->tmpt_lahir ?? ''),
+                'negara' => \App\Helpers\HtmlSanitizer::plain($request->negara ?? ''),
+                'alamat' => \App\Helpers\HtmlSanitizer::plain($request->alamat ?? ''),
+                'no_hp' => \App\Helpers\HtmlSanitizer::plain($request->no_hp ?? ''),
+                'kode_post' => \App\Helpers\HtmlSanitizer::plain($request->kode_post ?? ''),
+                'surel' => \App\Helpers\HtmlSanitizer::plain($request->surel ?? ''),
                 'semester_id' => $request->semester_id,
                 'jurusan_id' => $request->jurusan_id,
                 'image' => $request->image,
-                'institusi' => $request->institusi,
-                'jabatan' => $request->jabatan,
-                'email3' => $request->email3,
-                'fax' => $request->fax,
-                'telp' => $request->telp,
-                'postal' => $request->postal,
-                'jenis' => $request->jenis,
-                'rmh' => $request->rmh,
-                'ktr' => $request->ktr,
-                'tmt' => $request->tmt,
-                'alamat_kantor' => $request->alamat_kantor,
+                'institusi' => \App\Helpers\HtmlSanitizer::plain($request->institusi ?? ''),
+                'jabatan' => \App\Helpers\HtmlSanitizer::plain($request->jabatan ?? ''),
+                'email3' => \App\Helpers\HtmlSanitizer::plain($request->email3 ?? ''),
+                'fax' => \App\Helpers\HtmlSanitizer::plain($request->fax ?? ''),
+                'telp' => \App\Helpers\HtmlSanitizer::plain($request->telp ?? ''),
+                'postal' => \App\Helpers\HtmlSanitizer::plain($request->postal ?? ''),
+                'jenis' => \App\Helpers\HtmlSanitizer::plain($request->jenis ?? ''),
+                'rmh' => \App\Helpers\HtmlSanitizer::plain($request->rmh ?? ''),
+                'ktr' => \App\Helpers\HtmlSanitizer::plain($request->ktr ?? ''),
+                'tmt' => \App\Helpers\HtmlSanitizer::plain($request->tmt ?? ''),
+                'alamat_kantor' => \App\Helpers\HtmlSanitizer::plain($request->alamat_kantor ?? ''),
             ]);
         return back()->with('success', ' Pendaftaran anda Berhasil, Selanjutnya Silahkan "Ambil Formulir Pendafatran"');
     }
@@ -108,57 +112,11 @@ class RegistrasiController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
-        // $request->validate([
-        //     'kode' => ['required', 'unique:data_registers,kode'],
-        //     'skema_id' => ['required', 'unique:data_registers,skema_id'],
-        //     'sex_id' => ['required'],
-        //     'nim' => ['required'],
-        //     'tmpt_lahir' => ['required'],
-        //     'no_hp' => ['required'],
-        //     'semester_id' => ['required'],
-        //     'provinsi' => ['required'],
-        //     'kabupaten' => ['required'],
-        //     'kecamatan' => ['required'],
-        //     'kota' => ['required'],
-        //     'tgl_lahir' => ['required'],
-        //     'surel' => ['required'],
-        //     'jurusan_id' => ['required'],
-        //     'alamat' => ['required'],
-        //     'kode_post' => ['required'],
-        //     'negara' => ['required'],
-        //     // 'image' => ['required']
-        // ]);
         $data = [
-                // 'id' => $request->id,
-                // 'kode' => $request->kode,
-                // 'nim' => $request->nim,
-                // 'skema_name' => $request->skema_name,
-                // 'tuk_id' => $request->tuk_id,
-                // 'asesor_id' => $request->asesor_id,
-                // 'status' => $request->status,
                 'skema_id' => $request->skema_id,
-                // 'user_id' => $request->user_id,
-                // 'user_name' => $request->user_name,
-                'status' => $request->status,
-                // 'email' => $request->email,
-                // 'sex_id' => $request->sex_id,
-                // 'tgl_lahir' => $request->tgl_lahir,
-                // 'tmpt_lahir' => $request->tmpt_lahir,
-                // 'negara' => $request->negara,
-                // 'alamat' => $request->alamat,
-                // 'no_hp' => $request->no_hp,
-                // 'kode_post' => $request->kode_post,
-                // 'surel' => $request->surel,
-                // 'provinsi' => $request->provinsi,
-                // 'kabupaten' => $request->kabupaten,
-                // 'kecamatan' => $request->kecamatan,
-                // 'kota' => $request->kota,
-                // 'semester_id' => $request->semester_id,
-                // 'jurusan_id' => $request->jurusan_id,
-                // 'image' => $request->image
+                'status' => \App\Helpers\HtmlSanitizer::plain($request->status ?? ''),
             ];
-            Data_register::whereId($id)->update($data);
+            Data_register::where('id', $id)->where('user_id', auth()->id())->update($data);
         return redirect()->route('dashasesi.index')->with('success', ' Data Anda Berhasil di DiUpdate');
     }
 
@@ -173,7 +131,7 @@ class RegistrasiController extends Controller
                 ->where('kode', '>', 2)
                 ->get();
         $datareg = Data_register::where('user_id', auth()->user()->id)
-            ->where('status', "<h4 style='color: rgb(163, 129, 8)'>Lengkapi Data Anda</h4>")
+            ->where('status', 'Lengkapi Data Anda')
             ->get();
         $sex = Sex::all();
         $semester = Semester::all();
@@ -192,13 +150,13 @@ class RegistrasiController extends Controller
                     ->get();
 
         $datareg = Data_register::where('user_id', auth()->user()->id)
-            ->where('status', "<h4 style='color: rgb(163, 129, 8)'>Lengkapi Data Anda</h4>")
+            ->where('status', 'Lengkapi Data Anda')
             ->get();
         $sex = Sex::all();
         $semester = Semester::all();
         $jurusan = Jurusan::all();
         $dokumen_upload = Dokumen_Upload::all();
-        $data = Data_register::findorfail($decryptID);
+        $data = Data_register::where('user_id', auth()->id())->findOrFail($decryptID);
         $identitas = Upload_file::where('user_id', auth()->user()->id)
                     ->where('kode', '>', 3)
                     ->get();
@@ -214,13 +172,13 @@ class RegistrasiController extends Controller
                     ->get();
 
         $datareg = Data_register::where('user_id', auth()->user()->id)
-            ->where('status', "<h4 style='color: rgb(141, 7, 7)'>Pendaftaran Ditolak</h4>")
+            ->where('status', 'Pendaftaran Ditolak')
             ->get();
         $sex = Sex::all();
         $semester = Semester::all();
         $jurusan = Jurusan::all();
         $dokumen_upload = Dokumen_Upload::all();
-        $data = Data_register::findorfail($id);
+        $data = Data_register::where('user_id', auth()->id())->findOrFail($id);
         $identitas = Upload_file::where('user_id', auth()->user()->id)
                 ->where('kode', '>', 1)
                 ->get();
@@ -231,7 +189,7 @@ class RegistrasiController extends Controller
 
     public function destroy($id)
     {
-        $data = Data_register::findorfail($id);
+        $data = Data_register::where('user_id', auth()->id())->findOrFail($id);
         $data->delete();
         return back()->with('success', 'Pendaftaran Asesi Berhasil dihapus');
     }
@@ -239,7 +197,7 @@ class RegistrasiController extends Controller
 
     public function rekap_pendaftaran($id)
     {
-        $validasi = Data_register::findorfail($id);
+        $validasi = Data_register::where('user_id', auth()->id())->findOrFail($id);
         $xnxx = Xnxx::all();
         $identitas = Upload_file::all();
         $tuk = Tuk::all();
@@ -250,7 +208,7 @@ class RegistrasiController extends Controller
 
     public function info_sertifikasi($id)
     {
-        $validasi = Data_register::findorfail($id);
+        $validasi = Data_register::where('user_id', auth()->id())->findOrFail($id);
         $xnxx = Xnxx::all();
         $identitas = Upload_file::all();
         $tuk = Tuk::all();

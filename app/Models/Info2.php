@@ -10,5 +10,5 @@ class Info2 extends Model
     use HasFactory;
 
     protected $table = 'info2';
-    protected $guarded = ['id'];
+    protected $fillable = ['image'];
 }

@@ -40,7 +40,7 @@
                                 <img src="{{ asset('general/assets/images/photo.jpg') }}" alt="profile" class="img-lg rounded-circle mb-3">
                             @endif
                             <h4>{{ $asesor->nama }}</h4>
-                            <h6 class="text text-muted">#{{ $asesor->nik }}</h6>
+                            <h6 class="text text-muted">{{ $asesor->no_registrasi }}</h6>
                         </div>
                         <div class="d-flex mb-3">
                             <div class="progress progress-md flex-grow">
@@ -128,11 +128,11 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Kode Asesor</label>
+                                            <label class="col-sm-3 col-form-label">No. Registrasi</label>
                                             <div class="col-sm-9">
-                                                <input type="text" maxlength="100" name="nik" class="form-control"
-                                                    value="{{ $asesor->nik }}">
-                                                @error('nik')
+                                                <input type="text" maxlength="19" name="no_registrasi" class="form-control"
+                                                    value="{{ $asesor->no_registrasi }}">
+                                                @error('no_registrasi')
                                                     <div class="text-danger mt-2 text-sm">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -220,6 +220,17 @@
                                                     <option value="Nonaktif" holder>Nonaktif</option>
                                                 </select>
                                                 @error('status')
+                                                    <div class="text-danger mt-2 text-sm">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Password</label>
+                                            <div class="col-sm-9">
+                                                <input type="password" minlength="4" name="password" class="form-control" placeholder="Kosongkan jika tidak ingin mengubah password">
+                                                @error('password')
                                                     <div class="text-danger mt-2 text-sm">{{ $message }}</div>
                                                 @enderror
                                             </div>

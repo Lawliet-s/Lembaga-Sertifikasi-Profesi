@@ -38,9 +38,7 @@ use App\Http\Controllers\Upload_DokumenController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValidasiController;
 use App\Http\Controllers\XnxxController;
-use GuzzleHttp\Client;
-use GuzzleHttp\Middleware;
-use Illuminate\Routing\RouteGroup;
+
 
 Route::get('pdf', [UiController::class, 'pdf'])->name('pdf');
 
@@ -49,7 +47,7 @@ Route::get('registrasi_Authentification', [ClientController::class, 'reg'])->nam
 
 // =============== ASESOR LOGIN ===============
 Route::get('loginasesor', [App\Http\Controllers\AsesorAuthController::class, 'loginForm'])->name('loginasesor');
-Route::post('asesor-login', [App\Http\Controllers\AsesorAuthController::class, 'login'])->name('asesor.login');
+Route::post('asesor-login', [App\Http\Controllers\AsesorAuthController::class, 'login'])->name('asesor.login')->middleware('throttle:login');
 Route::post('asesor-logout', [App\Http\Controllers\AsesorAuthController::class, 'logout'])->name('asesor.logout');
 
 Route::get('404', [UiController::class, 'notfound'])->name('404');
@@ -91,10 +89,23 @@ Route::get('berita_tampil/{berita_tampil}', [UiController::class, 'berita_tampil
 Route::get('file_download', [UiController::class, 'file'])->name('file.tampil');
 Route::resource('uifoto', UiFotosController::class);
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
+Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])
+    ->middleware('throttle:login')
+    ->name('login');
+Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])
+    ->middleware(['throttle:register', 'honeypot'])
+    ->name('register');
+Route::post('password/email', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])
+    ->middleware('throttle:password-reset')
+    ->name('password.email');
+Route::post('password/reset', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])
+    ->middleware('throttle:password-reset')
+    ->name('password.update');
 
 // =============== ADMIN WEB ===============
-Route::group(['middleware' => 'role:admin'], function () {
+Route::group(['middleware' => ['role:admin', 'throttle:admin', 'honeypot']], function () {
     // <------------------  DASHBOARD  ------------------>
     Route::resource('admin', Dashboard_adminController::class);
     // <------------------ SKEMA  ------------------>
@@ -156,14 +167,16 @@ Route::group(['middleware' => 'role:admin'], function () {
     Route::resource('site_setting', SiteSettingController::class);
     Route::post('upload', [GaleriController::class, 'upload'])->name('upload');
     Route::post('finishstore', [ValidasiController::class, 'finishstore'])->name('finishstore');
-    // <------------------ GAMBAR AUTH  ------------------>
+    //  <------------------ GAMBAR AUTH  ------------------>
     Route::get('auth-images', [AuthImageController::class, 'index'])->name('auth.images.index');
     Route::put('auth-images', [AuthImageController::class, 'update'])->name('auth.images.update');
+    //  <------------------ POST  ------------------>
+    Route::resource('post', PostController::class);
 });
 
 
 // =============== ASESION ===============
-Route::group(['middleware' => ['auth', 'role:asesi']], function () {
+Route::group(['middleware' => ['auth', 'verified', 'role:asesi', 'throttle:asesi', 'honeypot']], function () {
     //  <------------------ REGISTER  ------------------>
     Route::resource('dashasesi', Dashboard_asesiController::class);
     Route::resource('asesi', AsesiController::class);
@@ -216,12 +229,11 @@ Route::group(['middleware' => ['auth', 'role:asesi']], function () {
 
 });
 
-Route::resource('post', PostController::class);
 
 // =============== AUTH ===============
 Route::get('asesion', [App\Http\Controllers\HomeController::class, 'index3'])->name('asesion');
 Route::middleware('role:admin')->get('admin', [App\Http\Controllers\Dashboard_adminController::class, 'index'])->name('admin');
-Route::middleware('role:asesor')->prefix('dashboard-asesor')->group(function () {
+Route::middleware(['role:asesor', 'throttle:asesor'])->prefix('dashboard-asesor')->group(function () {
     Route::get('/', [AsesorDashboardController::class, 'index'])->name('dashboard.asesor');
     Route::get('profil', [AsesorDashboardController::class, 'profil'])->name('asesor.profil');
     Route::get('penilaian', [AsesorDashboardController::class, 'penilaian'])->name('asesor.penilaian');

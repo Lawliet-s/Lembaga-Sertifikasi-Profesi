@@ -58,12 +58,14 @@ class AsesorDashboardController extends Controller
         ));
     }
 
+    private function findAsesiRegisterOrFail($id)
+    {
+        return Data_register::where('asesor_id', Auth::id())->findOrFail($id);
+    }
+
     public function penilaian()
     {
         $participants = Data_register::where('asesor_id', Auth::id())->orderBy('created_at', 'desc')->get();
-        if ($participants->isEmpty()) {
-            $participants = Data_register::orderBy('created_at', 'desc')->limit(50)->get();
-        }
 
         return view('asesor.penilaian', compact('participants'));
     }
@@ -74,17 +76,13 @@ class AsesorDashboardController extends Controller
             ->with('observasis', 'penilaians')
             ->orderBy('created_at', 'desc')
             ->get();
-        if ($participants->isEmpty()) {
-            $participants = Data_register::with('observasis', 'penilaians')
-                ->orderBy('created_at', 'desc')
-                ->limit(50)->get();
-        }
 
         return view('asesor.observasi_index', compact('participants'));
     }
 
-    public function penilaianShow(Data_register $register)
+    public function penilaianShow($id)
     {
+        $register = $this->findAsesiRegisterOrFail($id);
         $unikoms = collect();
         if ($register->skema_id) {
             $unikoms = Unikom::where('skema_id', $register->skema_id)->get();
@@ -94,8 +92,10 @@ class AsesorDashboardController extends Controller
         return view('asesor.penilaian_show', compact('register', 'unikoms', 'penilaians'));
     }
 
-    public function updatePenilaian(Request $request, Data_register $register)
+    public function updatePenilaian(Request $request, $id)
     {
+        $register = $this->findAsesiRegisterOrFail($id);
+
         $request->validate([
             'keterangan' => ['nullable', 'string', 'max:500'],
             'penilaian' => ['required', 'array'],
@@ -124,8 +124,9 @@ class AsesorDashboardController extends Controller
             ->with('success', 'Penilaian asesi berhasil disimpan.');
     }
 
-    public function observasi(Data_register $register)
+    public function observasi($id)
     {
+        $register = $this->findAsesiRegisterOrFail($id);
         $observasi = $register->observasis()->latest()->first();
         $penilaians = $register->penilaians()->with('unikom')->get();
 
@@ -139,8 +140,10 @@ class AsesorDashboardController extends Controller
         return view('asesor.observasi', compact('register', 'observasi', 'penilaians', 'unikoms', 'aktivitasList'));
     }
 
-    public function storeObservasi(Request $request, Data_register $register)
+    public function storeObservasi(Request $request, $id)
     {
+        $register = $this->findAsesiRegisterOrFail($id);
+
         $request->validate([
             'aktivitas' => ['required', 'array', 'min:1'],
             'aktivitas.*.nama' => ['required', 'string', 'max:255'],
@@ -176,17 +179,13 @@ class AsesorDashboardController extends Controller
             ->with('observasis', 'penilaians')
             ->orderBy('created_at', 'desc')
             ->get();
-        if ($participants->isEmpty()) {
-            $participants = Data_register::with('observasis', 'penilaians')
-                ->orderBy('created_at', 'desc')
-                ->limit(50)->get();
-        }
 
         return view('asesor.validasi_index', compact('participants'));
     }
 
-    public function validasiShow(Data_register $register)
+    public function validasiShow($id)
     {
+        $register = $this->findAsesiRegisterOrFail($id);
         $observasi = $register->observasis()->latest()->first();
         $penilaians = $register->penilaians()->with('unikom')->get();
 
@@ -205,8 +204,10 @@ class AsesorDashboardController extends Controller
         return view('asesor.validasi', compact('register', 'observasi', 'penilaians', 'totalKompeten', 'totalBelum', 'validasiData'));
     }
 
-    public function storeValidasi(Request $request, Data_register $register)
+    public function storeValidasi(Request $request, $id)
     {
+        $register = $this->findAsesiRegisterOrFail($id);
+
         $request->validate([
             'checklist' => ['required', 'array'],
             'checklist.bukti_lengkap' => ['required', 'boolean'],
@@ -238,17 +239,13 @@ class AsesorDashboardController extends Controller
             ->with('observasis', 'penilaians')
             ->orderBy('created_at', 'desc')
             ->get();
-        if ($participants->isEmpty()) {
-            $participants = Data_register::with('observasis', 'penilaians')
-                ->orderBy('created_at', 'desc')
-                ->limit(50)->get();
-        }
 
         return view('asesor.rekomendasi_index', compact('participants'));
     }
 
-    public function rekomendasiShow(Data_register $register)
+    public function rekomendasiShow($id)
     {
+        $register = $this->findAsesiRegisterOrFail($id);
         $observasi = $register->observasis()->latest()->first();
         $penilaians = $register->penilaians()->with('unikom')->get();
 
@@ -266,8 +263,10 @@ class AsesorDashboardController extends Controller
         ));
     }
 
-    public function storeRekomendasi(Request $request, Data_register $register)
+    public function storeRekomendasi(Request $request, $id)
     {
+        $register = $this->findAsesiRegisterOrFail($id);
+
         $request->validate([
             'keputusan' => ['required', 'string', 'in:Direkomendasikan Sertifikasi,Perlu Perbaikan,Mengulang Asesmen'],
             'catatan' => ['nullable', 'string', 'max:2000'],
@@ -287,8 +286,9 @@ class AsesorDashboardController extends Controller
             ->with('success', 'Rekomendasi sertifikasi berhasil disimpan.');
     }
 
-    public function generatePdf(Data_register $register, $type)
+    public function generatePdf($id, $type)
     {
+        $register = $this->findAsesiRegisterOrFail($id);
         $observasi = $register->observasis()->latest()->first();
         $penilaians = $register->penilaians()->with('unikom')->get();
 

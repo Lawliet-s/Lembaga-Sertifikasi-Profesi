@@ -157,10 +157,10 @@
                         <div class="row g-3">
                             @php
                                 $docs = [
-                                    'dokumen_raport' => 'Raport / Ijazah',
                                     'dokumen_sertifikat_pkl' => 'Sertifikat PKL / Pengalaman Kerja',
+                                    'dokumen_raport' => 'Raport / Ijazah',
                                     'dokumen_kartu_keluarga' => 'Kartu Keluarga',
-                                    'dokumen_ktp' => 'KTP',
+                                    'dokumen_ktp' => 'KTP / Kartu Pelajar',
                                     'dokumen_foto' => 'Pas Foto 3x4',
                                 ];
                             @endphp
