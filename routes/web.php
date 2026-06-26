@@ -89,7 +89,7 @@ Route::get('berita_tampil/{berita_tampil}', [UiController::class, 'berita_tampil
 Route::get('file_download', [UiController::class, 'file'])->name('file.tampil');
 Route::resource('uifoto', UiFotosController::class);
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])
     ->middleware('throttle:login')
@@ -176,7 +176,7 @@ Route::group(['middleware' => ['role:admin', 'throttle:admin', 'honeypot']], fun
 
 
 // =============== ASESION ===============
-Route::group(['middleware' => ['auth', 'verified', 'role:asesi', 'throttle:asesi', 'honeypot']], function () {
+Route::group(['middleware' => ['auth', 'role:asesi', 'throttle:asesi', 'honeypot']], function () {
     //  <------------------ REGISTER  ------------------>
     Route::resource('dashasesi', Dashboard_asesiController::class);
     Route::resource('asesi', AsesiController::class);
