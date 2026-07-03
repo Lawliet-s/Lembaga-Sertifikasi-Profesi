@@ -17,11 +17,13 @@ class XnxxController extends Controller
 {
     public function store(Request $request )
     {
-        // dd($request->all());
+
 
         $request->validate([
                 'kode' => ['required', 'unique:xnxxes,kode'],
-                'kode_elemen' => ['required', 'unique:xnxxes,kode_elemen']
+                'kode_elemen' => ['required', 'unique:xnxxes,kode_elemen'],
+                'image' => ['nullable'],
+                'image.*' => ['file', 'mimes:jpg,jpeg,png,pdf', 'max:5120'],
                 ],[
                     'kode.unique' => 'Data sudah diambil',
                     'kode.required' => 'Data Elemen Kosong',
@@ -89,7 +91,7 @@ class XnxxController extends Controller
 
     public function upload_identitas_store2(Request $request )
     {
-        // dd($request->all());
+
         $request->validate([
             'kode' => ['required', 'unique:upload_files,kode'],
             'name' =>['required']
@@ -127,7 +129,7 @@ class XnxxController extends Controller
 
     public function token_store(Request $request)
     {
-        // dd($request->all());
+
         $request->validate([
             'token' => ['required', 'unique:tokens,token'],
             'user_id' => ['required']

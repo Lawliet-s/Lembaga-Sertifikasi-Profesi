@@ -20,7 +20,7 @@ class GaleriController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $request->validate([
             'galeri' => ['required'],
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
@@ -64,7 +64,7 @@ class GaleriController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+
         $request->validate([
             'galeri' => ['required'],
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
@@ -109,7 +109,7 @@ class GaleriController extends Controller
 
     public function foto_store(Request $request)
     {
-        // dd($request->all());
+
         $request->validate([
             'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ]);

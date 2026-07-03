@@ -54,7 +54,7 @@ class UserController extends Controller
     public function update(Request $request, $id) {
         $request->validate([
             'name' => ['min:1', 'max:100', 'required'],
-            'email' => ['min:3', 'required'],
+            'email' => ['min:3', 'required', 'unique:users,email,'.$id],
             'email2' => ['email','min:3', 'max:100', 'required', 'unique:users,email2,'.auth()->id()],
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ]);
@@ -100,7 +100,7 @@ class UserController extends Controller
         $request->validate([
             'name' => ['min:1', 'max:100', 'required'],
             'nik' => ['nullable', 'string', 'max:50'],
-            'email' => ['required', 'email', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,'.$id],
             'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/'],
         ]);
 

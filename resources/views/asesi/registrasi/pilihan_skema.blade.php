@@ -80,7 +80,7 @@
                             <input type="hidden" name="skema_name" value="{{ $asu->skema }}">
                             <input type="hidden" name="skema_id" value="{{ $asu->kode_skema }}{{ Auth::user()->id }}">
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            <input type="hidden" name="status" value="<h4 style='color: rgb(163, 129, 8)'>Lengkapi Data Anda</h4>">
+                            <input type="hidden" name="status" value="Lengkapi Data Anda">
                             <input type="hidden" name="tuk_id" value="1">
                             <input type="hidden" name="asesor_id" value="1">
                             <input type="hidden" name="image" value="{{ Auth::user()->image }}">

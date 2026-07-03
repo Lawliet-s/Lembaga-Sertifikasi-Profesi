@@ -181,7 +181,7 @@ Route::group(['middleware' => ['auth', 'role:asesi', 'throttle:asesi', 'honeypot
     Route::resource('registrasi', RegistrasiController::class);
     Route::get('skema_pendaftaran', [RegistrasiController::class, 'skema_pendaftaran'])->name('skema_pendaftaran');
     Route::resource('pendaftaran', XnxxController::class);
-    Route::post('xnxx2', [XnxxController::class, 'store2'])->name('xnxx.store2');
+
     Route::get('daftar', [RegistrasiController::class, 'daftar'])->name('daftar');
     // <------------------ ASSESMENT  ------------------>
     Route::get('info_skema', [AsesiController::class, 'info_skema'])->name('info.skema');
@@ -194,7 +194,7 @@ Route::group(['middleware' => ['auth', 'role:asesi', 'throttle:asesi', 'honeypot
     Route::get('rekap_registrasi', [XnxxController::class, 'rekap_registrasi'])->name('rekap.registrasi');
     Route::delete('register/{register}', [XnxxController::class, 'destroy2'])->name('register.destroy');
     Route::resource('identitas', Upload_DokumenController::class);
-    Route::get('sertifikat_show/{id}', [AsesiController::class, 'sertifikat_show'])->name('sertifikat_show');
+    Route::get('sertifikat_show/{id}', [AsesiController::class, 'sertifikat_show'])->name('asesi.sertifikat_show');
     Route::get('rekap_pendaftaran/{id}', [RegistrasiController::class, 'rekap_pendaftaran'])->name('rekap_pendaftaran');
     Route::get('info_sertifikasi/{id}', [RegistrasiController::class, 'info_sertifikasi'])->name('info_sertifikasi');
     Route::get('data_edit_tolak/{id}', [RegistrasiController::class, 'data_edit_tolak'])->name('data_edit_tolak');

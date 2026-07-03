@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
-    <link rel="shortcut icon" href="{{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }}" />
+    <link rel="shortcut icon" href="{{ asset(optional($site_setting)->favicon ?? 'favicon.ico') }}" />
 
     <style>
         :root {

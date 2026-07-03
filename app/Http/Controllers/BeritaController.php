@@ -20,7 +20,7 @@ class BeritaController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $request->validate([
             'title' => ['required'],
             'excerpt' => ['required'],
@@ -73,7 +73,7 @@ class BeritaController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+
         $request->validate([
             'title' => ['required'],
             'excerpt' => ['required'],

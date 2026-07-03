@@ -12,10 +12,9 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/shotcut.jpg') }}" />
     <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
     <script src="{{ asset('assets/vendors/js/vendor.bundle.addons.js') }}"></script>
-    <link rel="shortcut icon" href="{{ asset('general/assets/images/shortcut.jpg') }}" />
+    <link rel="shortcut icon" href="{{ asset(optional($site_setting)->favicon ?? 'favicon.ico') }}" />
     <style>
         :root {
             --primary-color: {{ optional($site_setting)->primary_color ?? '#9b0000e2' }};

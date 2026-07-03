@@ -20,7 +20,7 @@ class InfoController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $request->validate([
             'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ],[
@@ -46,7 +46,7 @@ class InfoController extends Controller
 
     public function save_image(Request $request, $id)
     {
-        // dd($request->all());
+
         $request->validate([
             'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ],[
@@ -71,7 +71,7 @@ class InfoController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+
         $request->validate([
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ],[

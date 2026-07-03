@@ -46,7 +46,7 @@
                                                 <tr role="row" class="odd">
                                                     <td class="font-weight-bold">{{ $loop->iteration }}</td>
                                                     <td class="text-right">
-                                                        <a href="{{ route('sertifikat_show', Crypt::encryptString($item->id)) }}" class="btn btn-dark btn-sm font-weight-bold">
+                                                        <a href="{{ route('asesi.sertifikat_show', Crypt::encryptString($item->id)) }}" class="btn btn-dark btn-sm font-weight-bold">
                                                             <i class="fa fa-eye"></i> Lihat
                                                         </a>
                                                     </td>

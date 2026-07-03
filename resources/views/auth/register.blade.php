@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/shotcut.jpg') }}" />
+    <link rel="shortcut icon" href="{{ asset(optional($site_setting)->favicon ?? 'favicon.ico') }}" />
     <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
     <script src="{{ asset('assets/vendors/js/vendor.bundle.addons.js') }}"></script>
     <style>
@@ -51,8 +51,8 @@
                                 @endforelse
                                 <br><br>
                             </div>
-                            <div class="row mb-4 px-3">
-                                <h6 class="mb-0 mr-4 mt-2">{{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }}</h6>
+                            <div class="row mb-4 px-3 text-center">
+                                <h6 class="mb-0 mt-2 w-100 font-weight-bold">{{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }}</h6>
                             </div>
 
                             @if ($errors->any())

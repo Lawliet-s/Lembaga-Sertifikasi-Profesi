@@ -25,7 +25,7 @@ class FileController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $request->validate([
             'file' => 'required',
             'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']

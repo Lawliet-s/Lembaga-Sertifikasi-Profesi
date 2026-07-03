@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class ResetPasswordController extends Controller
@@ -16,7 +17,7 @@ class ResetPasswordController extends Controller
 
     protected function resetPassword($user, $password)
     {
-        $user->password = bcrypt($password);
+        $user->password = Hash::make($password);
         $user->save();
 
         Log::channel('auth')->info('Password reset completed', [

@@ -19,7 +19,7 @@ class Beranda_img2Controller extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $request->validate([
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
             'nama' => ['required'],
@@ -34,7 +34,7 @@ class Beranda_img2Controller extends Controller
             'keterangan' =>$request->keterangan,
             'nama' =>$request->nama,
             'facebook' =>$request->facebook,
-            'twitter' =>$request->keterangan,
+            'twitter' =>$request->twitter,
             'intagram' =>$request->intagram,
             'no_hp' =>$request->no_hp,
             'email' =>$request->email,
@@ -61,7 +61,7 @@ class Beranda_img2Controller extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+
         $request->validate([
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
             'nama' => ['required'],

@@ -150,7 +150,7 @@
                             <input type="hidden" name="kode_skema" value="{{ $asu->kode_skema }}">
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <input type="hidden" name="status"
-                                value="<h4 style='color: rgb(163, 129, 8)'>Lengkapi Data Anda</h4>">
+                                value="Lengkapi Data Anda">
                             <input type="hidden" name="tuk_id" value="1">
                             <input type="hidden" name="asesor_id" value="1">
                             <input type="hidden" name="image" value="{{ Auth::user()->image }}">

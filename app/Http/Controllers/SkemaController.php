@@ -26,7 +26,7 @@ class SkemaController extends Controller
 
 
     public function store(Request $request){
-        // dd($request->all());
+
         $request->validate([
             'kode_skema' => ['required'],
             'skema' => ['required'],

@@ -46,43 +46,35 @@ class ValidasiController extends Controller
 
 
     public function show(Request $request, $id){
-        $validasi = Data_register::findorfail($id);
-        $xnxx = Xnxx::all();
-        $identitas = Upload_file::all();
+        $validasi = Data_register::with(['xnxxes', 'upload_files'])->findOrFail($id);
         $tuk = Tuk::all();
         $asesor = Asesor::all();
         $skema = Skema::with('unikoms')->find((int) $validasi->skema_id);
-        return view('admin/register/show', compact('validasi', 'tuk', 'asesor', 'identitas', 'xnxx', 'skema'));
+        return view('admin/register/show', compact('validasi', 'tuk', 'asesor', 'skema'));
     }
 
 
     public function proses_show(Request $request, $id){
-        $validasi = Data_register::findorfail($id);
-        $xnxx = Xnxx::all();
-        $identitas = Upload_file::all();
+        $validasi = Data_register::with(['xnxxes', 'upload_files'])->findOrFail($id);
         $tuk = Tuk::all();
         $asesor = Asesor::all();
-        return view('admin/register/proses_show', compact('validasi', 'tuk', 'asesor', 'identitas', 'xnxx'));
+        return view('admin/register/proses_show', compact('validasi', 'tuk', 'asesor'));
     }
 
 
     public function sertifikat_show(Request $request, $id){
-        $validasi = Data_register::findorfail($id);
-        $xnxx = Xnxx::all();
-        $identitas = Upload_file::all();
+        $validasi = Data_register::with(['xnxxes', 'upload_files'])->findOrFail($id);
         $tuk = Tuk::all();
         $asesor = Asesor::all();
-        return view('admin/register/sertifikat_show', compact('validasi', 'tuk', 'asesor', 'identitas', 'xnxx'));
+        return view('admin/register/sertifikat_show', compact('validasi', 'tuk', 'asesor'));
     }
 
 
     public function blacklist_show(Request $request, $id){
-        $validasi = Data_register::findorfail($id);
-        $xnxx = Xnxx::all();
-        $identitas = Upload_file::all();
+        $validasi = Data_register::with(['xnxxes', 'upload_files'])->findOrFail($id);
         $tuk = Tuk::all();
         $asesor = Asesor::all();
-        return view('admin/register/blacklist_show', compact('validasi', 'tuk', 'asesor', 'identitas', 'xnxx'));
+        return view('admin/register/blacklist_show', compact('validasi', 'tuk', 'asesor'));
     }
 
 
@@ -268,7 +260,6 @@ class ValidasiController extends Controller
 
     public function backup_store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'kode' => ['required', 'unique:data_registers,kode'],
             'skema_id' => ['required', 'unique:data_registers,skema_id'],

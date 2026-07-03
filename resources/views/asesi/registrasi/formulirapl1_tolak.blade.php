@@ -30,7 +30,7 @@
                 </ol>
                 <input type="hidden" name="skema_id"
                     value="belom{{ $data->kode_skema }}{{ $data->user_id }}">
-                <input type="hidden" name="status" value="<h4 style='color: green'>Menunggu Validasi...</h4>">
+                <input type="hidden" name="status" value="Menunggu Validasi">
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success btn-block font-weight-bold">Kirim Data Pendaftaran

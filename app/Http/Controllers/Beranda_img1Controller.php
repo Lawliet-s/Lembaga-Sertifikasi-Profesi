@@ -55,7 +55,7 @@ class Beranda_img1Controller extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+
         $beranda_img1 = Beranda_img1::findorfail($id);
         $request->validate([
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],

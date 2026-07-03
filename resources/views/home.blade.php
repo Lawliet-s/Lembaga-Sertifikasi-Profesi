@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/lsp.png') }}" />
+    <link rel="shortcut icon" href="{{ asset(optional($site_setting)->favicon ?? 'favicon.ico') }}" />
 </head>
 
 <body style="background-image: url('{{ asset('images/back/1.jpg') }}')">

@@ -23,7 +23,7 @@ class NoteController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $request->validate([
             'judul' => ['required'],
             'isi' => ['required']
@@ -53,7 +53,7 @@ class NoteController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+
         $request->validate([
             'judul' => ['required'],
             'isi' => ['required']
