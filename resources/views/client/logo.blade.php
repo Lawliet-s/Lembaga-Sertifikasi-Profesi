@@ -33,9 +33,14 @@
                     <div class="u-layout-row" style="">
                         <div class="u-align-center u-container-style u-layout-cell u-right-cell u-size-24 u-size-xs-60 u-layout-cell-1"
                             src="">
-                            <div class="u-container-layout u-container-layout-1" src="">
-                                <img class="u-image u-image-1" src="{{ asset($site_setting->logo ?? '') }}" data-image-width="362"
-                                    data-image-height="220">
+                            <div class="u-container-layout u-container-layout-1" src="" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                                @forelse ($logos as $logoItem)
+                                    <img class="u-image u-image-1" src="{{ asset($logoItem) }}" data-image-width="362"
+                                        data-image-height="220" style="max-height: 120px;">
+                                @empty
+                                    <img class="u-image u-image-1" src="{{ asset('assets/images/logo/lsp1.png') }}" data-image-width="362"
+                                        data-image-height="220">
+                                @endforelse
                             </div>
                         </div>
                         <div class="u-container-style u-layout-cell u-left-cell u-size-36 u-size-xs-60 u-white u-layout-cell-2"

@@ -69,16 +69,19 @@ class XnxxController extends Controller
             'status' => ['nullable', 'string', 'max:500'],
             'koreksi' => ['nullable', 'string', 'max:2000'],
             ]);
-            $image = $request->file('image');
-            $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeName = \Illuminate\Support\Str::slug($originalName) . '.' . $image->getClientOriginalExtension();
-            $new_image = time() . '_' . $safeName;
-            $image->move('uploads/formulir_apl2/', $new_image);
             $data = [
                 'status' => strip_tags($request->status),
                 'koreksi' => strip_tags($request->koreksi),
-                'image' => 'uploads/formulir_apl2/' . $new_image,
             ];
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeName = \Illuminate\Support\Str::slug($originalName) . '.' . $image->getClientOriginalExtension();
+                $new_image = time() . '_' . $safeName;
+                $image->move('uploads/formulir_apl2/', $new_image);
+                $data['image'] = 'uploads/formulir_apl2/' . $new_image;
+            }
 
         xnxx::where('id', $id)->where('user_id', auth()->id())->update($data);
         return back()->with('success', 'Dokumen Berhasil Disimpan');

@@ -22,7 +22,6 @@ use App\Http\Controllers\InfoController;
 use App\Http\Controllers\KkniController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\PermohonanController;
 use App\Http\Controllers\RegistrasiController;
@@ -114,7 +113,6 @@ Route::group(['middleware' => ['role:admin', 'throttle:admin', 'honeypot']], fun
     Route::get('detail/{id}', [SkemaController::class, 'detail'])->name('skema.detail');
     Route::post('verifikasi_skema',[SkemaController::class, 'verifikasi_skema'])->name('verifikasi_skema');
     // <------------------ LAYANAN  ------------------>
-    Route::resource('prodi', ProdiController::class);
     Route::resource('jurusan', JurusanController::class);
     Route::resource('asesor', AsesorController::class);
     Route::resource('tuk', TukController::class);

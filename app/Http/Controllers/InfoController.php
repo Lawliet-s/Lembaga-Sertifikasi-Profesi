@@ -27,14 +27,19 @@ class InfoController extends Controller
             'image.required' => 'Masukan Gambar Berita',
             'image.max' => 'Ukuran gambar maksimal 1 mb',
         ]);
-        $image = $request->file('image');
-        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-        $new_image = time() . '_' . $safeName;
-        $strorg = Info::create([
+        $info_data = [
             'keterangan' => \App\Helpers\HtmlSanitizer::sanitize($request->keterangan),
-            'image' => 'uploads/info/'.$new_image,
-        ]);
-        $image->move('uploads/info/', $new_image);
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move('uploads/info/', $new_image);
+            $info_data['image'] = 'uploads/info/'.$new_image;
+        }
+
+        Info::create($info_data);
         return redirect()->route('info.index')->with('success','Video anda berhasil di Posting');
     }
 

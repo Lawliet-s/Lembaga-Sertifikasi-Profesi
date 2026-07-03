@@ -35,17 +35,22 @@ class BeritaController extends Controller
             'image.required' => 'Masukan Gambar Berita',
             'image.max' => 'Ukuran gambar maksimal 1 mb',
         ]);
-        $image = $request->file('image');
-        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-        $new_image = time() . '_' . $safeName;
-        $berita = Berita::create([
+        $berita_data = [
             'title' => \App\Helpers\HtmlSanitizer::plain($request->title),
             'excerpt' => \App\Helpers\HtmlSanitizer::plain($request->excerpt),
             'body' => \App\Helpers\HtmlSanitizer::sanitize($request->body),
             'status' => \App\Helpers\HtmlSanitizer::plain($request->status),
-            'image' => 'uploads/berita/' . $new_image,
-        ]);
-        $image->move('uploads/berita/', $new_image);
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move('uploads/berita/', $new_image);
+            $berita_data['image'] = 'uploads/berita/' . $new_image;
+        }
+
+        Berita::create($berita_data);
         return back()->with('success', 'Artikel Berita Anda  berhasil di Posting');
     }
 

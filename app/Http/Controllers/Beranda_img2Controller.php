@@ -30,10 +30,7 @@ class Beranda_img2Controller extends Controller
             'keterangan.required' => 'Jabatannya Tolong diisi',
         ]);
 
-        $image = $request->file('image');
-        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-        $new_image = time() . '_' . $safeName;
-        $beranda_img2 = Beranda_img2::create([
+        $beranda_img2_data = [
             'keterangan' =>$request->keterangan,
             'nama' =>$request->nama,
             'facebook' =>$request->facebook,
@@ -41,9 +38,17 @@ class Beranda_img2Controller extends Controller
             'intagram' =>$request->intagram,
             'no_hp' =>$request->no_hp,
             'email' =>$request->email,
-            'image' => 'uploads/pengelola/'.$new_image,
-        ]);
-        $image->move('uploads/pengelola/', $new_image);
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move('uploads/pengelola/', $new_image);
+            $beranda_img2_data['image'] = 'uploads/pengelola/'.$new_image;
+        }
+
+        Beranda_img2::create($beranda_img2_data);
         return back()->with('success','Portofolio anda berhasil di Posting');
     }
 

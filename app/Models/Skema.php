@@ -12,7 +12,7 @@ class Skema extends Model
     protected $fillable = [
         'kode_skema',
         'skema',
-        'prodi_id',
+        'jurusan_id',
         'asesor_id',
         'tuk_id',
         'status_id',
@@ -22,8 +22,8 @@ class Skema extends Model
 
         protected $dates = ['created_at'];
 
-    public function prodi(){
-        return $this->belongsTo(Prodi::class);
+    public function jurusan(){
+        return $this->belongsTo(Jurusan::class);
     }
 
     public function asesor(){

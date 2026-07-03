@@ -169,7 +169,7 @@
     <!-- Pengelola -->
     <div class="team">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="section-heading">
                         <h2>Pengelola LSP<em> </em></h2>
@@ -177,19 +177,21 @@
                     </div>
                 </div>
                 @foreach ($karyawan as $asu)
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <img src="{{ $asu->image }}" alt="Avatar" style="width:230px; margin: 12px">
-                            </div>
-                            <div class="flip-card-back">
-                                <br><br><br><br>
-                                <img src="{{ $asu->image }}" width="70px" alt="">
-                                <p class="text-white">{{ $asu->nama }}</p>
-                                <p class="text-white">{{ $asu->keterangan }}</p>
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4 d-flex justify-content-center">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="{{ $asu->image }}" alt="Avatar" style="max-width: 90%; margin: 12px">
+                                </div>
+                                <div class="flip-card-back">
+                                    <br><br><br><br>
+                                    <img src="{{ $asu->image }}" width="70px" alt="">
+                                    <p class="text-white">{{ $asu->nama }}</p>
+                                    <p class="text-white">{{ $asu->keterangan }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
                 @endforeach
             </div>
         </div>

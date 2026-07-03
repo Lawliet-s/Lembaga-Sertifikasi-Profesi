@@ -38,7 +38,8 @@
     <style>
         .flip-card {
             background-color: transparent;
-            width: 260px;
+            width: 100%;
+            max-width: 260px;
             height: 330px;
             perspective: 1000px;
         }
@@ -159,14 +160,17 @@
     <header class="">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul style="padding-left: 1%">
-                        <li class="nav-item">
-                            <img style="margin: 10px" src="{{ asset(optional($site_setting)->logo ?? 'assets/images/logo/lsp1.png') }}"
-                                alt="logo" width="50px" height="50px">
+                <ul style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; list-style: none; margin: 0; padding: 0;">
+                    @forelse ($logos as $logo)
+                        <li class="nav-item" style="margin: 3px;">
+                            <img src="{{ asset($logo) }}" alt="logo" style="max-height: 45px; width: auto;">
                         </li>
-                    </ul>
-                </div>
+                    @empty
+                        <li class="nav-item" style="margin: 3px;">
+                            <img src="{{ asset('assets/images/logo/lsp1.png') }}" alt="logo" style="max-height: 45px; width: auto;">
+                        </li>
+                    @endforelse
+                </ul>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -233,12 +237,8 @@
                                 </div>
                             </li>
                         @else
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropbtn" style="color: var(--primary-color)"><i class="fa fa-user"></i> LOGIN <i class="fa fa-chevron-down"></i></a>
-                                <div class="dropdown-content">
-                                    <a href="{{ route('login') }}">Login Asesi</a>
-                                    <a href="{{ route('loginasesor') }}">Login Asesor</a>
-                                </div>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: var(--primary-color)" href="{{ route('login') }}"><i class="fa fa-user"></i> LOGIN</a>
                             </li>
                         @endif
                     </ul>

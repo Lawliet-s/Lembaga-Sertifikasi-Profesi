@@ -18,15 +18,20 @@ class SkkniController extends Controller
             'image.required' => 'Gambarnya Mana?',
             'image.max' => 'Batas Ukuran Gambar 5 mb',
         ]);
-        $image = $request->file('image');
-        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-        $new_image = time() . '_' . $safeName;
-        $beranda_img1 = Skkni::create([
+        $skkni_data = [
             'file' =>$request->file,
             'skema_id' =>$request->skema_id,
-            'image' => 'uploads/skkni/'.$new_image,
-        ]);
-        $image->move('uploads/skkni/', $new_image);
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move('uploads/skkni/', $new_image);
+            $skkni_data['image'] = 'uploads/skkni/'.$new_image;
+        }
+
+        Skkni::create($skkni_data);
         return back()->with('success','File anda berhasil di Upload');
     }
 

@@ -45,6 +45,11 @@ class UiController extends Controller
         ]);
 
         $skema = Beranda::findorfail($id);
+
+        if (!$request->hasFile('image')) {
+            return back()->withErrors(['image' => 'Gambar tidak ditemukan']);
+        }
+
         $image = $request->file('image');
         $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
         $new_image = time() . '_' . $safeName;

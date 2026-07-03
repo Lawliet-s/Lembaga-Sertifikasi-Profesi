@@ -61,7 +61,14 @@
                 <div class="col-lg-6">
                     <div class="card2 card border-0 px-4 py-5">
                         <div class="row px-3 mt-4 mb-2 border-line">
-                            <img src="{{ asset(optional($site_setting)->logo ?? 'assets/images/logo/lsp1.png') }}" class="logo2"><br><br>
+                            <div style="display: flex; justify-content: center; gap: 15px;">
+                                @forelse ($logos as $logo)
+                                    <img src="{{ asset($logo) }}" class="logo2" style="max-height: 60px; width: auto;">
+                                @empty
+                                    <img src="{{ asset('assets/images/logo/lsp1.png') }}" class="logo2" style="width: auto;">
+                                @endforelse
+                            </div>
+                            <br><br>
                         </div>
                         <div class="row mb-4 px-3">
                             <h6 class="mb-0 mr-4 mt-2">{{ optional($site_setting)->title ?? 'Lembaga Sertifikasi Profesi' }}</h6>

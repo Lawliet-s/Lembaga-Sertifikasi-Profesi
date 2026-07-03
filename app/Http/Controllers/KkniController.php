@@ -13,14 +13,19 @@ class KkniController extends Controller
             'file' => 'required',
             'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ]);
-        $image = $request->file('image');
-        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-        $new_image = time() . '_' . $safeName;
-        $beranda_img1 = Kkni::create([
+        $kkni_data = [
             'file' =>$request->file,
-            'image' => 'uploads/kkni/'.$new_image,
-        ]);
-        $image->move('uploads/kkni/', $new_image);
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move('uploads/kkni/', $new_image);
+            $kkni_data['image'] = 'uploads/kkni/'.$new_image;
+        }
+
+        Kkni::create($kkni_data);
         return back()->with('success','File anda berhasil di Upload');
     }
 

@@ -47,18 +47,22 @@ class Upload_DokumenController extends Controller
             'status' => ['nullable', 'string', 'max:500'],
             'koreksi' => ['nullable', 'string', 'max:2000'],
         ]);
-        $image = $request->file('image');
-        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-        $new_image = time() . '_' . $safeName;
-        $image->move('uploads/uploads_file_register/', $new_image);
         $data = [
             'status' => strip_tags($request->status),
             'koreksi' => strip_tags($request->koreksi),
             'y' => strip_tags($request->y),
             'n' => strip_tags($request->n),
             'z' => strip_tags($request->z),
-            'image' => 'uploads/uploads_file_register/' . $new_image,
         ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move('uploads/uploads_file_register/', $new_image);
+            $data['image'] = 'uploads/uploads_file_register/' . $new_image;
+        }
+
     Upload_file::where('id', $id)->where('user_id', auth()->id())->update($data);
     return back()->with('success', 'Dokumen Berhasil Diupload');
     }

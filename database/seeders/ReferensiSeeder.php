@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Jurusan;
 use App\Models\Semester;
 use App\Models\Sex;
-use App\Models\Prodi;
 use App\Models\Tuk;
 use App\Models\Status;
 use Carbon\Carbon;
@@ -42,16 +41,6 @@ class ReferensiSeeder extends Seeder
                 ['semester' => 4, 'created_at' => $now, 'updated_at' => $now],
                 ['semester' => 5, 'created_at' => $now, 'updated_at' => $now],
                 ['semester' => 6, 'created_at' => $now, 'updated_at' => $now],
-            ]);
-        }
-
-        if (Prodi::count() === 0) {
-            Prodi::insert([
-                ['prodi' => 'D3 Teknik Informatika', 'created_at' => $now, 'updated_at' => $now],
-                ['prodi' => 'D3 Teknik Mesin', 'created_at' => $now, 'updated_at' => $now],
-                ['prodi' => 'D3 Teknik Elektro', 'created_at' => $now, 'updated_at' => $now],
-                ['prodi' => 'D4 Akuntansi', 'created_at' => $now, 'updated_at' => $now],
-                ['prodi' => 'D4 Administrasi Bisnis', 'created_at' => $now, 'updated_at' => $now],
             ]);
         }
 

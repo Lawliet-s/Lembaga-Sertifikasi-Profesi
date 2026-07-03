@@ -28,7 +28,7 @@
             display: block;
             width: 190px;
             height: 300px;
-            background: #b80303c5;
+            background: var(--secondary-color);
             position: absolute;
             animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
         }
@@ -36,7 +36,7 @@
         .badgescard {
             padding: 10px 20px;
             border-radius: 3px;
-            background-color: #980404e7;
+            background-color: var(--primary-color);
             color: #fff;
             width: 480px;
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);

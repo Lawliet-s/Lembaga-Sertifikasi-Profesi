@@ -21,15 +21,20 @@ class Beranda_img1Controller extends Controller
         ],[
             'image.required' => 'Gambar Diperlukan',
         ]);
-        $image = $request->file('image');
-        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-        $new_image = time() . '_' . $safeName;
-        $beranda_img1 = Beranda_img1::create([
+        $beranda_img1_data = [
             'judul' =>$request->judul,
             'keterangan' =>$request->keterangan,
-            'image' => 'uploads/carousel/'.$new_image,
-        ]);
-        $image->move('uploads/carousel/', $new_image);
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move('uploads/carousel/', $new_image);
+            $beranda_img1_data['image'] = 'uploads/carousel/'.$new_image;
+        }
+
+        Beranda_img1::create($beranda_img1_data);
         return redirect()->route('beranda_img1.index')->with('success','Carousel anda berhasil di Posting');
     }
 

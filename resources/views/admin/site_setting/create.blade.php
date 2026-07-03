@@ -36,8 +36,26 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="logo">Logo</label>
+                            <label for="logo">Logo 1</label>
                             <input type="file" name="logo" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="logo2">Logo 2</label>
+                            <input type="file" name="logo2" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="logo3">Logo 3</label>
+                            <input type="file" name="logo3" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="logo4">Logo 4</label>
+                            <input type="file" name="logo4" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-6">

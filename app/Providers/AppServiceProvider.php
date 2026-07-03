@@ -23,6 +23,16 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $setting = SiteSetting::first();
             $view->with('site_setting', $setting);
+
+            $logos = [];
+            if ($setting) {
+                foreach (['logo', 'logo2', 'logo3', 'logo4'] as $col) {
+                    if ($setting->$col) {
+                        $logos[] = $setting->$col;
+                    }
+                }
+            }
+            $view->with('logos', $logos);
         });
     }
 }

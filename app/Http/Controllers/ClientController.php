@@ -18,7 +18,6 @@ use App\Models\Info;
 use App\Models\Info2;
 use App\Models\Jurusan;
 use App\Models\Kkni;
-use App\Models\Prodi;
 use App\Models\Skema;
 use App\Models\Skkni;
 use App\Models\Strorg;
@@ -39,7 +38,6 @@ class ClientController extends Controller
         $datatuk = Tuk::where('id', '>', 1)->count();
         $dataasesi = User::where('id', '>', 2)->count();
         $dataskema = Skema::all()->count();
-        $dataprodi = Prodi::all()->count();
         $datasertifikat = Data_register::where('status', 'Sertifikasi Selesai')->count();
         $dataasesor = Asesor::where('id', '>', 1)->count();
         $image2 = Beranda_img2::orderBy('created_at','desc')->take(4)->get();
@@ -61,7 +59,6 @@ class ClientController extends Controller
         (
             'datatuk',
             'dataasesi',
-            'dataprodi',
             'datasertifikat',
             'dataskema',
             'dataasesor',

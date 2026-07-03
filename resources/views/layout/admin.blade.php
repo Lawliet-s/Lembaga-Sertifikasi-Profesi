@@ -89,13 +89,19 @@
         <!-- /////////////////////////////////// -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="{{ route('admin') }}"><img
-                        src="{{ asset($site_setting->logo ?? 'assets/images/logo/lsp1.png') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo" href="{{ route('admin') }}" style="display: flex; align-items: center; gap: 8px;">
+                    @forelse ($logos as $logo)
+                        <img src="{{ asset($logo) }}" alt="logo" style="max-height: 35px; width: auto;">
+                    @empty
+                        <img src="{{ asset('assets/images/logo/lsp1.png') }}" alt="logo" style="max-height: 35px; width: auto;">
+                    @endforelse
+                </a>
                 <!-- /////////////////////////////////// -->
                 <!-- LOGO MINI -->
                 <!-- /////////////////////////////////// -->
-                <a class="navbar-brand brand-logo-mini" href="{{ route('admin') }}"><img
-                        src="{{ asset($site_setting->logo ?? 'assets/images/logo/mini3.png') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="{{ route('admin') }}">
+                    <img src="{{ asset(count($logos) > 0 ? $logos[0] : 'assets/images/logo/mini3.png') }}" alt="logo" style="max-height: 30px; width: auto;">
+                </a>
             </div>
             <!-- /////////////////////////////////// -->
             <!-- MENU NAVIGASI -->
@@ -285,9 +291,6 @@
                                     <a class="nav-link" href="{{ route('skema.index') }}">Skema</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ Route('prodi.index') }}">Program Studi</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="{{ Route('jurusan.index') }}">Jurusan</a>
                                 </li>
                                 <li class="nav-item">
@@ -448,7 +451,7 @@
     <script src="{{ asset('assets/js/misc.js') }}"></script>
     <script src="{{ asset('assets/js/settings.js') }}"></script>
     <script src="{{ asset('assets/js/todolist.js') }}"></script>
-    <script src="{{ asset('assets/js/google-maps.js') }}"></script>
+
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
     <script src="{{ asset('assets/js/formpickers.js') }}"></script>

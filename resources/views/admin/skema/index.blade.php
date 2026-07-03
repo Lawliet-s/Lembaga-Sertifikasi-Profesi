@@ -66,15 +66,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Prodi</label>
+                                    <label class="col-sm-3 col-form-label">Jurusan</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control select2-search" name="prodi_id" id="prodi_id">
-                                            <option value="" holder>Pilih Prodi</option>
-                                            @foreach ($prodi as $result)
-                                                <option value="{{ $result->id }}">{{ $result->prodi }}</option>
+                                        <select class="form-control select2-search" name="jurusan_id" id="jurusan_id">
+                                            <option value="" holder>Pilih Jurusan</option>
+                                            @foreach ($jurusan as $result)
+                                                <option value="{{ $result->id }}">{{ $result->jurusan }}</option>
                                             @endforeach
                                         </select>
-                                        @error('prodi_id')
+                                        @error('jurusan_id')
                                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -188,7 +188,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="order-listing"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Status: activate to sort column ascending"
-                                                        style="width: 106.1094px;">Prodi</th> -->
+                                                        style="width: 106.1094px;">Jurusan</th> -->
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Status: activate to sort column ascending"

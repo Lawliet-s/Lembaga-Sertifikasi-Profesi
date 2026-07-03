@@ -39,10 +39,37 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="logo">Logo</label>
+                            <label for="logo">Logo 1</label>
                             <input type="file" name="logo" class="form-control">
                             @if($setting->logo)
                                 <img src="{{ asset($setting->logo) }}" width="100" alt="Current Logo">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="logo2">Logo 2</label>
+                            <input type="file" name="logo2" class="form-control">
+                            @if($setting->logo2)
+                                <img src="{{ asset($setting->logo2) }}" width="100" alt="Current Logo 2">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="logo3">Logo 3</label>
+                            <input type="file" name="logo3" class="form-control">
+                            @if($setting->logo3)
+                                <img src="{{ asset($setting->logo3) }}" width="100" alt="Current Logo 3">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="logo4">Logo 4</label>
+                            <input type="file" name="logo4" class="form-control">
+                            @if($setting->logo4)
+                                <img src="{{ asset($setting->logo4) }}" width="100" alt="Current Logo 4">
                             @endif
                         </div>
                     </div>

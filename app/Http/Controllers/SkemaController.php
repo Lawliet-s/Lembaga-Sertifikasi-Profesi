@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Asesor;
 use App\Models\CekPendaftaran;
-use App\Models\Prodi;
+use App\Models\Jurusan;
 use App\Models\Skema;
 use App\Models\Tuk;
 use App\Models\Unikom;
@@ -18,10 +18,10 @@ class SkemaController extends Controller
     public function index(){
         $tuk = Tuk::all();
         $asesor = Asesor::all();
-        $prodi = Prodi::all();
+        $jurusan = Jurusan::all();
         $verifikasi_skemas = VerifikasiSkema::all();
         $skema = Skema::orderBy('created_at','desc')->get();
-        return view('admin/skema/index', compact('skema', 'prodi', 'asesor', 'tuk', 'verifikasi_skemas'));
+        return view('admin/skema/index', compact('skema', 'jurusan', 'asesor', 'tuk', 'verifikasi_skemas'));
     }
 
 
@@ -30,14 +30,14 @@ class SkemaController extends Controller
         $request->validate([
             'kode_skema' => ['required'],
             'skema' => ['required'],
-            'prodi_id' => ['required'],
+            'jurusan_id' => ['required'],
             'asesor_id' => ['required'],
             'tuk_id' => ['required'],
             'status_id' => ['required'],
         ],[
             'skema.required' => 'Skemanya mana?',
             'kode_skema.required' => 'Kode Skemanya mana?',
-            'prodi_id.required' => 'Pilih Prodinya',
+            'jurusan_id.required' => 'Pilih Jurusannya',
             'asesor_id.required' => 'Pilih Asesornya',
             'tuk_id.required' => 'Pilih TUKnya',
             'status_id.required' => 'Pilih Status Skema',
@@ -45,7 +45,7 @@ class SkemaController extends Controller
         $skema = Skema::create([
             'kode_skema' =>$request->kode_skema,
             'skema' =>$request->skema,
-            'prodi_id' =>$request->prodi_id,
+            'jurusan_id' =>$request->jurusan_id,
             'asesor_id' =>$request->asesor_id,
             'tuk_id' =>$request->tuk_id,
             'status_id' =>$request->status_id,
@@ -66,24 +66,24 @@ class SkemaController extends Controller
         $decryptID = Crypt::decryptString($id);
         $tuk = Tuk::all();
         $asesor = Asesor::all();
-        $prodi = Prodi::all();
+        $jurusan = Jurusan::all();
         $verifikasi_skemas = VerifikasiSkema::all();
         $skema = Skema::findorfail($decryptID);
-        return view('admin/skema/edit', compact('skema', 'prodi', 'asesor', 'tuk', 'verifikasi_skemas'));
+        return view('admin/skema/edit', compact('skema', 'jurusan', 'asesor', 'tuk', 'verifikasi_skemas'));
     }
 
 
     public function update(Request $request, $id) {
         $request->validate([
             'skema' => ['required'],
-            'prodi_id' => ['required'],
+            'jurusan_id' => ['required'],
             'asesor_id' => ['required'],
             'tuk_id' => ['required'],
             'status_id' => ['required'],
         ],[
             'skema.required' => 'Skemanya mana?',
             'kode_skema.required' => 'Kode Skemanya mana?',
-            'prodi_id.required' => 'Pilih Prodinya',
+            'jurusan_id.required' => 'Pilih Jurusannya',
             'asesor_id.required' => 'Pilih Asesornya',
             'tuk_id.required' => 'Pilih TUKnya',
             'status_id.required' => 'Pilih Status',
@@ -91,7 +91,7 @@ class SkemaController extends Controller
         $skema_data = [
             'kode_skema' =>$request->kode_skema,
             'skema' =>$request->skema,
-            'prodi_id' =>$request->prodi_id,
+            'jurusan_id' =>$request->jurusan_id,
             'asesor_id' =>$request->asesor_id,
             'tuk_id' =>$request->tuk_id,
             'status_id' =>$request->status_id,

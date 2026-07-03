@@ -33,8 +33,20 @@
                 <br><br>
                 <table class="table table-bordered">
                     <tr>
-                        <th>Logo</th>
+                        <th>Logo 1</th>
                         <td><img src="{{ asset($setting->logo) }}" width="100" alt="Logo"></td>
+                    </tr>
+                    <tr>
+                        <th>Logo 2</th>
+                        <td>@if($setting->logo2)<img src="{{ asset($setting->logo2) }}" width="100" alt="Logo 2">@else - @endif</td>
+                    </tr>
+                    <tr>
+                        <th>Logo 3</th>
+                        <td>@if($setting->logo3)<img src="{{ asset($setting->logo3) }}" width="100" alt="Logo 3">@else - @endif</td>
+                    </tr>
+                    <tr>
+                        <th>Logo 4</th>
+                        <td>@if($setting->logo4)<img src="{{ asset($setting->logo4) }}" width="100" alt="Logo 4">@else - @endif</td>
                     </tr>
                     <tr>
                         <th>Title</th>

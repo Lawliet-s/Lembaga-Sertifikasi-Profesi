@@ -31,11 +31,13 @@ class SiteSettingController extends Controller
         }
         $data['maps_embed'] = MapsHelper::convertToEmbed($data['maps_embed'] ?? '');
 
-        if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $logoName = time() . '_logo.' . $logo->getClientOriginalExtension();
-            $logo->move('uploads/site_settings/', $logoName);
-            $data['logo'] = 'uploads/site_settings/' . $logoName;
+        foreach (['logo', 'logo2', 'logo3', 'logo4'] as $field) {
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $fileName = time() . '_' . $field . '.' . $file->getClientOriginalExtension();
+                $file->move('uploads/site_settings/', $fileName);
+                $data[$field] = 'uploads/site_settings/' . $fileName;
+            }
         }
 
         if ($request->hasFile('favicon')) {
@@ -84,11 +86,13 @@ class SiteSettingController extends Controller
         }
         $data['maps_embed'] = MapsHelper::convertToEmbed($data['maps_embed'] ?? '');
 
-        if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $logoName = time() . '_logo.' . $logo->getClientOriginalExtension();
-            $logo->move('uploads/site_settings/', $logoName);
-            $data['logo'] = 'uploads/site_settings/' . $logoName;
+        foreach (['logo', 'logo2', 'logo3', 'logo4'] as $field) {
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $fileName = time() . '_' . $field . '.' . $file->getClientOriginalExtension();
+                $file->move('uploads/site_settings/', $fileName);
+                $data[$field] = 'uploads/site_settings/' . $fileName;
+            }
         }
 
         if ($request->hasFile('favicon')) {

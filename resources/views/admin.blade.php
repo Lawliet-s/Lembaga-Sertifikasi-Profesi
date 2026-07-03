@@ -167,8 +167,12 @@ Dashboard | Admin LSP {{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }
                         </div>
                     </div>
                     <div class="statistics-item">
-                        <div class="card-img">
-                            <img src="{{ asset($site_setting->logo ?? 'assets/images/logo/lsp1.png') }}" width="90px" alt="">
+                        <div class="card-img" style="display: flex; justify-content: center; gap: 10px;">
+                            @forelse ($logos as $logo)
+                                <img src="{{ asset($logo) }}" alt="" style="max-height: 90px; width: auto;">
+                            @empty
+                                <img src="{{ asset('assets/images/logo/lsp1.png') }}" alt="" style="max-height: 90px; width: auto;">
+                            @endforelse
                         </div>
                     </div>
                     <div class="statistics-item">

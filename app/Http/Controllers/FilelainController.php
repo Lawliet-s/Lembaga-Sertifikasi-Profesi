@@ -13,14 +13,19 @@ class FilelainController extends Controller
             'file' => 'required',
             'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
         ]);
-        $image = $request->file('image');
-        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-        $new_image = time() . '_' . $safeName;
-        $beranda_img1 = Filelain::create([
+        $filelain_data = [
             'file' =>$request->file,
-            'image' => 'uploads/file/'.$new_image,
-        ]);
-        $image->move('uploads/file/', $new_image);
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move('uploads/file/', $new_image);
+            $filelain_data['image'] = 'uploads/file/'.$new_image;
+        }
+
+        Filelain::create($filelain_data);
         return back()->with('success','File anda berhasil di Upload');
     }
 

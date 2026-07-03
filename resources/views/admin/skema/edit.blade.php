@@ -61,15 +61,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Prodi</label>
+                    <label class="col-sm-3 col-form-label">Jurusan</label>
                         <div class="col-sm-9">
-                            <select class="form-control select2-search" name="prodi_id" id="prodi_id">
+                            <select class="form-control select2-search" name="jurusan_id" id="jurusan_id">
                                 <option value="" holder></option>
-                                @foreach ($prodi as $result)
+                                @foreach ($jurusan as $result)
                                 <option value="{{ $result->id }}"
-                                    @if ($skema->prodi_id == $result->id)
+                                    @if ($skema->jurusan_id == $result->id)
                                         selected
-                                    @endif>{{ $result->prodi }}
+                                    @endif>{{ $result->jurusan }}
                                 </option>
                                 @endforeach
                             </select>

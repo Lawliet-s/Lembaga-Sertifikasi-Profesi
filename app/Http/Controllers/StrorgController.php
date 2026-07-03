@@ -23,14 +23,19 @@ class StrorgController extends Controller
             'image.required' => 'Gambarnya mana?',
             'image.max' => 'Gambarnya Kegedean?',
         ]);
-        $image = $request->file('image');
-        $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-        $new_image = time() . '_' . $safeName;
-        $strorg = Strorg::create([
+        $strorg_data = [
             'keterangan' =>$request->keterangan,
-            'image' => 'uploads/strorg/'.$new_image,
-        ]);
-        $image->move('uploads/strorg/', $new_image);
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move('uploads/strorg/', $new_image);
+            $strorg_data['image'] = 'uploads/strorg/'.$new_image;
+        }
+
+        Strorg::create($strorg_data);
         return redirect()->route('strorg.index')->with('success','Gambar anda berhasil di Posting');
     }
 

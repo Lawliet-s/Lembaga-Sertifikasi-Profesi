@@ -36,14 +36,22 @@
                         @csrf
                         <input type="hidden" name="role_login" value="asesi">
                         <div class="card2 card border-0 px-4 py-5">
-                            <div class="row px-3 mt-4 mb-2 border-line">
-                                <img src="{{ asset($site_setting->logo ?? 'assets/images/logo/lsp1.png') }}" class="logo2"><br><br>
+                            <div class="row px-3 mt-4 mb-2 border-line" style="display: flex; justify-content: center; gap: 15px;">
+                                @forelse ($logos as $logo)
+                                    <img src="{{ asset($logo) }}" class="logo2" style="max-height: 60px; width: auto;">
+                                @empty
+                                    <img src="{{ asset('assets/images/logo/lsp1.png') }}" class="logo2" style="width: auto;">
+                                @endforelse
+                                <br><br>
                             </div>
-                            <div class="row mb-4 px-3">
-                                <h6 class="mb-0 mr-4 mt-2">{{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }}</h6>
+                            <div class="row mb-4 px-3 text-center">
+                                <h6 class="mb-0 mt-2 w-100 font-weight-bold">{{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }}</h6>
                             </div>
                             <div class="row px-3 mb-4 w3-panel w3-border-bottom justify-content-center">
-                                <label class="text-center">Login Asesi</label>
+                                <span class="badge badge-pill px-4 py-2" style="background-color: var(--primary-color); color: #fff; font-size: 1rem;">Login Asesi</span>
+                            </div>
+                            <div class="row px-3 mb-3 justify-content-center">
+                                <a href="{{ route('loginasesor') }}" class="btn btn-sm" style="background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color);">Login sebagai Asesor</a>
                             </div>
                             <div class="row px-3">
                                 <label class="mb-1">
@@ -92,6 +100,9 @@
                             <div class="row mb-4 px-3">
                                 <small class="font-weight-bold">Belum punya akun? <a href="{{ route('reg') }}"
                                         style="color: var(--primary-color);">Daftar disini</a></small>
+                            </div>
+                            <div class="row px-3 justify-content-center">
+                                <a href="{{ route('/') }}" class="btn btn-sm" style="background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color);"><i class="fa fa-home"></i> Kembali ke Beranda</a>
                             </div>
                         </div>
                     </form>

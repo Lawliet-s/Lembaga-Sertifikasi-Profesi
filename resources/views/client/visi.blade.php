@@ -46,7 +46,13 @@
         </section>
         <section class="u-clearfix u-grey-10 u-section-5" id="sec-e8fc">
             <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-                <img class="u-image u-image-1" src="{{ asset($site_setting->logo ?? '') }}" data-image-width="362" data-image-height="220">
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    @forelse ($logos as $logo)
+                        <img class="u-image u-image-1" src="{{ asset($logo) }}" data-image-width="362" data-image-height="220" style="max-height: 150px;">
+                    @empty
+                        <img class="u-image u-image-1" src="{{ asset('assets/images/logo/lsp1.png') }}" data-image-width="362" data-image-height="220">
+                    @endforelse
+                </div>
                 <div class="u-clearfix u-expanded-width u-gutter-10 u-layout-wrap u-layout-wrap-1">
                     <div class="u-layout" style="">
                         <div class="u-layout-row" style="">
