@@ -81,8 +81,6 @@
 
     <!-- Dropdown menu -->
     <style>
-        .dropbtn {}
-
         .dropdown {
             position: relative;
             display: inline-block;
@@ -91,10 +89,14 @@
         .dropdown-content {
             display: none;
             position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
             background-color: var(--primary-color);
-            min-width: 300px;
+            min-width: 200px;
+            white-space: nowrap;
             box-shadow: 0px 8px 16px 0px rgba(41, 32, 32, 0.46);
-            z-index: 1;
+            z-index: 99999;
         }
 
         .dropdown-content a {
@@ -102,6 +104,7 @@
             padding: 12px 16px;
             text-decoration: none;
             display: block;
+            text-align: center;
         }
 
         .dropdown-content a:hover {
@@ -114,6 +117,16 @@
 
         .dropdown:hover .dropbtn {
             background-color: #05040400;
+        }
+
+        @media (max-width: 991px) {
+            .dropdown-content {
+                position: static;
+                min-width: 100%;
+                transform: none;
+                box-shadow: none;
+                background-color: var(--secondary-color);
+            }
         }
     </style>
 </head>
