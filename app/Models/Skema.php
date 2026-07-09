@@ -9,6 +9,8 @@ class Skema extends Model
 {
     use HasFactory;
 
+    protected $table = 'skemas';
+
     protected $fillable = [
         'kode_skema',
         'skema',

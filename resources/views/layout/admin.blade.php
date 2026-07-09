@@ -299,6 +299,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ Route('tuk.index') }}">TUK</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('jadwal.index') }}">Jadwal Asesmen</a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -365,8 +368,8 @@
                             </li>
                             <li>
                                 <div class="btn btn-primary btn-block">
-                                    <a href="{{ route('info.index') }}" class="text text-white"><i
-                                            class="fas fa-info-circle"></i> Info Pendaftaran</a>
+                                    <a href="{{ route('tutorial.index') }}" class="text text-white"><i
+                                            class="fas fa-pencil-square"></i> Prosedur Sertifikasi</a>
                                 </div>
                             </li>
                             <li>

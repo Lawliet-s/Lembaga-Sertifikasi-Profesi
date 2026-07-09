@@ -134,16 +134,37 @@ Dashboard | Admin LSP {{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }
                 </div>
             </div>
         </div>
-        {{-- KALENDER --}}
+        {{-- JADWAL ASESMEN --}}
         <div class="col-md-5 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
                         <h4 class="text text-dark">
-                            <i class="fas fa-calendar-alt"></i> Kalender
+                            <i class="fas fa-calendar-alt"></i> Jadwal Asesmen
                         </h4>
                     </div>
-                    <div id="inline-datepicker-example" class="datepicker"></div>
+                    @php
+                        $totalJadwal = App\Models\JadwalAsesmen::where('status', 'aktif')->where('tanggal', '>=', now())->count();
+                        $bulanIni = App\Models\JadwalAsesmen::where('status', 'aktif')
+                            ->whereMonth('tanggal', now()->month)
+                            ->whereYear('tanggal', now()->year)
+                            ->count();
+                    @endphp
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <h2 class="text-primary font-weight-bold">{{ $totalJadwal }}</h2>
+                            <p class="text-muted mb-0">Total Jadwal Aktif</p>
+                        </div>
+                        <div class="col-6 text-center">
+                            <h2 class="text-success font-weight-bold">{{ $bulanIni }}</h2>
+                            <p class="text-muted mb-0">Bulan Ini</p>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <a href="{{ route('jadwal.index') }}" class="btn btn-danger btn-block">
+                            <i class="fas fa-calendar-alt"></i> Kelola Jadwal Asesmen
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

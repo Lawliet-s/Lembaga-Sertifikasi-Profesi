@@ -21,9 +21,11 @@ use App\Models\Kkni;
 use App\Models\Skema;
 use App\Models\Skkni;
 use App\Models\Strorg;
+use App\Models\Tutorial;
 use App\Models\Tuk;
 use App\Models\Unikom;
 use App\Models\Upload_file;
+use App\Models\JadwalAsesmen;
 use App\Models\User;
 use Illuminate\Http\Request;
 use PHPUnit\TextUI\XmlConfiguration\Group;
@@ -188,9 +190,22 @@ class ClientController extends Controller
 
     public function tutorial()
     {
-        $tutorial = Info::all();
-        $tutorial2 = Info2::all();
-        return view('client/tutorial', compact('tutorial', 'tutorial2'));
+        $prosedur = Tutorial::orderBy('urutan')->get();
+        return view('client/tutorial', compact('prosedur'));
+    }
+
+
+    public function jadwal()
+    {
+        JadwalAsesmen::where('status', 'aktif')->whereDate('tanggal', '<', today())->update(['status' => 'ditutup']);
+        $jadwal = JadwalAsesmen::with('skema', 'tuk')
+            ->where('status', 'aktif')
+            ->whereDate('tanggal', '>', today())
+            ->orderBy('tanggal')
+            ->get();
+        $skema = Skema::orderBy('skema')->get();
+        $tuk = Tuk::orderBy('tuk')->get();
+        return view('client.jadwal', compact('jadwal', 'skema', 'tuk'));
     }
 
 

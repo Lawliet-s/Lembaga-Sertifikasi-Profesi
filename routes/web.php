@@ -37,6 +37,8 @@ use App\Http\Controllers\Upload_DokumenController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValidasiController;
 use App\Http\Controllers\XnxxController;
+use App\Http\Controllers\TutorialController;
+use App\Http\Controllers\JadwalController;
 
 
 Route::get('pdf', [UiController::class, 'pdf'])->name('pdf');
@@ -60,6 +62,7 @@ Route::get('kontak', [ClientController::class, 'kontak'])->name('kontak');
 Route::get('pengelola', [ClientController::class, 'pengelola'])->name('pengelola');
 Route::get('pengelola_detail/{pengelola_detail}', [ClientController::class, 'pengelola_detail'])->name('pengelola_detail');
 Route::get('struktur', [ClientController::class, 'struktur'])->name('struktur');
+Route::get('jadwal-asesmen', [ClientController::class, 'jadwal'])->name('client_jadwal');
 Route::get('visi', [ClientController::class, 'visi'])->name('visi');
 Route::get('download', [ClientController::class, 'download'])->name('download');
 Route::get('client_skkni', [ClientController::class, 'skkni'])->name('client_skkni');
@@ -144,6 +147,10 @@ Route::group(['middleware' => ['role:admin', 'throttle:admin', 'honeypot']], fun
     Route::resource('berita', BeritaController::class);
     Route::resource('info', InfoController::class);
     Route::put('save_image/{save_image}', [InfoController::class, 'save_image'])->name('save_image');
+    // <------------------ TUTORIAL / PROSEDUR SERTIFIKASI  ------------------>
+    Route::resource('data-tutorial', TutorialController::class)->names('tutorial');
+    // <------------------ JADWAL ASESMEN  ------------------>
+    Route::resource('jadwal', JadwalController::class);
     // <------------------ FILE UPLOAD  ------------------>
     Route::resource('file', FileController::class);
     Route::resource('skkni', SkkniController::class);

@@ -208,7 +208,9 @@
                                 <a href="{{ route('client_tuk') }}">Tempat
                                     Uji Kompetensi</a>
                                 <a href="{{ route('client_asesor') }}">Asesor</a>
-                                <a href="{{ route('tutorial') }}">Prosedur Pendaftaran
+                                <a href="{{ route('client_jadwal') }}">Jadwal
+                                    Asesmen</a>
+                                <a href="{{ route('tutorial') }}">Prosedur
                                     Sertifikasi</a>
                             </div>
                         </li>
