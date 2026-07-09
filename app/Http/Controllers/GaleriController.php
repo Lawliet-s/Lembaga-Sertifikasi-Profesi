@@ -109,26 +109,33 @@ class GaleriController extends Controller
 
     public function foto_store(Request $request)
     {
-
         $request->validate([
-            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048']
+            'image' => ['required', 'array'],
+            'image.*' => ['file', 'mimes:jpg,jpeg,png,pdf,webp', 'max:10240']
         ]);
         if ($request->hasFile('image')) {
             $images = $request->file('image');
-            foreach ($images as $image) {
-                $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-                $new_image = time() . '_' . $safeName;
-                $image->move('uploads/galeri/', $new_image);
-                $galeri = Galeri_foto::create([
-                    'group_galeri_id' => $request->group_galeri_id,
-                    'image' => 'uploads/galeri/' . $new_image,
-                ]);
+            $successCount = 0;
+            $errors = [];
+            foreach ($images as $key => $image) {
+                try {
+                    $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+                    $new_image = time() . '_' . $safeName;
+                    $image->move('uploads/galeri/', $new_image);
+                    Galeri_foto::create([
+                        'group_galeri_id' => $request->group_galeri_id,
+                        'image' => 'uploads/galeri/' . $new_image,
+                    ]);
+                    $successCount++;
+                } catch (\Exception $e) {
+                    $errors[] = "Gambar #" . ($key + 1) . " gagal diupload: " . $e->getMessage();
+                }
             }
-        } else {
-            $galeri = Galeri_foto::create([
-                'group_galeri_id' => $request->group_galeri_id,
-            ]);
+            if ($errors) {
+                return back()->with('success', "{$successCount} gambar berhasil diupload. " . implode(', ', $errors));
+            }
+            return back()->with('success', "{$successCount} gambar berhasil diupload");
         }
-        return back()->with('success', 'Gambar berhasil diupload');
+        return back()->with('error', 'Tidak ada gambar yang dipilih');
     }
 }
