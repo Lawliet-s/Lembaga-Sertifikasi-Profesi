@@ -109,6 +109,10 @@ class Data_register extends Model
         return $this->hasMany(Observasi::class, 'data_register_id');
     }
 
+    public function permohonan(){
+        return $this->hasOne(Permohonan::class, 'data_register_id');
+    }
+
     public function frAk01(){
         return $this->hasOne(FrAk01::class, 'data_register_id');
     }

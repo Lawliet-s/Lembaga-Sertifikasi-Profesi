@@ -14,11 +14,25 @@ return new class extends Migration
      */
     public function up()
     {
-        DB::statement('ALTER TABLE f_profil MODIFY profil LONGTEXT NULL');
+        $driver = Schema::getConnection()->getDriverName();
+        if ($driver === 'sqlite') {
+            Schema::table('f_profil', function (Blueprint $table) {
+                $table->text('profil')->nullable()->change();
+            });
+        } else {
+            DB::statement('ALTER TABLE f_profil MODIFY profil LONGTEXT NULL');
+        }
     }
 
     public function down()
     {
-        DB::statement('ALTER TABLE f_profil MODIFY profil TEXT NULL');
+        $driver = Schema::getConnection()->getDriverName();
+        if ($driver === 'sqlite') {
+            Schema::table('f_profil', function (Blueprint $table) {
+                $table->text('profil')->nullable()->change();
+            });
+        } else {
+            DB::statement('ALTER TABLE f_profil MODIFY profil TEXT NULL');
+        }
     }
 };

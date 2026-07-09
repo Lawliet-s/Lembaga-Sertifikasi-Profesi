@@ -119,7 +119,7 @@ class ValidasiController extends Controller
             'kode' => 'required|string|max:255',
             'skema_id' => 'required|exists:skemas,id',
             'skema_name' => 'required|string|max:255',
-            'tuk_id' => 'nullable|exists:t_u_k_s,id',
+            'tuk_id' => 'nullable|exists:tuk,id',
             'tuk_name' => 'nullable|string|max:255',
             'user_id' => 'required|exists:users,id',
             'asesor_id' => 'nullable|exists:users,id',
@@ -228,7 +228,7 @@ class ValidasiController extends Controller
         // Also update related Permohonan record
         $dr = Data_register::find($id);
         if ($dr) {
-            $permohonan = Permohonan::where('user_id', (int) $dr->user_id)
+            $permohonan = $dr->permohonan ?? Permohonan::where('user_id', (int) $dr->user_id)
                 ->where('skema_id', (int) $dr->skema_id)
                 ->latest()
                 ->first();

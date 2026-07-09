@@ -129,6 +129,8 @@ class PermohonanController extends Controller
             'image' => optional($permohonan->dokumens->where('jenis_dokumen', 'foto_3x4')->first())->path_file,
         ]);
 
+        $permohonan->update(['data_register_id' => $dr->id]);
+
         $dokumenMap = [
             'ktp' => 'KTP',
             'kartu_keluarga' => 'Kartu Keluarga',

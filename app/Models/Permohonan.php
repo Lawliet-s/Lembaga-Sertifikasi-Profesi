@@ -14,11 +14,17 @@ class Permohonan extends Model
     protected $fillable = [
         'user_id',
         'skema_id',
+        'data_register_id',
         'tujuan_asesmen',
         'status',
         'catatan',
         'ttd',
     ];
+
+    public function dataRegister()
+    {
+        return $this->belongsTo(Data_register::class, 'data_register_id');
+    }
 
     public function user()
     {
