@@ -816,6 +816,8 @@ ul.slick-dots {
 
 .more-info .right-content {
     padding: 45px 45px 45px 30px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .more-info .right-content span {
@@ -850,6 +852,8 @@ ul.slick-dots {
 .more-info .left-content {
     padding: 45px 45px 45px 30px;
     text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .more-info .left-content span {
@@ -894,6 +898,8 @@ ul.slick-dots {
     background-color: #fff;
     padding: 30px;
     border-radius: 5px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .testimonial-item p {
@@ -1495,10 +1501,14 @@ footer .contact-form button.filled-button:hover {
         padding-left: 0;
         overflow-x: hidden;
         text-align: center;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
     .more-info .left-content ul,
     .more-info .left-content ul * {
         text-align: center;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
     footer {
         padding: 80px 0px 20px 0px;

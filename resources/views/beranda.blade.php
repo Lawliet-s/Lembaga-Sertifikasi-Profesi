@@ -76,15 +76,36 @@
                                 </div>
                             </div>
                             <div class="col-md-6 align-self-center">
-                                <div class="right-content">
+                                <div class="right-content" style="overflow-wrap: break-word; word-wrap: break-word;">
                                     <span>PROFILE</span>
                                     <h2>Tentang Kami</h2>
-                                    <p>
-                                        {{ $profil && $profil->profil ? \Illuminate\Support\Str::words(strip_tags($profil->profil), 40, '') : 'Lembaga Sertifikasi Profesi (LSP) merupakan lembaga pelaksana sertifikasi kompetensi kerja yang bertugas melaksanakan uji kompetensi dan sertifikasi kompetensi profesi.' }}
-                                    </p>
-                                    <p>
-                                        {{ $profil && $profil->misi ? \Illuminate\Support\Str::words(strip_tags($profil->misi), 40, '') : 'Kami berkomitmen untuk menyelenggarakan sertifikasi yang handal, profesional, dan diakui secara nasional guna meningkatkan mutu serta daya saing sumber daya manusia Indonesia.' }}
-                                    </p>
+                                    @php
+                                        $raw = ($profil && $profil->profil)
+                                            ? $profil->profil
+                                            : 'Lembaga Sertifikasi Profesi (LSP) merupakan lembaga pelaksana sertifikasi kompetensi kerja yang bertugas melaksanakan uji kompetensi dan sertifikasi kompetensi profesi.';
+                                        $raw = preg_replace('/<\/li>|<\/p>|<\/h[1-6]>|<\/div>|<br\s*\/?>/i', "\n", $raw);
+                                        $raw = strip_tags($raw);
+                                        $lines = array_values(array_filter(array_map(function ($l) {
+                                            return trim(preg_replace('/\s+/', ' ', $l));
+                                        }, explode("\n", $raw)), function ($l) {
+                                            return $l !== '';
+                                        }));
+
+                                        $limit = 30;
+                                        $shownLines = [];
+                                        $count = 0;
+                                        foreach ($lines as $line) {
+                                            $w = explode(' ', $line);
+                                            if ($count + count($w) > $limit) {
+                                                $rem = $limit - $count;
+                                                $shownLines[] = ($rem > 0 ? implode(' ', array_slice($w, 0, $rem)) : '') . '...';
+                                                break;
+                                            }
+                                            $shownLines[] = $line;
+                                            $count += count($w);
+                                        }
+                                    @endphp
+                                    <p style="overflow-wrap: break-word; word-wrap: break-word; white-space: pre-line;">{!! nl2br(e(implode("\n", $shownLines))) !!}</p>
                                     <a href="{{ route('tentang') }}" class="filled-button">Learn More &rarr;</a>
                                 </div>
                             </div>
