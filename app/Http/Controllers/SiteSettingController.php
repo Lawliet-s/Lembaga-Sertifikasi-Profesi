@@ -61,6 +61,13 @@ class SiteSettingController extends Controller
             $data['background_image'] = 'uploads/site_settings/' . $bgImageName;
         }
 
+        if ($request->hasFile('about_image')) {
+            $aboutImage = $request->file('about_image');
+            $aboutImageName = time() . '_about.' . $aboutImage->getClientOriginalExtension();
+            $aboutImage->move('uploads/site_settings/', $aboutImageName);
+            $data['about_image'] = 'uploads/site_settings/' . $aboutImageName;
+        }
+
         SiteSetting::create($data);
 
         return redirect()->route('site_setting.index')->with('success', 'Pengaturan situs berhasil dibuat');
@@ -114,6 +121,13 @@ class SiteSettingController extends Controller
             $bgImageName = time() . '_background.' . $bgImage->getClientOriginalExtension();
             $bgImage->move('uploads/site_settings/', $bgImageName);
             $data['background_image'] = 'uploads/site_settings/' . $bgImageName;
+        }
+
+        if ($request->hasFile('about_image')) {
+            $aboutImage = $request->file('about_image');
+            $aboutImageName = time() . '_about.' . $aboutImage->getClientOriginalExtension();
+            $aboutImage->move('uploads/site_settings/', $aboutImageName);
+            $data['about_image'] = 'uploads/site_settings/' . $aboutImageName;
         }
 
         $setting->update($data);

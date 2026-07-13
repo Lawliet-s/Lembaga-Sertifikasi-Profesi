@@ -102,6 +102,16 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label for="about_image">Gambar Tentang Kami (Beranda)</label>
+                            <input type="file" name="about_image" class="form-control">
+                            <small class="form-text text-muted">Gambar besar di bagian kiri section "Tentang Kami" pada halaman beranda.</small>
+                            @if($setting->about_image)
+                                <img src="{{ asset($setting->about_image) }}" width="100" alt="Current About Image">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label for="footer_text">Footer Text</label>
                             <textarea name="footer_text" class="form-control" rows="4">{{ $setting->footer_text }}</textarea>
                         </div>

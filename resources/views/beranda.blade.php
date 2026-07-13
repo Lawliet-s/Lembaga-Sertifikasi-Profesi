@@ -60,22 +60,32 @@
     <!-- Tentang -->
     <div class="more-info">
         <div class="container">
-            <div class="section-heading">
-                <h2>Tentang LSP<em></em></h2>
-                <span>▬▬▬▬▬<em>▬▬▬▬▬</em></span>
-            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="more-info-content">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="left-content">
-                                    <span>{{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }}</span>
-                                    <ul class="u-custom-font u-font-arial u-text u-text-2"
-                                        data-animation-name="customAnimationIn" data-animation-duration="1000">
-                                        {!! $profil ? $profil->profil : '' !!}
-                                    </ul>
-                                    <a href="{{ route('tentang') }}" class="filled-button">Selengkapnya</a>
+                            <div class="col-md-6">
+                                <div class="left-image">
+                                    @if ($site_setting && $site_setting->about_image)
+                                        <img src="{{ asset($site_setting->about_image) }}" alt="Tentang LSP">
+                                    @elseif ($profil && $profil->image)
+                                        <img src="{{ asset($profil->image) }}" alt="Tentang LSP">
+                                    @else
+                                        <img src="{{ asset('general/assets/images/head1.jpg') }}" alt="Tentang LSP">
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 align-self-center">
+                                <div class="right-content">
+                                    <span>PROFILE</span>
+                                    <h2>Tentang Kami</h2>
+                                    <p>
+                                        {{ $profil && $profil->profil ? \Illuminate\Support\Str::words(strip_tags($profil->profil), 40, '') : 'Lembaga Sertifikasi Profesi (LSP) merupakan lembaga pelaksana sertifikasi kompetensi kerja yang bertugas melaksanakan uji kompetensi dan sertifikasi kompetensi profesi.' }}
+                                    </p>
+                                    <p>
+                                        {{ $profil && $profil->misi ? \Illuminate\Support\Str::words(strip_tags($profil->misi), 40, '') : 'Kami berkomitmen untuk menyelenggarakan sertifikasi yang handal, profesional, dan diakui secara nasional guna meningkatkan mutu serta daya saing sumber daya manusia Indonesia.' }}
+                                    </p>
+                                    <a href="{{ route('tentang') }}" class="filled-button">Learn More &rarr;</a>
                                 </div>
                             </div>
                         </div>

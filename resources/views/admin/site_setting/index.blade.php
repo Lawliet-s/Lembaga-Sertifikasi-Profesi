@@ -65,6 +65,10 @@
                         <td><img src="{{ asset($setting->background_image) }}" width="150" alt="Background Image"></td>
                     </tr>
                     <tr>
+                        <th>Gambar Tentang Kami (Beranda)</th>
+                        <td><img src="{{ asset($setting->about_image) }}" width="150" alt="About Image"></td>
+                    </tr>
+                    <tr>
                         <th>Footer Text</th>
                         <td>{{ $setting->footer_text }}</td>
                     </tr>

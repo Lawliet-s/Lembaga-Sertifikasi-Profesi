@@ -78,6 +78,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label for="about_image">Gambar Tentang Kami (Beranda)</label>
+                            <input type="file" name="about_image" class="form-control">
+                            <small class="form-text text-muted">Gambar besar di bagian kiri section "Tentang Kami" pada halaman beranda.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label for="footer_text">Footer Text</label>
                             <textarea name="footer_text" class="form-control" rows="4">{{ old('footer_text') }}</textarea>
                         </div>
