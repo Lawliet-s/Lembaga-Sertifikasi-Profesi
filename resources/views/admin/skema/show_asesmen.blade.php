@@ -50,7 +50,7 @@
                             @enderror
                             <br>
                             <label for="">Kriteria</label>
-                            <textarea type="text" class="summernote" maxlength="1000" class="form-control" name="kriteria"
+                            <textarea name="kriteria" class="summernote form-control" maxlength="1000"
                                 placeholder="Kriteria" aria-label="Recipient's username"></textarea>
                             @error('kriteria')
                                 <div class="text-danger mt-2 text-sm">{{ $message }}</div>
@@ -139,7 +139,7 @@
                         @enderror
                         <br>
                         <label for="">Kriteria</label>
-                        <textarea type="text" class="summernote" maxlength="1000" class="form-control" name="kriteria"
+                        <textarea name="kriteria" class="summernote form-control" maxlength="1000"
                             placeholder="Kriteria" aria-label="Recipient's username">{{ $asu->kriteria }}</textarea>
                         @error('kriteria')
                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>

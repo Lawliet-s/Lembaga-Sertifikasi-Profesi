@@ -8,7 +8,6 @@
     <title>@yield('judul')</title>
 
     {{-- <---------------------- ASSET ----------------------> --}}
-    <link rel="stylesheet" href="{{ asset('assets/vendors/summernote/dist/summernote-bs4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/iconfonts/font-awesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}">
@@ -16,12 +15,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/counter.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/modules/dropzone.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/modules/components.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets2/modules/summernote/summernote-bs4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets2/modules/codemirror/lib/codemirror.css') }}">
     <link rel="stylesheet" href="{{ asset('assets2/modules/codemirror/theme/duotone-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('assets2/modules/jquery-selectric/selectric.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.css">
     <link rel="shortcut icon" href="{{ asset(optional($site_setting)->favicon ?? 'favicon.ico') }}" />
 
     <style>
@@ -68,6 +67,7 @@
             background-color: var(--primary-color) !important;
             color: #fff !important;
         }
+        .note-toolbar-wrapper { height: auto !important; }
         .btn-danger { background-color: var(--secondary-color); border-color: var(--secondary-color); }
         .btn-danger:hover { background-color: var(--secondary-color); opacity: 0.85; border-color: var(--secondary-color); }
         .btn-success { background-color: var(--primary-color); border-color: var(--primary-color); }
@@ -469,14 +469,13 @@
     <script src="{{ asset('assets/js/avgrund.js') }}"></script>
     <script src="{{ asset('assets/vendors/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/tinymce/themes/modern/theme.js') }}"></script>
-    <script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('assets/js/data-table.js') }}"></script>
     <script src="{{ asset('assets/js/wizard.js') }}"></script>
     <script src="{{ asset('assets/modules/dropzone.min.js') }}"></script>
     <script src="{{ asset('assets/modules/components-multiple-upload.js') }}"></script>
     <script src="{{ asset('assets2/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('assets2/js/stisla.js') }}"></script>
-    <script src="{{ asset('assets2/modules/summernote/summernote-bs4.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.js"></script>
     <script src="{{ asset('assets2/modules/codemirror/lib/codemirror.js') }}"></script>
     <script src="{{ asset('assets2/modules/codemirror/mode/javascript/javascript.js') }}"></script>
     <script src="{{ asset('assets2/modules/jquery-selectric/jquery.selectric.min.js') }}"></script>

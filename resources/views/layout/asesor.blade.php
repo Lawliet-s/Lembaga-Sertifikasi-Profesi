@@ -10,11 +10,11 @@
     <!-- /////////////////////////////////// -->
     <!-- ASSETS -->
     <!-- /////////////////////////////////// -->
-    <link rel="stylesheet" href="{{ asset('assets/vendors/summernote/dist/summernote-bs4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/iconfonts/font-awesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.css">
     <link rel="shortcut icon" href="{{ asset(optional($site_setting)->favicon ?? 'favicon.ico') }}" />
 
     <style>
@@ -240,7 +240,7 @@
     <script src="{{ asset('assets/js/avgrund.js') }}"></script>
     <script src="{{ asset('assets/vendors/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/tinymce/themes/modern/theme.js') }}"></script>
-    <script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.js"></script>
     <script src="{{ asset('assets/js/data-table.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation.js') }}"></script>
     <script src="{{ asset('assets/js/bt-maxLength.js') }}"></script>

@@ -336,19 +336,59 @@ $(function() {
     $('.chat-content').getNiceScroll(0).doScrollTop($('.chat-content').height());
   }
 
-  if(jQuery().summernote) {   
-    $(".summernote").summernote({
-       dialogsInBody: true,
-      minHeight: 250,
+  // Summernote: initialize lazily when visible
+  function initSummernote($el) {
+    $el.each(function () {
+      var $t = $(this);
+      if (!$t.data('summernote')) {
+        $t.summernote({
+          height: 200,
+          toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+          ]
+        });
+      }
     });
-    $(".summernote-simple").summernote({
-       dialogsInBody: true,
-      minHeight: 150,
-      toolbar: [
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['font', ['strikethrough']],
-        ['para', ['paragraph']]
-      ]
+  }
+
+  function initSummernoteSimple($el) {
+    $el.each(function () {
+      var $t = $(this);
+      if (!$t.data('summernote')) {
+        $t.summernote({
+          height: 150,
+          toolbar: [
+            ['style', ['bold', 'italic', 'underline']],
+            ['para', ['ul', 'ol']],
+            ['insert', ['link']],
+            ['view', ['fullscreen']]
+          ]
+        });
+      }
+    });
+  }
+
+  if (typeof $().summernote === 'function') {
+    initSummernote($('.summernote:visible'));
+
+    $(document).on('shown.bs.collapse', function (e) {
+      initSummernote($(e.target).find('.summernote'));
+      initSummernoteSimple($(e.target).find('.summernote-simple'));
+    });
+
+    $(document).on('shown.bs.tab', function (e) {
+      var $pane = $($(e.target).attr('href'));
+      initSummernote($pane.find('.summernote'));
+      initSummernoteSimple($pane.find('.summernote-simple'));
+    });
+
+    $(document).on('shown.bs.modal', function (e) {
+      initSummernote($(e.target).find('.summernote'));
+      initSummernoteSimple($(e.target).find('.summernote-simple'));
     });
   }
 
