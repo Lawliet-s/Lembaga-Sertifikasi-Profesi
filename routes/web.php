@@ -245,6 +245,7 @@ Route::middleware('role:admin')->get('admin', [App\Http\Controllers\Dashboard_ad
 Route::middleware(['role:asesor', 'throttle:asesor'])->prefix('dashboard-asesor')->group(function () {
     Route::get('/', [AsesorDashboardController::class, 'index'])->name('dashboard.asesor');
     Route::get('profil', [AsesorDashboardController::class, 'profil'])->name('asesor.profil');
+    Route::put('profil', [AsesorDashboardController::class, 'updateProfil'])->name('asesor.profil.update');
     Route::get('penilaian', [AsesorDashboardController::class, 'penilaian'])->name('asesor.penilaian');
     Route::get('penilaian/{register}', [AsesorDashboardController::class, 'penilaianShow'])->name('asesor.penilaian.show');
     Route::post('penilaian/{register}/update', [AsesorDashboardController::class, 'updatePenilaian'])->name('asesor.penilaian.update');

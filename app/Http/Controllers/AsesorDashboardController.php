@@ -8,9 +8,11 @@ use App\Models\Observasi;
 use App\Models\Penilaian;
 use App\Models\Tuk;
 use App\Models\Unikom;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AsesorDashboardController extends Controller
@@ -327,6 +329,51 @@ class AsesorDashboardController extends Controller
             ]);
         }
 
-        return view('asesor.profil', compact('asesor'));
+        return view('asesor.profil', compact('user', 'asesor'));
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $user = auth()->user();
+        $asesor = Asesor::where('email', $user->email)->first();
+
+        $request->validate([
+            'name'     => 'required|string|max:100',
+            'email'    => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:6|max:255|confirmed',
+            'image'    => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $userData = [
+            'name'  => $request->name,
+            'email' => $request->email,
+        ];
+
+        if ($request->filled('password')) {
+            $userData['password'] = Hash::make($request->password);
+        }
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            if ($user->image && file_exists(public_path($user->image))) {
+                @unlink(public_path($user->image));
+            }
+
+            $newImage = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/users'), $newImage);
+            $userData['image'] = 'uploads/users/' . $newImage;
+        }
+
+        User::whereId($user->id)->update($userData);
+
+        if ($asesor) {
+            $asesor->update([
+                'nama'  => $request->name,
+                'email' => $request->email,
+            ]);
+        }
+
+        return redirect()->route('asesor.profil')->with('success', 'Profil berhasil diperbarui.');
     }
 }

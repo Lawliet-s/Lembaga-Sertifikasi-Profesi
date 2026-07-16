@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Asesi',
                 'nik' => '1234567890123456',
-                'password' => bcrypt(env('SEEDER_ASESIS_PASSWORD', 'asesi123!')),
+                'password' => bcrypt(env('SEEDER_ASESIS_PASSWORD', 'asesi')),
                 'jurusan_id' => 1,
             ]
         );
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             ['email' => env('SEEDER_ASESOR_EMAIL', 'asesor@asesor.com')],
             [
                 'name' => 'Asesor',
-                'password' => bcrypt(env('SEEDER_ASESOR_PASSWORD', 'asesor123!')),
+                'password' => bcrypt(env('SEEDER_ASESOR_PASSWORD', 'asesor')),
                 'role' => 'asesor',
                 'jurusan_id' => 1,
             ]

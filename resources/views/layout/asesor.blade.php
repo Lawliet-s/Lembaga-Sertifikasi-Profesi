@@ -31,13 +31,8 @@
         .alert-danger { background-color: var(--secondary-color); color: #fff; border-color: var(--secondary-color); }
         .alert-success { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
         .alert-danger .close, .alert-success .close { color: #fff; }
-        .sidebar .sub-menu .nav-item .nav-link {
-            color: #000 !important;
-            font-size: 0.75rem !important;
-            padding-right: 0.5rem !important;
-        }
-        .sidebar .sub-menu .nav-item .nav-link:hover {
-            color: #555 !important;
+        .navbar.default-layout-navbar .navbar-menu-wrapper {
+            background: var(--primary-color);
         }
     </style>
 </head>
@@ -76,7 +71,7 @@
                     <li class="nav-item dropdown">
                     </li>
                     <li>
-                        <div class="card-subtitle2">
+                        <div class="card-subtitle2 text-white">
                             <h5> <i class="fas fa-user"></i> WEBSITE ASESOR - {{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }}</h5>
                         </div>
                     </li>
@@ -95,18 +90,22 @@
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown"
                             aria-expanded="false">
                             @if (Auth::user()->image)
-                                <img src="{{ asset(Auth::user()->image) }}" alt="profile">
+                                <img src="{{ asset(Auth::user()->image) }}" alt="profile" style="object-fit: cover;">
                             @else
-                                <img src="{{ asset('general/assets/images/photo.jpg') }}" alt="profile">
+                                <img src="{{ asset('general/assets/images/photo.jpg') }}" alt="profile" style="object-fit: cover;">
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
+                            <a href="{{ route('asesor.profil') }}" class="dropdown-item">
+                                <i class="fas fa-user mr-2"></i>
+                                Profil Saya
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('asesor.logout') }}"
                                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();"><i
-                                    class="fas fa-power-off text-primary"></i>
+                                    class="fas fa-power-off mr-2"></i>
                                 {{ __('Logout') }}</a>
                             <form id="logout-form" action="{{ route('asesor.logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -128,9 +127,9 @@
                         <div class="nav-link">
                             <div class="profile-image">
                                 @if (Auth::user()->image)
-                                    <img src="{{ asset(Auth::user()->image) }}" alt="profile">
+                                    <img src="{{ asset(Auth::user()->image) }}" alt="profile" style="object-fit: cover;">
                                 @else
-                                    <img src="{{ asset('general/assets/images/photo.jpg') }}" alt="profile">
+                                    <img src="{{ asset('general/assets/images/photo.jpg') }}" alt="profile" style="object-fit: cover;">
                                 @endif
                             </div>
                             <div class="profile-name">
@@ -256,35 +255,6 @@
 
     @yield('foot')
 
-    <script>
-        $(function() {
-            @if (session('success'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: {!! json_encode(session('success')) !!},
-                    timer: 4000,
-                    timerProgressBar: true,
-                    showConfirmButton: true,
-                    confirmButtonText: 'OK',
-                    confirmButtonColor: '{{ $site_setting->primary_color ?? '#9b0000e2' }}'
-                });
-            @endif
-
-            @if (session('error'))
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal!',
-                    text: {!! json_encode(session('error')) !!},
-                    timer: 5000,
-                    timerProgressBar: true,
-                    showConfirmButton: true,
-                    confirmButtonText: 'OK',
-                    confirmButtonColor: '{{ $site_setting->secondary_color ?? '#f84949e2' }}'
-                });
-            @endif
-        });
-    </script>
 </body>
 
 
