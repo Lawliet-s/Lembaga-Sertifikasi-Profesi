@@ -40,10 +40,10 @@
                             <div class="col-md-12">
                                 <div class="left-content">
                                     <span>{{ $site_setting->title ?? 'Lembaga Sertifikasi Profesi' }}</span>
-                                    <ul class="u-custom-font u-font-arial u-text u-text-2"
+                                    <div class="u-custom-font u-font-arial u-text u-text-2"
                                         data-animation-name="customAnimationIn" data-animation-duration="1000">
                                         {!! $profil->profil ?? '' !!}
-                                    </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -95,4 +95,22 @@
 
     <br><br><br><br>
     <!-- ***** Akhir Konten ***** -->
+@endsection
+
+@section('css')
+<style>
+    .more-info .left-content .u-custom-font {
+        text-align: left;
+    }
+    .more-info .left-content ul,
+    .more-info .left-content ol {
+        list-style: revert;
+        padding-left: 40px;
+    }
+    @media (max-width: 992px) {
+        .more-info .left-content {
+            text-align: left;
+        }
+    }
+</style>
 @endsection
