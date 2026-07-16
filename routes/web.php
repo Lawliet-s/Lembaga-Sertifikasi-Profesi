@@ -38,6 +38,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValidasiController;
 use App\Http\Controllers\XnxxController;
 use App\Http\Controllers\TutorialController;
+use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\JadwalController;
 
 
@@ -108,6 +109,9 @@ Route::post('password/reset', [App\Http\Controllers\Auth\ResetPasswordController
 
 // =============== ADMIN WEB ===============
 Route::group(['middleware' => ['role:admin', 'throttle:admin', 'honeypot']], function () {
+    // <------------------ PROFIL SAYA  ------------------>
+    Route::get('admin/profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::put('admin/profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
     // <------------------  DASHBOARD  ------------------>
     Route::resource('admin', Dashboard_adminController::class);
     // <------------------ SKEMA  ------------------>

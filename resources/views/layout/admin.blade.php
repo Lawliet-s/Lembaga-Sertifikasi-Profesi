@@ -138,14 +138,18 @@
                     <li style="color: #fff" class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown"
                             aria-expanded="false">
-                                <img src="{{ asset('general/assets/images/lsp_small.jpg') }}" alt="profile">
+                                @if (Auth::user()->image)
+                                    <img src="{{ asset(Auth::user()->image) }}" alt="profile" style="object-fit: cover;">
+                                @else
+                                    <img src="{{ asset('general/assets/images/photo.jpg') }}" alt="profile" style="object-fit: cover;">
+                                @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
-                            {{-- <a href="{{ route('user.show', Auth::user()->id) }}" class="dropdown-item">
+                            <a href="{{ route('admin.profile.edit') }}" class="dropdown-item">
                                 <i class="fas fa-cog text-primary"></i>
                                 Setting Akun
-                            </a> --}}
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
@@ -230,7 +234,11 @@
                     <li class="nav-item nav-profile">
                         <div id="home" class="nav-link">
                             <div class="profile-image">
-                                    <img src="{{ asset('general/assets/images/lsp_small.jpg') }}" alt="profile">
+                                    @if (Auth::user()->image)
+                                        <img src="{{ asset(Auth::user()->image) }}" alt="profile" style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('general/assets/images/photo.jpg') }}" alt="profile" style="object-fit: cover;">
+                                    @endif
                             </div>
                             <div class="profile-name">
                                 <p class="name">
