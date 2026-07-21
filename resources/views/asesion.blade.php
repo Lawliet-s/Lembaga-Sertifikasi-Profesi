@@ -191,61 +191,6 @@
         @endforeach
 
 
-
-        {{-- <-------------------- BERHASIL DIVALIDASI --------------------> --}}
-        @foreach ($datareg2 as $asu)
-            <div class="card col-md-7">
-                <div class="card-body">
-                    <div class="row">
-                        <a href="{{ route('rekap_pendaftaran', $asu->id) }}"><button
-                                class="btn btn-info btn-rounded btn-sm"><i class="fa fa-book "></i> Print Bukti
-                                Pendaftaran
-                            </button></a>
-                        <a href="{{ route('info_sertifikasi', $asu->id) }}"><button
-                                class="btn btn-warning btn-rounded btn-sm"><i class="fa fa-info-circle "></i> Informasi
-                                Sertifikasi
-                            </button></a>
-                    </div><br>
-                    <div class="row">
-                        <h4 class="card-title mb-0">{{ $asu->skema_name }}</h4>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-inline-block pt-3">
-                            <div class="d-md-flex">
-                                <h2 class="mb-0">#{{ $asu->id }}</h2>
-                                <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
-                                    <i class="far fa-calendar text-muted"></i>
-                                    <small class=" ml-1 mb-0">{{ $asu->date }}</small>
-                                </div>
-                                <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
-                                    <i class="far fa-clock text-muted"></i>
-                                    <small class=" ml-1 mb-0">Waktu {{ $asu->time }}</small>
-                                </div>
-                            </div><br>
-                            <div class="d-md-flex">
-                                <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
-                                    <i class="far fa-user text-muted"></i>
-                                    <small class=" ml-1 mb-0">Asesor: {{ $asu->asesor?->nama ?? '-' }}</small>
-                                </div>
-                                <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
-                                    <i class="far fa-map text-muted"></i>
-                                    <small class=" ml-1 mb-0">Lokasi: {{ $asu->tuk?->tuk ?? '-' }}</small>
-                                </div>
-                            </div><br>
-                            <div class="d-md-flex">
-                                <div class="d-flex align-items-center ml-md-2 mt-2 mt-md-0">
-                                    <i class="fas fa-circle-notch text-muted"></i>
-                                    <small class=" ml-1 mb-0">Skema dalam proses sertifikasi</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-inline-block">
-                            {{ $asu->status }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
         {{-- <-------------------- BLACKLIST --------------------> --}}
         @foreach ($datareg5 as $asu)
             <div class="card col-md-7">
