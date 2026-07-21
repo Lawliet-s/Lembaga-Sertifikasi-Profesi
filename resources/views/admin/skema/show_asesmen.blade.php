@@ -105,7 +105,7 @@
                                         </div>
                                     </td>
                                     <td>{{ $asu->asesmen }}</td>
-                                    <td>{{ $asu->kriteria }}</td>
+                                    <td>{!! $asu->kriteria !!}</td>
                                 </tr>
                             @endforeach
                         </tbody>

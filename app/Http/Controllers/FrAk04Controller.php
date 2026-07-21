@@ -14,11 +14,6 @@ class FrAk04Controller extends Controller
         $userId = Auth::id();
 
         $registrations = Data_register::where('user_id', $userId)
-            ->where(function ($q) {
-                $q->where('status', 'LIKE', '%Sertifikasi Selesai%')
-                  ->orWhere('status', 'LIKE', '%Belum Kompeten%')
-                  ->orWhereHas('frAk04');
-            })
             ->with('frAk04')
             ->get();
 

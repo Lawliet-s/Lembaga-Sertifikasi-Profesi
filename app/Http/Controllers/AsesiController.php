@@ -30,9 +30,7 @@ class AsesiController extends Controller
 
 
     public function info_skema(){
-        $skema = Skema::whereHas('verifikasi_skema', function($q) {
-            $q->where('name', 'Aktif');
-        })->get();
+        $skema = Skema::where('status_id', 'Aktif')->get();
         return view('asesi/info_skema', compact('skema'));
     }
 

@@ -17,12 +17,6 @@ class FrAk01Controller extends Controller
         $userId = Auth::id();
 
         $registrations = Data_register::where('user_id', $userId)
-            ->where(function ($q) {
-                $q->where('status', 'LIKE', '%Pendaftaran Divalidasi%')
-                  ->orWhereHas('frAk01', function ($q2) {
-                      $q2->where('status', 'signed');
-                  });
-            })
             ->with('asesor', 'tuk', 'frAk01')
             ->get();
 
@@ -35,7 +29,7 @@ class FrAk01Controller extends Controller
             ->findOrFail($id);
 
         if ($registration->user_id !== Auth::id()) {
-            abort(403);
+            abort(403, 'Anda tidak memiliki akses ke data ini');
         }
 
         $skema = Skema::find($registration->skema_id);

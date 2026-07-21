@@ -127,23 +127,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Verifikasi</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" name="verifikasi_skema_id">
-                                <option value="" holder>Pilih Verifikasi</option>
-                                @foreach ($verifikasi_skemas as $result)
-                                    <option value="{{ $result->id }}"
-                                    @if ($skema->verifikasi_skema_id == $result->id)
-                                        selected
-                                    @endif>{{ $result->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
             </div>
             <button type="submit" class="btn btn-rounded btn-info btn-icon-text btn-block">
                 <i class="fa fa-magic btn-icon-prepend"></i>
