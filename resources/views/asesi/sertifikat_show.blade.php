@@ -81,7 +81,7 @@
                                     Jenis Kelamin &rarr;
                                 </span>
                                 <span class="float-right">
-                                    {{ $validasi->sex->sex }}
+                                    {{ optional($validasi->sex)->sex ?? '-' }}
                                 </span>
                             </p>
                             <p class="clearfix">
@@ -129,7 +129,7 @@
                                     Semester Kuliah &rarr;
                                 </span>
                                 <span class="float-right">
-                                    {{ $validasi->semester->semester }}
+                                    {{ optional($validasi->semester)->semester ?? '-' }}
                                 </span>
                             </p>
                             {{-- <p class="clearfix">

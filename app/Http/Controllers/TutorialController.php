@@ -18,6 +18,11 @@ class TutorialController extends Controller
         return view('admin.tutorial.create');
     }
 
+    public function show(Tutorial $tutorial)
+    {
+        return redirect()->route('tutorial.index');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

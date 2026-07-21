@@ -132,7 +132,7 @@
                                                     </td>
                                                     <td>{{ $asu->kode_unikom }}</td>
                                                     <td>{{ $asu->unikom }}</td>
-                                                    <td>{{ $asu->skema->skema }}</td>
+                                                    <td>{{ optional($asu->skema)->skema ?? '-' }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

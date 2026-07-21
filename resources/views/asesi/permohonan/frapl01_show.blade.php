@@ -57,43 +57,43 @@
             <table class="frapl01-table mb-4">
                 <tr>
                     <td class="label-cell">Nama Lengkap</td>
-                    <td><strong>{{ $permohonan->dataPribadi->nama_lengkap }}</strong></td>
+                    <td><strong>{{ optional($permohonan->dataPribadi)->nama_lengkap ?? '-' }}</strong></td>
                 </tr>
                 <tr>
                     <td class="label-cell">NIK</td>
-                    <td>{{ $permohonan->dataPribadi->nik }}</td>
+                    <td>{{ optional($permohonan->dataPribadi)->nik ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Tempat, Tanggal Lahir</td>
-                    <td>{{ $permohonan->dataPribadi->tempat_lahir }}, {{ \Carbon\Carbon::parse($permohonan->dataPribadi->tanggal_lahir)->format('d M Y') }}</td>
+                    <td>{{ optional($permohonan->dataPribadi)->tempat_lahir ?? '-' }}{{ $permohonan->dataPribadi ? ', ' . \Carbon\Carbon::parse($permohonan->dataPribadi->tanggal_lahir)->format('d M Y') : '' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Jenis Kelamin</td>
-                    <td>{{ $permohonan->dataPribadi->jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                    <td>{{ optional($permohonan->dataPribadi)->jenis_kelamin === 'L' ? 'Laki-laki' : (optional($permohonan->dataPribadi)->jenis_kelamin === 'P' ? 'Perempuan' : '-') }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Kebangsaan</td>
-                    <td>{{ $permohonan->dataPribadi->kebangsaan }}</td>
+                    <td>{{ optional($permohonan->dataPribadi)->kebangsaan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Alamat</td>
-                    <td>{{ $permohonan->dataPribadi->alamat }}</td>
+                    <td>{{ optional($permohonan->dataPribadi)->alamat ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Kode Pos</td>
-                    <td>{{ $permohonan->dataPribadi->kode_pos }}</td>
+                    <td>{{ optional($permohonan->dataPribadi)->kode_pos ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">No. HP</td>
-                    <td>{{ $permohonan->dataPribadi->no_hp }}</td>
+                    <td>{{ optional($permohonan->dataPribadi)->no_hp ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Email</td>
-                    <td>{{ $permohonan->dataPribadi->email }}</td>
+                    <td>{{ optional($permohonan->dataPribadi)->email ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Pendidikan</td>
-                    <td>{{ $permohonan->dataPribadi->pendidikan }}</td>
+                    <td>{{ optional($permohonan->dataPribadi)->pendidikan ?? '-' }}</td>
                 </tr>
             </table>
 
@@ -102,27 +102,27 @@
             <table class="frapl01-table mb-4">
                 <tr>
                     <td class="label-cell">Nama Perusahaan</td>
-                    <td><strong>{{ $permohonan->pekerjaan->nama_perusahaan }}</strong></td>
+                    <td><strong>{{ optional($permohonan->pekerjaan)->nama_perusahaan ?? '-' }}</strong></td>
                 </tr>
                 <tr>
                     <td class="label-cell">Jabatan</td>
-                    <td>{{ $permohonan->pekerjaan->jabatan }}</td>
+                    <td>{{ optional($permohonan->pekerjaan)->jabatan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Alamat Kantor</td>
-                    <td>{{ $permohonan->pekerjaan->alamat_kantor }}</td>
+                    <td>{{ optional($permohonan->pekerjaan)->alamat_kantor ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Kode Pos</td>
-                    <td>{{ $permohonan->pekerjaan->kode_pos_kantor }}</td>
+                    <td>{{ optional($permohonan->pekerjaan)->kode_pos_kantor ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Telepon Kantor</td>
-                    <td>{{ $permohonan->pekerjaan->telepon_kantor }}</td>
+                    <td>{{ optional($permohonan->pekerjaan)->telepon_kantor ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td class="label-cell">Email Kantor</td>
-                    <td>{{ $permohonan->pekerjaan->email_kantor }}</td>
+                    <td>{{ optional($permohonan->pekerjaan)->email_kantor ?? '-' }}</td>
                 </tr>
             </table>
 

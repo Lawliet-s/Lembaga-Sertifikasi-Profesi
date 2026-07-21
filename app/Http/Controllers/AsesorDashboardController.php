@@ -137,7 +137,7 @@ class AsesorDashboardController extends Controller
             $unikoms = Unikom::where('skema_id', $register->skema_id)->get();
         }
 
-        $aktivitasList = $observasi->aktivitas ?? [['nama' => '', 'hasil' => 'Baik']];
+        $aktivitasList = $observasi ? ($observasi->aktivitas ?? [['nama' => '', 'hasil' => 'Baik']]) : [['nama' => '', 'hasil' => 'Baik']];
 
         return view('asesor.observasi', compact('register', 'observasi', 'penilaians', 'unikoms', 'aktivitasList'));
     }

@@ -82,10 +82,6 @@
                                         {{ old('remember') ? 'checked' : '' }}>
                                     <label class="custom-control-label text-muted" for="remember" style="margin-left: 5px;">Ingatkan saya</label>
                                 </div>
-                                @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}" class="ml-auto mb-0 text-sm" style="align-self: center;">Lupa Password?</a>
-                                @endif
-
 
                             </div>
                             <div class="row mb-3 px-3">

@@ -33,6 +33,7 @@
         .alert-success { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
         .alert-danger .close, .alert-success .close { color: #fff; }
         .sidebar .nav .nav-item.nav-profile .profile-name .name { color: var(--primary-color) !important; }
+        .accordion.accordion-solid-header .card .card-header a[aria-expanded="true"] { background: var(--secondary-color) !important; }
     </style>
 </head>
 

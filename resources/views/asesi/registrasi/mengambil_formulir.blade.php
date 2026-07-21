@@ -78,8 +78,8 @@
                                             value="{{ $loop->iteration }}{{ Auth::user()->id }}{{ $skema->id }}">
                                         <input type="hidden" name="skema_id[]" value="{{ $skema->id }}">
                                         <input type="hidden" name="skema_name[]" value="{{ $skema->skema }}">
-                                        <input type="hidden" name="unikom_name[]" value="{{ $asu->unikom->unikom }}">
-                                        <input type="hidden" name="unikom_kode[]" value="{{ $asu->unikom->kode_unikom }}">
+                                        <input type="hidden" name="unikom_name[]" value="{{ optional($asu->unikom)->unikom ?? '' }}">
+                                        <input type="hidden" name="unikom_kode[]" value="{{ optional($asu->unikom)->kode_unikom ?? '' }}">
                                         <input type="hidden" name="asesmen_name[]" value="{{ $asu->asesmen }}">
                                         <input type="hidden" name="unikom_id[]" value="{{ $asu->id }}">
                                         <input type="hidden" name="kriteria[]" value="{{ $asu->kriteria }}">

@@ -46,6 +46,7 @@
                 <div class="card-body">
                     <form action="{{ route('tutorial.store') }}" method="POST" class="form-control">
                         @csrf
+                        @include('partials.honeypot')
                         <div class="card-body">
                             <h4 class="card-title"><i class="fas fa-plus"></i> Tambah Prosedur Sertifikasi</h4>
                             <div class="col-md-12">

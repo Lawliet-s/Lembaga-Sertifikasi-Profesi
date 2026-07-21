@@ -50,7 +50,7 @@
                 @forelse ($penilaians as $i => $p)
                 <tr>
                     <td>{{ $i + 1 }}</td>
-                    <td>{{ $p->unikom->unikom ?? $p->unikom->kode_unikom ?? '-' }}</td>
+                    <td>{{ optional($p->unikom)->unikom ?? optional($p->unikom)->kode_unikom ?? '-' }}</td>
                     <td>{{ ucfirst($p->nilai ?? '-') }}</td>
                 </tr>
                 @empty

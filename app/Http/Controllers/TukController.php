@@ -25,9 +25,11 @@ class TukController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'tuk' => ['required'],
-            'kode' => ['required'],
-            'alamat' => ['required'],
+            'tuk' => ['required', 'max:50'],
+            'kode' => ['required', 'max:50'],
+            'alamat' => ['required', 'max:50'],
+            'pengelola' => ['nullable', 'max:50'],
+            'jenis_tuk' => ['nullable', 'max:50'],
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ]);
         if ($request->hasFile('image')) {
@@ -61,6 +63,11 @@ class TukController extends Controller
     {
         $tuk = Tuk::findorfail($id);
         $request->validate([
+            'tuk' => ['nullable', 'max:50'],
+            'kode' => ['nullable', 'max:50'],
+            'alamat' => ['nullable', 'max:50'],
+            'pengelola' => ['nullable', 'max:50'],
+            'jenis_tuk' => ['nullable', 'max:50'],
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ]);
         if ($request->hasFile('image')) {

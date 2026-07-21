@@ -47,6 +47,7 @@
         <div class="card-body">
             <form action="{{ route('tutorial.store') }}" method="POST">
                 @csrf
+                @include('partials.honeypot')
                 <div class="form-group">
                     <label class="font-weight-bold text-primary">Judul Prosedur</label>
                     <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul') }}" placeholder="Masukkan judul prosedur" required>

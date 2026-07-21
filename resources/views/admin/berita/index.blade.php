@@ -129,7 +129,7 @@
                                     {{ $asu->title }}
                                 </td>
                                 <td>
-                                    {{ $asu->created_at->diffforhumans() }}
+                                    {{ optional($asu->created_at)->diffForHumans() ?? '-' }}
                                 </td>
                                 <td>
                                     {{ $asu->status }}

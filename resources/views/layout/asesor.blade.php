@@ -34,6 +34,7 @@
         .navbar.default-layout-navbar .navbar-menu-wrapper {
             background: var(--primary-color);
         }
+        .accordion.accordion-solid-header .card .card-header a[aria-expanded="true"] { background: var(--secondary-color) !important; }
     </style>
 </head>
 

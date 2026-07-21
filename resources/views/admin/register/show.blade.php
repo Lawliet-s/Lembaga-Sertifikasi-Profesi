@@ -51,7 +51,7 @@
                                 <tr><td class="text-muted">NIK</td><td>{{ $validasi->nik }}</td></tr>
                                 <tr><td class="text-muted">Tempat Lahir</td><td>{{ $validasi->tmpt_lahir }}</td></tr>
                                 <tr><td class="text-muted">Tanggal Lahir</td><td>{{ $validasi->tgl_lahir }}</td></tr>
-                                <tr><td class="text-muted">Jenis Kelamin</td><td>{{ $validasi->sex->sex ?? '-' }}</td></tr>
+                                <tr><td class="text-muted">Jenis Kelamin</td><td>{{ optional($validasi->sex)->sex ?? '-' }}</td></tr>
                                 <tr><td class="text-muted">Kewarganegaraan</td><td>{{ $validasi->negara }}</td></tr>
                                 <tr><td class="text-muted">Alamat</td><td>{{ $validasi->alamat }}</td></tr>
                                 <tr><td class="text-muted">Kode Pos</td><td>{{ $validasi->kode_post }}</td></tr>
@@ -60,8 +60,8 @@
                                 <tr><td class="text-muted">No. Telp Rumah</td><td>{{ $validasi->rmh ?? '-' }}</td></tr>
                                 <tr><td class="text-muted">No. Telp Kantor</td><td>{{ $validasi->ktr ?? '-' }}</td></tr>
                                 <tr><td class="text-muted">Pendidikan Terakhir</td><td>{{ $validasi->tmt }}</td></tr>
-                                <tr><td class="text-muted">Jurusan</td><td>{{ $validasi->jurusan->jurusan ?? '-' }}</td></tr>
-                                <tr><td class="text-muted">Semester Kuliah</td><td>{{ $validasi->semester->semester ?? '-' }}</td></tr>
+                                <tr><td class="text-muted">Jurusan</td><td>{{ optional($validasi->jurusan)->jurusan ?? '-' }}</td></tr>
+                                <tr><td class="text-muted">Semester Kuliah</td><td>{{ optional($validasi->semester)->semester ?? '-' }}</td></tr>
                             </table>
                             <div class="mt-4"></div>
 

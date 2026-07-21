@@ -25,16 +25,16 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-sm table-borderless mb-0">
-                        <tr><td style="width: 180px;">Nama Lengkap</td><td><strong>{{ $permohonan->dataPribadi->nama_lengkap }}</strong></td></tr>
-                        <tr><td>NIK</td><td>{{ $permohonan->dataPribadi->nik }}</td></tr>
-                        <tr><td>Tempat, Tanggal Lahir</td><td>{{ $permohonan->dataPribadi->tempat_lahir }}, {{ \Carbon\Carbon::parse($permohonan->dataPribadi->tanggal_lahir)->format('d M Y') }}</td></tr>
-                        <tr><td>Jenis Kelamin</td><td>{{ $permohonan->dataPribadi->jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan' }}</td></tr>
-                        <tr><td>Kebangsaan</td><td>{{ $permohonan->dataPribadi->kebangsaan }}</td></tr>
-                        <tr><td>Alamat</td><td>{{ $permohonan->dataPribadi->alamat }}</td></tr>
-                        <tr><td>Kode Pos</td><td>{{ $permohonan->dataPribadi->kode_pos }}</td></tr>
-                        <tr><td>No. HP</td><td>{{ $permohonan->dataPribadi->no_hp }}</td></tr>
-                        <tr><td>Email</td><td>{{ $permohonan->dataPribadi->email }}</td></tr>
-                        <tr><td>Pendidikan</td><td>{{ $permohonan->dataPribadi->pendidikan }}</td></tr>
+                        <tr><td style="width: 180px;">Nama Lengkap</td><td><strong>{{ optional($permohonan->dataPribadi)->nama_lengkap ?? '-' }}</strong></td></tr>
+                        <tr><td>NIK</td><td>{{ optional($permohonan->dataPribadi)->nik ?? '-' }}</td></tr>
+                        <tr><td>Tempat, Tanggal Lahir</td><td>{{ optional($permohonan->dataPribadi)->tempat_lahir ?? '-' }}{{ $permohonan->dataPribadi ? ', ' . \Carbon\Carbon::parse($permohonan->dataPribadi->tanggal_lahir)->format('d M Y') : '' }}</td></tr>
+                        <tr><td>Jenis Kelamin</td><td>{{ optional($permohonan->dataPribadi)->jenis_kelamin === 'L' ? 'Laki-laki' : (optional($permohonan->dataPribadi)->jenis_kelamin === 'P' ? 'Perempuan' : '-') }}</td></tr>
+                        <tr><td>Kebangsaan</td><td>{{ optional($permohonan->dataPribadi)->kebangsaan ?? '-' }}</td></tr>
+                        <tr><td>Alamat</td><td>{{ optional($permohonan->dataPribadi)->alamat ?? '-' }}</td></tr>
+                        <tr><td>Kode Pos</td><td>{{ optional($permohonan->dataPribadi)->kode_pos ?? '-' }}</td></tr>
+                        <tr><td>No. HP</td><td>{{ optional($permohonan->dataPribadi)->no_hp ?? '-' }}</td></tr>
+                        <tr><td>Email</td><td>{{ optional($permohonan->dataPribadi)->email ?? '-' }}</td></tr>
+                        <tr><td>Pendidikan</td><td>{{ optional($permohonan->dataPribadi)->pendidikan ?? '-' }}</td></tr>
                     </table>
                 </div>
             </div>
@@ -45,12 +45,12 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-sm table-borderless mb-0">
-                        <tr><td style="width: 180px;">Nama Perusahaan</td><td><strong>{{ $permohonan->pekerjaan->nama_perusahaan }}</strong></td></tr>
-                        <tr><td>Jabatan</td><td>{{ $permohonan->pekerjaan->jabatan }}</td></tr>
-                        <tr><td>Alamat Kantor</td><td>{{ $permohonan->pekerjaan->alamat_kantor }}</td></tr>
-                        <tr><td>Kode Pos</td><td>{{ $permohonan->pekerjaan->kode_pos_kantor }}</td></tr>
-                        <tr><td>Telepon</td><td>{{ $permohonan->pekerjaan->telepon_kantor }}</td></tr>
-                        <tr><td>Email Kantor</td><td>{{ $permohonan->pekerjaan->email_kantor }}</td></tr>
+                        <tr><td style="width: 180px;">Nama Perusahaan</td><td><strong>{{ optional($permohonan->pekerjaan)->nama_perusahaan ?? '-' }}</strong></td></tr>
+                        <tr><td>Jabatan</td><td>{{ optional($permohonan->pekerjaan)->jabatan ?? '-' }}</td></tr>
+                        <tr><td>Alamat Kantor</td><td>{{ optional($permohonan->pekerjaan)->alamat_kantor ?? '-' }}</td></tr>
+                        <tr><td>Kode Pos</td><td>{{ optional($permohonan->pekerjaan)->kode_pos_kantor ?? '-' }}</td></tr>
+                        <tr><td>Telepon</td><td>{{ optional($permohonan->pekerjaan)->telepon_kantor ?? '-' }}</td></tr>
+                        <tr><td>Email Kantor</td><td>{{ optional($permohonan->pekerjaan)->email_kantor ?? '-' }}</td></tr>
                     </table>
                 </div>
             </div>

@@ -129,7 +129,7 @@ Input Observasi | {{ $site_setting->title ?? 'LSP' }}
                                 <tbody>
                                     @forelse ($penilaians as $p)
                                         <tr>
-                                            <td>{{ $p->unikom->unikom ?? $p->unikom->kode_unikom ?? '-' }}</td>
+                                            <td>{{ optional($p->unikom)->unikom ?? optional($p->unikom)->kode_unikom ?? '-' }}</td>
                                             <td class="text-center">
                                                 @if ($p->nilai === 'kompeten')
                                                     <span class="badge badge-success">Kompeten</span>

@@ -28,54 +28,54 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Nama Lengkap <span class="text-danger">*</span></label>
-                                <input type="text" name="nama_lengkap" class="form-control" value="{{ old('nama_lengkap', $permohonan->dataPribadi->nama_lengkap) }}" required>
+                                <input type="text" name="nama_lengkap" class="form-control" value="{{ old('nama_lengkap', optional($permohonan->dataPribadi)->nama_lengkap) }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">NIK <span class="text-danger">*</span></label>
-                                <input type="text" name="nik" class="form-control" value="{{ old('nik', $permohonan->dataPribadi->nik) }}" required>
+                                <input type="text" name="nik" class="form-control" value="{{ old('nik', optional($permohonan->dataPribadi)->nik) }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Tempat Lahir <span class="text-danger">*</span></label>
-                                <input type="text" name="tempat_lahir" class="form-control" value="{{ old('tempat_lahir', $permohonan->dataPribadi->tempat_lahir) }}" required>
+                                <input type="text" name="tempat_lahir" class="form-control" value="{{ old('tempat_lahir', optional($permohonan->dataPribadi)->tempat_lahir) }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Tanggal Lahir <span class="text-danger">*</span></label>
-                                <input type="date" name="tanggal_lahir" class="form-control" value="{{ old('tanggal_lahir', $permohonan->dataPribadi->tanggal_lahir) }}" required>
+                                <input type="date" name="tanggal_lahir" class="form-control" value="{{ old('tanggal_lahir', optional($permohonan->dataPribadi)->tanggal_lahir) }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Jenis Kelamin <span class="text-danger">*</span></label>
                                 <select name="jenis_kelamin" class="form-control" required>
                                     <option value="">-- Pilih --</option>
-                                    <option value="L" {{ ($permohonan->dataPribadi->jenis_kelamin ?? old('jenis_kelamin')) === 'L' ? 'selected' : '' }}>Laki-laki</option>
-                                    <option value="P" {{ ($permohonan->dataPribadi->jenis_kelamin ?? old('jenis_kelamin')) === 'P' ? 'selected' : '' }}>Perempuan</option>
+                                    <option value="L" {{ (optional($permohonan->dataPribadi)->jenis_kelamin ?? old('jenis_kelamin')) === 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                    <option value="P" {{ (optional($permohonan->dataPribadi)->jenis_kelamin ?? old('jenis_kelamin')) === 'P' ? 'selected' : '' }}>Perempuan</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Kebangsaan <span class="text-danger">*</span></label>
-                                <input type="text" name="kebangsaan" class="form-control" value="{{ old('kebangsaan', $permohonan->dataPribadi->kebangsaan) }}" required>
+                                <input type="text" name="kebangsaan" class="form-control" value="{{ old('kebangsaan', optional($permohonan->dataPribadi)->kebangsaan) }}" required>
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-bold">Alamat <span class="text-danger">*</span></label>
-                                <textarea name="alamat" class="form-control" rows="2" required>{{ old('alamat', $permohonan->dataPribadi->alamat) }}</textarea>
+                                <textarea name="alamat" class="form-control" rows="2" required>{{ old('alamat', optional($permohonan->dataPribadi)->alamat) }}</textarea>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-bold">Kode Pos <span class="text-danger">*</span></label>
-                                <input type="text" name="kode_pos" class="form-control" value="{{ old('kode_pos', $permohonan->dataPribadi->kode_pos) }}" required>
+                                <input type="text" name="kode_pos" class="form-control" value="{{ old('kode_pos', optional($permohonan->dataPribadi)->kode_pos) }}" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-bold">No. HP <span class="text-danger">*</span></label>
-                                <input type="text" name="no_hp" class="form-control" value="{{ old('no_hp', $permohonan->dataPribadi->no_hp) }}" required>
+                                <input type="text" name="no_hp" class="form-control" value="{{ old('no_hp', optional($permohonan->dataPribadi)->no_hp) }}" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-bold">Email <span class="text-danger">*</span></label>
-                                <input type="email" name="email" class="form-control" value="{{ old('email', $permohonan->dataPribadi->email) }}" required>
+                                <input type="email" name="email" class="form-control" value="{{ old('email', optional($permohonan->dataPribadi)->email) }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Pendidikan <span class="text-danger">*</span></label>
                                 <select name="pendidikan" class="form-control" required>
                                     <option value="">-- Pilih --</option>
                                     @foreach (['SD', 'SMP', 'SMA', 'D1', 'D2', 'D3', 'D4/S1', 'S2', 'S3'] as $pend)
-                                        <option value="{{ $pend }}" {{ old('pendidikan', $permohonan->dataPribadi->pendidikan) === $pend ? 'selected' : '' }}>{{ $pend }}</option>
+                                        <option value="{{ $pend }}" {{ old('pendidikan', optional($permohonan->dataPribadi)->pendidikan) === $pend ? 'selected' : '' }}>{{ $pend }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -91,27 +91,27 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Nama Perusahaan <span class="text-danger">*</span></label>
-                                <input type="text" name="nama_perusahaan" class="form-control" value="{{ old('nama_perusahaan', $permohonan->pekerjaan->nama_perusahaan) }}" required>
+                                <input type="text" name="nama_perusahaan" class="form-control" value="{{ old('nama_perusahaan', optional($permohonan->pekerjaan)->nama_perusahaan) }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Jabatan <span class="text-danger">*</span></label>
-                                <input type="text" name="jabatan" class="form-control" value="{{ old('jabatan', $permohonan->pekerjaan->jabatan) }}" required>
+                                <input type="text" name="jabatan" class="form-control" value="{{ old('jabatan', optional($permohonan->pekerjaan)->jabatan) }}" required>
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-bold">Alamat Kantor <span class="text-danger">*</span></label>
-                                <textarea name="alamat_kantor" class="form-control" rows="2" required>{{ old('alamat_kantor', $permohonan->pekerjaan->alamat_kantor) }}</textarea>
+                                <textarea name="alamat_kantor" class="form-control" rows="2" required>{{ old('alamat_kantor', optional($permohonan->pekerjaan)->alamat_kantor) }}</textarea>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-bold">Kode Pos <span class="text-danger">*</span></label>
-                                <input type="text" name="kode_pos_kantor" class="form-control" value="{{ old('kode_pos_kantor', $permohonan->pekerjaan->kode_pos_kantor) }}" required>
+                                <input type="text" name="kode_pos_kantor" class="form-control" value="{{ old('kode_pos_kantor', optional($permohonan->pekerjaan)->kode_pos_kantor) }}" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-bold">Telepon Kantor <span class="text-danger">*</span></label>
-                                <input type="text" name="telepon_kantor" class="form-control" value="{{ old('telepon_kantor', $permohonan->pekerjaan->telepon_kantor) }}" required>
+                                <input type="text" name="telepon_kantor" class="form-control" value="{{ old('telepon_kantor', optional($permohonan->pekerjaan)->telepon_kantor) }}" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-bold">Email Kantor <span class="text-danger">*</span></label>
-                                <input type="email" name="email_kantor" class="form-control" value="{{ old('email_kantor', $permohonan->pekerjaan->email_kantor) }}" required>
+                                <input type="email" name="email_kantor" class="form-control" value="{{ old('email_kantor', optional($permohonan->pekerjaan)->email_kantor) }}" required>
                             </div>
                         </div>
                     </div>

@@ -42,6 +42,7 @@
                         class="form-sample">
                         @csrf
                         @method('put')
+                        @include('partials.honeypot')
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">

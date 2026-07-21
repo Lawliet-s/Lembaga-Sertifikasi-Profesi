@@ -152,7 +152,7 @@ Route::group(['middleware' => ['role:admin', 'throttle:admin', 'honeypot']], fun
     Route::resource('info', InfoController::class);
     Route::put('save_image/{save_image}', [InfoController::class, 'save_image'])->name('save_image');
     // <------------------ TUTORIAL / PROSEDUR SERTIFIKASI  ------------------>
-    Route::resource('data-tutorial', TutorialController::class)->names('tutorial');
+    Route::resource('data-tutorial', TutorialController::class)->parameters(['data-tutorial' => 'tutorial'])->names('tutorial');
     // <------------------ JADWAL ASESMEN  ------------------>
     Route::resource('jadwal', JadwalController::class);
     // <------------------ FILE UPLOAD  ------------------>

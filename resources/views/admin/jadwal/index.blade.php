@@ -124,8 +124,8 @@
                                         </button>
                                     </div>
                                 </td>
-                                <td>{{ $item->skema->skema ?? '-' }}</td>
-                                <td>{{ $item->tuk->tuk ?? '-' }}</td>
+                                <td>{{ optional($item->skema)->skema ?? '-' }}</td>
+                                <td>{{ optional($item->tuk)->tuk ?? '-' }}</td>
                                 <td>{{ optional($item->tanggal)->format('d/m/Y') }}</td>
                                 <td>{{ $item->jam ?? '-' }}</td>
                                 <td>

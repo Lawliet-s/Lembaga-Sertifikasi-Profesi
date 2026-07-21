@@ -71,7 +71,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title"><i class="fab fa-pagelines"></i> Skema : {{ $unikom->skema->skema }} </h4>
+                <h4 class="card-title"><i class="fab fa-pagelines"></i> Skema : {{ optional($unikom->skema)->skema ?? '-' }} </h4>
                 <h4 class="card-title"><i class="fas fa-list-alt"></i> Unit : {{ $unikom->unikom }} </h4>
                 <div class="table-responsive table-striped">
                     <table class="table">

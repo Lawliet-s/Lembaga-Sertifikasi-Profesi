@@ -72,6 +72,10 @@
         .btn-danger:hover { background-color: var(--secondary-color); opacity: 0.85; border-color: var(--secondary-color); }
         .btn-success { background-color: var(--primary-color); border-color: var(--primary-color); }
         .btn-success:hover { background-color: var(--primary-color); opacity: 0.85; border-color: var(--primary-color); }
+        .settings-panel .nav-tabs { background: var(--secondary-color) !important; }
+        .settings-panel .btn-primary { background-color: var(--secondary-color); border-color: var(--secondary-color); }
+        .settings-panel .btn-primary:hover { background-color: var(--secondary-color); opacity: 0.85; border-color: var(--secondary-color); }
+        .accordion.accordion-solid-header .card .card-header a[aria-expanded="true"] { background: var(--secondary-color) !important; }
         .text-danger { color: var(--secondary-color) !important; }
         .bg-danger { background-color: var(--secondary-color) !important; }
         .alert-danger { background-color: var(--secondary-color); color: #fff; border-color: var(--secondary-color); }

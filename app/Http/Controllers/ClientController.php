@@ -38,10 +38,10 @@ class ClientController extends Controller
     public function clientutama()
     {
         $datatuk = Tuk::where('id', '>', 1)->count();
-        $dataasesi = User::where('id', '>', 2)->count();
+        $dataasesi = User::role('asesi')->count();
         $dataskema = Skema::all()->count();
         $datasertifikat = Data_register::where('status', 'Sertifikasi Selesai')->count();
-        $dataasesor = Asesor::where('id', '>', 1)->count();
+        $dataasesor = User::role('asesor')->count();
         $image2 = Beranda_img2::orderBy('created_at','desc')->take(4)->get();
         $carousel = Beranda_img1::all();
         $beranda = Beranda::all();

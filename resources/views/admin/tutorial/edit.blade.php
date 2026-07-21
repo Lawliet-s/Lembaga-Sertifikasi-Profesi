@@ -48,6 +48,7 @@
             <form action="{{ route('tutorial.update', $tutorial->id) }}" method="POST">
                 @csrf
                 @method('put')
+                @include('partials.honeypot')
                 <div class="form-group">
                     <label class="font-weight-bold text-primary">Judul Prosedur</label>
                     <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul', $tutorial->judul) }}" required>

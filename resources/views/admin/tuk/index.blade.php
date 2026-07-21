@@ -42,6 +42,7 @@
                     <form action="{{ route('tuk.store') }}" enctype="multipart/form-data" method="POST"
                         class="form-sample">
                         @csrf
+                        @include('partials.honeypot')
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">

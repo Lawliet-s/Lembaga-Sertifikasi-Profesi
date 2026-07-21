@@ -59,11 +59,11 @@
                     </tr>
                     <tr>
                         <td style="width: 600px" class="text-muted">Tanggal Lahir</td>
-                        <td style="width: 1000px">{{ $validasi->tgl_lahir->format('d-M-Y') }}</td>
+                        <td style="width: 1000px">{{ $validasi->tgl_lahir ? $validasi->tgl_lahir->format('d-M-Y') : '-' }}</td>
                     </tr>
                     <tr>
                         <td style="width: 600px" class="text-muted">Jenis Kelamin</td>
-                        <td style="width: 1000px">{{ $validasi->sex->sex }}</td>
+                        <td style="width: 1000px">{{ optional($validasi->sex)->sex ?? '-' }}</td>
                     </tr>
                     <tr>
                         <td style="width: 600px" class="text-muted">Kewarganegaraan</td>

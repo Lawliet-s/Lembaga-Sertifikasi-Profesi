@@ -230,10 +230,7 @@
                                                     </td>
                                                     <td class="">{{ $asu->kode_skema }}</td>
                                                     <td>{{ $asu->skema }}</td>
-                                                    <!-- <td>{{ $asu->asesor->nama }}</td>
-                                                        <td><label
-                                                                {{-- class="badge badge-light">{{ $asu->prodi->prodi }}</label> --}}
-                                                        </td> -->
+
                                                     <td>{{ $asu->status_id }}</td>
 
                                                     {{-- <td>@if ($asu->cekpendaftaran->cek)
