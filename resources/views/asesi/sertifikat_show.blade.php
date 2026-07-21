@@ -116,22 +116,6 @@
                                     {{ $validasi->no_hp }}
                                 </span>
                             </p>
-                            <p class="clearfix">
-                                <span class="float-left text-muted">
-                                    Jurusan Kuliah &rarr;
-                                </span>
-                                <span class="float-right">
-                                    {{ $validasi->jurusan ? $validasi->jurusan->jurusan : 'Tidak ditentukan' }}
-                                </span>
-                            </p>
-                            <p class="clearfix">
-                                <span class="float-left text-muted">
-                                    Semester Kuliah &rarr;
-                                </span>
-                                <span class="float-right">
-                                    {{ optional($validasi->semester)->semester ?? '-' }}
-                                </span>
-                            </p>
                             {{-- <p class="clearfix">
                                 <span class="float-left text-muted">
                                     Provinsi &rarr;
@@ -206,14 +190,6 @@
                         </p>
                         <p class="clearfix">
                                 <span class="float-left text-muted">
-                                    Fax &rarr;
-                                </span>
-                                <span class="float-right">
-                                    {{ $validasi->fax }}
-                                </span>
-                        </p>
-                        <p class="clearfix">
-                                <span class="float-left text-muted">
                                     Kode Post &rarr;
                                 </span>
                                 <span class="float-right">
@@ -250,12 +226,12 @@
                                 @foreach ($validasi->upload_files as $asu)
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">
-                                            <a class="nav-link active" href="{{ asset($asu->image) }}"
+                                            <a class="nav-link active" href="{{ asset('storage/' . $asu->image) }}"
                                                 target="_blank">
                                                 <i class="fas fa-download"></i>
                                                 {{ $asu->name }} &nbsp; &nbsp; &nbsp; &nbsp;
                                             </a>
-                                            <img src="{{ asset($asu->image) }}" width="100px" alt="">
+                                            <img src="{{ asset('storage/' . $asu->image) }}" width="100px" alt="">
                                             {{-- <br> {{ $asu->name }} --}}
                                         </a>
                                     </li>
@@ -286,7 +262,7 @@
                                             </td>
                                             <td>{{ $data->asesmen_name }}</td>
                                             <td>
-                                                <a href="{{ asset($data->image) }}" target="_blank"
+                                                <a href="{{ asset('storage/' . $data->image) }}" target="_blank"
                                                     class="btn btn-info btn-rounded"><i class="fas fa-eye"></i></a>
                                             </td>
                                         </tr>

@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <td style="width: 600px" class="text-muted">NIK</td>
-                        <td style="width: 1000px">{{ $validasi->nik }}</td>
+                        <td style="width: 1000px">{{ optional(optional($validasi->permohonan)->dataPribadi)->nik ?? $validasi->nik ?? '-' }}</td>
                     </tr>
                     <tr>
                         <td style="width: 600px" class="text-muted">Tempat Lahir</td>
@@ -86,24 +86,8 @@
                         <td style="width: 1000px">{{ $validasi->no_hp }}</td>
                     </tr>
                     <tr>
-                        <td style="width: 600px" class="text-muted">No Telp Rumah</td>
-                        <td style="width: 1000px">{{ $validasi->rmh }}</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 600px" class="text-muted">No Telp Kantor</td>
-                        <td style="width: 1000px">{{ $validasi->ktr }}</td>
-                    </tr>
-                    <tr>
                         <td style="width: 600px" class="text-muted">Pendidikan Terakhir</td>
                         <td style="width: 1000px">{{ $validasi->tmt }}</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 600px" class="text-muted">Jurusan</td>
-                        <td style="width: 1000px">{{ $validasi->jurusan ? $validasi->jurusan->jurusan : 'Tidak ditentukan' }}</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 600px" class="text-muted">Semester Kuliah</td>
-                        <td style="width: 1000px">{{ $validasi->semester ? $validasi->semester->semester : 'Tidak ditentukan' }}</td>
                     </tr>
                 </table><br>
                 <p class="font-weight-bold">Data Pekerjaan Sekarang</p>
