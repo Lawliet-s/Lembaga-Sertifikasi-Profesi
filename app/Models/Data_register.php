@@ -62,7 +62,7 @@ class Data_register extends Model
         'tmt',
         'rmh',
         'alamat_kantor',
-
+        'nik',
     ];
 
     protected $dates = ['tgl_lahir', 'date', 'created_at', 'updated_at'];
