@@ -221,12 +221,6 @@
                                     <a class="nav-link" href="{{ route('permohonan.frapl01') }}">Status Permohonan</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('frak01.index') }}">FR.AK.01</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('frak03.index') }}">FR.AK.03</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('frak04.index') }}">FR.AK.04</a>
                                 </li>
                             </ul>

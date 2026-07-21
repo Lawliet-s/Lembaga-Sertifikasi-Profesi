@@ -212,21 +212,12 @@ Route::group(['middleware' => ['auth', 'role:asesi', 'throttle:asesi', 'honeypot
     // <------------------  PERMOHONAN SERTIFIKASI  ------------------>
     Route::resource('permohonan', PermohonanController::class);
     Route::get('get-unit-kompetensi/{skemaId}', [PermohonanController::class, 'getUnitKompetensi'])->name('get.unit.kompetensi');
-    Route::get('frapl01', [PermohonanController::class, 'frapl01'])->name('permohonan.frapl01');
-    Route::get('frapl01/{id}', [PermohonanController::class, 'showFrapl01'])->name('permohonan.frapl01.show');
-    // <------------------  FR.AK.01  ------------------>
-    Route::get('frak01', [\App\Http\Controllers\FrAk01Controller::class, 'index'])->name('frak01.index');
-    Route::get('frak01/{data_register}', [\App\Http\Controllers\FrAk01Controller::class, 'show'])->name('frak01.show');
-    Route::post('frak01/{data_register}', [\App\Http\Controllers\FrAk01Controller::class, 'store'])->name('frak01.store');
-    Route::get('frak01/{data_register}/pdf', [\App\Http\Controllers\FrAk01Controller::class, 'pdf'])->name('frak01.pdf');
-    // <------------------  FR.AK.03  ------------------>
-    Route::get('frak03', [\App\Http\Controllers\FrAk03Controller::class, 'index'])->name('frak03.index');
-    Route::get('frak03/{data_register}', [\App\Http\Controllers\FrAk03Controller::class, 'show'])->name('frak03.show');
-    Route::post('frak03/{data_register}', [\App\Http\Controllers\FrAk03Controller::class, 'store'])->name('frak03.store');
-    // <------------------  FR.AK.04  ------------------>
-    Route::get('frak04', [\App\Http\Controllers\FrAk04Controller::class, 'index'])->name('frak04.index');
-    Route::get('frak04/{data_register}', [\App\Http\Controllers\FrAk04Controller::class, 'show'])->name('frak04.show');
-    Route::post('frak04/{data_register}', [\App\Http\Controllers\FrAk04Controller::class, 'store'])->name('frak04.store');
+     Route::get('frapl01', [PermohonanController::class, 'frapl01'])->name('permohonan.frapl01');
+     Route::get('frapl01/{id}', [PermohonanController::class, 'showFrapl01'])->name('permohonan.frapl01.show');
+     // <------------------  FR.AK.04  ------------------>
+     Route::get('frak04', [\App\Http\Controllers\FrAk04Controller::class, 'index'])->name('frak04.index');
+     Route::get('frak04/{data_register}', [\App\Http\Controllers\FrAk04Controller::class, 'show'])->name('frak04.show');
+     Route::post('frak04/{data_register}', [\App\Http\Controllers\FrAk04Controller::class, 'store'])->name('frak04.store');
     // <------------------  FR.APL.02  ------------------>
     Route::get('apl02', [\App\Http\Controllers\Apl02Controller::class, 'index'])->name('apl02.index');
     Route::get('apl02/create/{id}', [\App\Http\Controllers\Apl02Controller::class, 'create'])->name('apl02.create');
