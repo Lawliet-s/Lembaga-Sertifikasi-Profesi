@@ -46,7 +46,7 @@ class ValidasiController extends Controller
 
 
     public function show(Request $request, $id){
-        $validasi = Data_register::with(['xnxxes', 'upload_files'])->findOrFail($id);
+        $validasi = Data_register::with(['xnxxes', 'upload_files', 'permohonan.dataPribadi'])->findOrFail($id);
         $tuk = Tuk::all();
         $asesor = Asesor::all();
         $skema = Skema::with('unikoms')->find((int) $validasi->skema_id);
@@ -55,7 +55,7 @@ class ValidasiController extends Controller
 
 
     public function proses_show(Request $request, $id){
-        $validasi = Data_register::with(['xnxxes', 'upload_files'])->findOrFail($id);
+        $validasi = Data_register::with(['xnxxes', 'upload_files', 'permohonan.dataPribadi'])->findOrFail($id);
         $tuk = Tuk::all();
         $asesor = Asesor::all();
         return view('admin/register/proses_show', compact('validasi', 'tuk', 'asesor'));
@@ -63,7 +63,7 @@ class ValidasiController extends Controller
 
 
     public function sertifikat_show(Request $request, $id){
-        $validasi = Data_register::with(['xnxxes', 'upload_files'])->findOrFail($id);
+        $validasi = Data_register::with(['xnxxes', 'upload_files', 'permohonan.dataPribadi'])->findOrFail($id);
         $tuk = Tuk::all();
         $asesor = Asesor::all();
         return view('admin/register/sertifikat_show', compact('validasi', 'tuk', 'asesor'));

@@ -48,7 +48,7 @@
                             <hr class="my-2">
                             <table class="table table-bordered table-sm">
                                 <tr><td class="text-muted" style="width:120px">Nama Asesi</td><td>{{ $validasi->user_name }}</td></tr>
-                                <tr><td class="text-muted">NIK</td><td>{{ $validasi->nik }}</td></tr>
+                                <tr><td class="text-muted">NIK</td><td>{{ optional(optional($validasi->permohonan)->dataPribadi)->nik ?? $validasi->nik ?? '-' }}</td></tr>
                                 <tr><td class="text-muted">Tempat Lahir</td><td>{{ $validasi->tmpt_lahir }}</td></tr>
                                 <tr><td class="text-muted">Tanggal Lahir</td><td>{{ $validasi->tgl_lahir }}</td></tr>
                                 <tr><td class="text-muted">Jenis Kelamin</td><td>{{ optional($validasi->sex)->sex ?? '-' }}</td></tr>
@@ -57,11 +57,7 @@
                                 <tr><td class="text-muted">Kode Pos</td><td>{{ $validasi->kode_post }}</td></tr>
                                 <tr><td class="text-muted">Email</td><td>{{ $validasi->surel }}</td></tr>
                                 <tr><td class="text-muted">No. Handphone</td><td>{{ $validasi->no_hp }}</td></tr>
-                                <tr><td class="text-muted">No. Telp Rumah</td><td>{{ $validasi->rmh ?? '-' }}</td></tr>
-                                <tr><td class="text-muted">No. Telp Kantor</td><td>{{ $validasi->ktr ?? '-' }}</td></tr>
                                 <tr><td class="text-muted">Pendidikan Terakhir</td><td>{{ $validasi->tmt }}</td></tr>
-                                <tr><td class="text-muted">Jurusan</td><td>{{ optional($validasi->jurusan)->jurusan ?? '-' }}</td></tr>
-                                <tr><td class="text-muted">Semester Kuliah</td><td>{{ optional($validasi->semester)->semester ?? '-' }}</td></tr>
                             </table>
                             <div class="mt-4"></div>
 
@@ -75,7 +71,6 @@
                                 <tr><td class="text-muted">Kode Pos Kantor</td><td>{{ $validasi->postal }}</td></tr>
                                 <tr><td class="text-muted">No. Telp Kantor</td><td>{{ $validasi->telp }}</td></tr>
                                 <tr><td class="text-muted">Email Kantor</td><td>{{ $validasi->email3 }}</td></tr>
-                                <tr><td class="text-muted">No. Fax Kantor</td><td>{{ $validasi->fax ?? '-' }}</td></tr>
                             </table>
                         </div>
 
