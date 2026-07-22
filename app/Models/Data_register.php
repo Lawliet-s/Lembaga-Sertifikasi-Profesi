@@ -12,6 +12,23 @@ class Data_register extends Model
     public $incrementing = false;
     protected $keyType = 'int';
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($model) {
+            if ($model->isDirty('status') && $model->status === 'Sertifikasi Selesai') {
+                if (!$model->nomor_sertifikat) {
+                    $today = now()->format('Ymd');
+                    $count = static::whereDate('updated_at', now()->toDateString())
+                                  ->where('status', 'Sertifikasi Selesai')
+                                  ->count() + 1;
+                    $model->nomor_sertifikat = "LSP-{$today}-" . str_pad($count, 3, '0', STR_PAD_LEFT);
+                }
+            }
+        });
+    }
+
     protected $fillable = [
         'id',
         'id_skema',
@@ -63,6 +80,7 @@ class Data_register extends Model
         'rmh',
         'alamat_kantor',
         'nik',
+        'nomor_sertifikat',
     ];
 
     protected $dates = ['tgl_lahir', 'date', 'created_at', 'updated_at'];

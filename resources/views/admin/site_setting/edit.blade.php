@@ -172,6 +172,41 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Tanda Tangan Kepala LSP --}}
+                <h5 class="card-title mt-4">Tanda Tangan Kepala LSP</h5>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="kepala_lsp_name">Nama Kepala LSP</label>
+                            <input type="text" name="kepala_lsp_name" class="form-control" value="{{ old('kepala_lsp_name', $setting->kepala_lsp_name) }}">
+                            @error('kepala_lsp_name')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="foto_signature">Upload Foto Tanda Tangan</label>
+                            <input type="file" name="foto_signature" class="form-control" accept="image/*">
+                            <small class="form-text text-muted">Format: JPG, PNG. Maksimal 2MB</small>
+                            @error('foto_signature')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            @if($setting->foto_signature)
+                                <div class="mt-2">
+                                    <img src="{{ asset($setting->foto_signature) }}" width="100" alt="Current Foto Tanda Tangan">
+                                    <div class="form-check mt-1">
+                                        <input type="checkbox" class="form-check-input" name="clear_foto_signature" value="1" id="clear_foto_signature">
+                                        <label class="form-check-label" for="clear_foto_signature">Hapus Foto Tanda Tangan</label>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-success">Simpan</button>
             </form>
         </div>

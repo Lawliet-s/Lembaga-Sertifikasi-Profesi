@@ -6,6 +6,7 @@ use App\Helpers\MapsHelper;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 
 class SiteSettingController extends Controller
 {
@@ -22,14 +23,27 @@ class SiteSettingController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->only(['title', 'maps_embed', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'primary_color', 'secondary_color']);
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'kepala_lsp_name' => 'nullable|string|max:255',
+            'foto_signature' => 'nullable|image|max:2048',
+        ]);
+
+        $data = $request->only(['title', 'maps_embed', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'primary_color', 'secondary_color', 'kepala_lsp_name']);
         $data['footer_text'] = \App\Helpers\HtmlSanitizer::sanitize($request->footer_text ?? '');
-        foreach (['title', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email'] as $field) {
+        foreach (['title', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'kepala_lsp_name'] as $field) {
             if (isset($data[$field])) {
                 $data[$field] = \App\Helpers\HtmlSanitizer::plain($data[$field]);
             }
         }
         $data['maps_embed'] = MapsHelper::convertToEmbed($data['maps_embed'] ?? '');
+
+        if ($request->hasFile('foto_signature')) {
+            $file = $request->file('foto_signature');
+            $fileName = time() . '_foto_signature.' . $file->getClientOriginalExtension();
+            $file->move('uploads/site_settings/', $fileName);
+            $data['foto_signature'] = 'uploads/site_settings/' . $fileName;
+        }
 
         foreach (['logo', 'logo2', 'logo3', 'logo4'] as $field) {
             if ($request->hasFile($field)) {
@@ -84,15 +98,36 @@ class SiteSettingController extends Controller
     {
         $setting = SiteSetting::findorfail($id);
 
-        $data = $request->only(['title', 'maps_embed', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'primary_color', 'secondary_color']);
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'kepala_lsp_name' => 'nullable|string|max:255',
+            'foto_signature' => 'nullable|image|max:2048',
+        ]);
+
+        $data = $request->only(['title', 'maps_embed', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'primary_color', 'secondary_color', 'kepala_lsp_name']);
         $data['footer_text'] = \App\Helpers\HtmlSanitizer::sanitize($request->footer_text ?? '');
-        foreach (['title', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email'] as $field) {
+        foreach (['title', 'address', 'phone', 'instagram', 'facebook', 'twitter', 'email', 'kepala_lsp_name'] as $field) {
             if (isset($data[$field])) {
                 $data[$field] = \App\Helpers\HtmlSanitizer::plain($data[$field]);
             }
         }
         $data['maps_embed'] = MapsHelper::convertToEmbed($data['maps_embed'] ?? '');
 
+        if ($request->hasFile('foto_signature')) {
+            if ($setting->foto_signature && Storage::disk('public')->exists($setting->foto_signature)) {
+                Storage::disk('public')->delete($setting->foto_signature);
+            }
+            $file = $request->file('foto_signature');
+            $fileName = time() . '_foto_signature.' . $file->getClientOriginalExtension();
+            $file->move('uploads/site_settings/', $fileName);
+            $data['foto_signature'] = 'uploads/site_settings/' . $fileName;
+        } elseif ($request->input('clear_foto_signature')) {
+            if ($setting->foto_signature && Storage::disk('public')->exists($setting->foto_signature)) {
+                Storage::disk('public')->delete($setting->foto_signature);
+            }
+            $data['foto_signature'] = null;
+        }
+        
         foreach (['logo', 'logo2', 'logo3', 'logo4'] as $field) {
             if ($request->hasFile($field)) {
                 $file = $request->file($field);

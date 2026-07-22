@@ -67,12 +67,10 @@
                             <p class="mt-2 text-black font-weight-bold">{{ Auth::user()->jurusan ? Auth::user()->jurusan->jurusan : 'Jurusan tidak ditentukan' }}</p>
                             <p class="text-black font-weight-bold"><i class="fas fa-envelope"></i>
                                 {{ Auth::user()->email }}</p>
-                            <a href="{{ route('koleksi.sertifikat') }}">
-                                <p class="text text-black font-weight-bold"> <i
-                                        class="fas fa-certificate text-black font-weight-bold"></i> Koleksi Sertifikat:
-                                    {{ $datasertifikat }}
-                                </p>
-                            </a><br>
+                            <p class="text text-black font-weight-bold"> <i
+                                    class="fas fa-certificate text-black font-weight-bold"></i> Sertifikat Tersedia:
+                                {{ $datasertifikat }}
+                            </p><br>
                         </div>
                     </div>
                 </div>

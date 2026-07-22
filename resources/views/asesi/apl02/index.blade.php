@@ -30,7 +30,7 @@
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 10px;">#</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 80px;">Aksi</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 300px;">Skema</th>
-                                                <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 100px;">Kode Reg</th>
+                                                <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 100px;">Kode Registrasi</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 100px;">Tanggal</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 100px;">Status</th>
                                             </tr>
@@ -56,7 +56,7 @@
                                                         @endif
                                                     </td>
                                                     <td class="font-weight-bold">{{ $item->skema_name }}</td>
-                                                    <td><code>#{{ $item->id }}</code></td>
+                                                    <td><code>#{{ sprintf('%04d', $item->id) }}</code></td>
                                                     <td>{{ $item->created_at->format('d M Y') }}</td>
                                                     <td>@include('partials.status_badge', ['status' => $item->status])</td>
                                                 </tr>

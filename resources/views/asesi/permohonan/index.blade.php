@@ -35,8 +35,9 @@
                                         <thead>
                                             <tr class="bg-danger text-white" role="row">
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 10px;">#</th>
+                                                <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 70px;">Kode Registrasi</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 80px;">Aksi</th>
-                                                <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 300px;">Skema</th>
+                                                <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 280px;">Skema</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 100px;">Status</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 100px;">Tanggal</th>
                                             </tr>
@@ -45,6 +46,7 @@
                                             @forelse ($permohonans as $item)
                                                 <tr role="row" class="odd">
                                                     <td>{{ $loop->iteration }}</td>
+                                                    <td class="font-weight-bold">{{ sprintf('%04d', $item->data_register_id) }}</td>
                                                     <td class="text-right">
                                                         <div class="btn-group" role="group">
                                                             @if (in_array($item->status, ['diverifikasi', 'selesai']))
@@ -92,7 +94,7 @@
                                                 </tr>
                                             @empty
                                                 <tr role="row">
-                                                    <td colspan="5" class="text-center py-4 text-muted">
+                                                    <td colspan="6" class="text-center py-4 text-muted">
                                                         <i class="fas fa-file-alt fa-2x mb-2"></i><br>
                                                         Belum ada permohonan sertifikasi.<br>
                                                         <small>Ajukan permohonan baru untuk memulai proses sertifikasi.</small>

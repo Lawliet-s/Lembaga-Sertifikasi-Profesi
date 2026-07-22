@@ -33,7 +33,7 @@
                                     <table id="order-listing" class="table dataTable no-footer" role="grid"
                                         aria-describedby="order-listing_info">
                                         <thead>
-                                            <tr class="bg-danger text-white" role="row">
+                                             <tr role="row" style="background-color: var(--secondary-color); color: #fff;">
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 10px;">#</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 80px;">Aksi</th>
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing" rowspan="1" colspan="1" style="width: 150px;">Kode Registrasi</th>
@@ -46,11 +46,11 @@
                                                 <tr role="row" class="odd">
                                                     <td class="font-weight-bold">{{ $loop->iteration }}</td>
                                                     <td class="text-right">
-                                                        <a href="{{ route('asesi.sertifikat_show', Crypt::encryptString($item->id)) }}" class="btn btn-dark btn-sm font-weight-bold">
-                                                            <i class="fa fa-eye"></i> Lihat
-                                                        </a>
-                                                    </td>
-                                                    <td class="font-weight-bold">{{ $item->id }}</td>
+                                                         <a href="{{ route('asesi.sertifikat_show', Crypt::encryptString($item->id)) }}?print=1" class="btn btn-sm font-weight-bold" style="background-color: var(--secondary-color); color: #fff; border: none;" target="_blank">
+                                                             <i class="fa fa-print"></i> Cetak
+                                                         </a>
+                                                     </td>
+                                                     <td class="font-weight-bold">{{ sprintf('%04d', $item->id) }}</td>
                                                     <td class="font-weight-bold">{{ $item->skema_name }}</td>
                                                     <td class="font-weight-bold">{{ $item->updated_at }}</td>
                                                 </tr>

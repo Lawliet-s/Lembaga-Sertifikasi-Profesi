@@ -300,6 +300,7 @@ class PermohonanController extends Controller
             ]);
 
             $dataRegister->upload_files()->delete();
+            $permohonan->load('dokumens');
             $dokumenMap = [
                 'ktp' => 'KTP',
                 'kartu_keluarga' => 'Kartu Keluarga',

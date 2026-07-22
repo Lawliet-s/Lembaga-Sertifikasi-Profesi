@@ -19,7 +19,7 @@
             <ol class="breadcrumb breadcrumb-custom bg-danger">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}" style="color: var(--secondary-color)">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('list.sertifikat') }}" style="color: var(--secondary-color)">Data Pemegang Sertifikat</a></li>
-                <li class="breadcrumb-item active" style="color: #fff" aria-current="page">{{ $validasi->id }}</li>
+                <li class="breadcrumb-item active" style="color: #fff" aria-current="page">{{ sprintf('%04d', $validasi->id) }}</li>
             </ol>
         </nav>
     </div>
@@ -35,7 +35,7 @@
                             <h4 class="card-title"><i class="far fa-id-card"></i> Data Sertifikasi</h4>
                             <hr class="my-2">
                             <table class="table table-bordered table-sm">
-                                <tr><td class="text-muted" style="width:120px">Kode Registrasi</td><td>{{ $validasi->id }}</td></tr>
+								<tr><td class="text-muted" style="width:120px">Kode Registrasi</td><td>{{ sprintf('%04d', $validasi->id) }}</td></tr>
                                 <tr><td class="text-muted">Skema yang Diambil</td><td>{{ $validasi->skema_name }}</td></tr>
                                 <tr><td class="text-muted">Kode Skema</td><td>{{ $validasi->kode_skema }}</td></tr>
                                 <tr><td class="text-muted">Tujuan Sertifikasi</td><td>{{ $validasi->jenis }}</td></tr>

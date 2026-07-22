@@ -224,8 +224,18 @@
 
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('koleksi.sertifikat') }}">Koleksi
-                                        Sertifikat</a>
+                                    <a class="nav-link" href="{{ route('frak01.index') }}">FR.AK.01</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('frak03.index') }}">FR.AK.03</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('frak04.index') }}">FR.AK.04</a>
+                                </li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('koleksi.sertifikat') }}">Koleksi Sertifikat</a>
                                 </li>
                             </ul>
                         </div>

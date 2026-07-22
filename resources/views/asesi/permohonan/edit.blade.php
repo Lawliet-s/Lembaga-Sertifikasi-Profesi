@@ -72,12 +72,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold">Pendidikan <span class="text-danger">*</span></label>
-                                <select name="pendidikan" class="form-control" required>
-                                    <option value="">-- Pilih --</option>
-                                    @foreach (['SD', 'SMP', 'SMA', 'D1', 'D2', 'D3', 'D4/S1', 'S2', 'S3'] as $pend)
-                                        <option value="{{ $pend }}" {{ old('pendidikan', optional($permohonan->dataPribadi)->pendidikan) === $pend ? 'selected' : '' }}>{{ $pend }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="pendidikan" class="form-control" value="{{ old('pendidikan', optional($permohonan->dataPribadi)->pendidikan) }}" required>
                             </div>
                         </div>
                     </div>

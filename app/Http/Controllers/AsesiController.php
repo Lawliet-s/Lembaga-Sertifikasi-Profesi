@@ -42,19 +42,19 @@ class AsesiController extends Controller
     }
 
 
-    public function koleksi_sertifikat(){
-        $datareg = Data_register::where('user_id', auth()->user()->id)
-            ->where('status', 'Sertifikasi Selesai')
-            ->get();
-        return view('asesi/koleksi', compact('datareg'));
-    }
-
-
     public function sertifikat_show($id){
-        $decryptID = Crypt::decryptString($id);
-        $validasi = Data_register::where('user_id', auth()->id())->findOrFail($decryptID);
-        return view('asesi/sertifikat_show', compact('validasi'));
-    }
+         $decryptID = Crypt::decryptString($id);
+         $validasi = Data_register::where('user_id', auth()->id())->findOrFail($decryptID);
+         return view('asesi/sertifikat_show', compact('validasi'));
+     }
+
+
+     public function koleksi_sertifikat(){
+         $datareg = Data_register::where('user_id', auth()->user()->id)
+             ->where('status', 'Sertifikasi Selesai')
+             ->get();
+         return view('asesi/koleksi', compact('datareg'));
+     }
 
 
     public function instruksi_registrasi(){

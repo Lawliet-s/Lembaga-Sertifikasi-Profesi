@@ -35,7 +35,7 @@
                         <tr>
                             <th>#</th>
                             <th>Aksi</th>
-                            <th>Kode Register</th>
+                            <th>Kode Registrasi</th>
                             <th>Nama</th>
                             <th>Skema</th>
                             <th>Tanggal</th>
@@ -64,8 +64,8 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ $asu->id }}</td>
-                                <td>{{ $asu->user_name }}</td>
+								<td>{{ sprintf('%04d', $asu->id) }}</td>
+								<td>{{ $asu->user_name }}</td>
                                 <td>{{ $asu->skema_name }}</td>
                                 <td>{{ $asu->created_at->format('d-M-Y') }}</td>
                             </tr>

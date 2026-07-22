@@ -133,7 +133,7 @@ Route::group(['middleware' => ['role:admin', 'throttle:admin', 'honeypot']], fun
     Route::get('validasi2/{validasi}/edit', [ValidasiController::class, 'index_edit'])->name('validasi.edit2');
     Route::get('registrasi_baru', [ValidasiController::class, 'registrasi_baru'])->name('registrasi.baru');
     Route::get('proses_show/{proses_show}', [ValidasiController::class, 'proses_show'])->name('proses_show');
-    Route::get('sertifikat_show/{sertifikat_show}', [ValidasiController::class, 'sertifikat_show'])->name('sertifikat_show');
+    Route::get('admin/sertifikat/{sertifikat_show}', [ValidasiController::class, 'sertifikat_show'])->name('sertifikat_show');
     Route::get('blacklist_show/{blacklist_show}', [ValidasiController::class, 'blacklist_show'])->name('blacklist_show');
     Route::get('pengguna_ditolak', [ValidasiController::class, 'list_tolak'])->name('list.tolak');
     Route::get('pengguna_divalidasi', [ValidasiController::class, 'list_valid'])->name('list.valid');
@@ -195,10 +195,10 @@ Route::group(['middleware' => ['auth', 'role:asesi', 'throttle:asesi', 'honeypot
 
     Route::get('daftar', [RegistrasiController::class, 'daftar'])->name('daftar');
     // <------------------ ASSESMENT  ------------------>
-    Route::get('info_skema', [AsesiController::class, 'info_skema'])->name('info.skema');
-    Route::get('info_skema/show/{id}', [AsesiController::class, 'info_skema_show'])->name('info_skema.show');
-    Route::get('koleksi_sertifikat', [AsesiController::class, 'koleksi_sertifikat'])->name('koleksi.sertifikat');
-    Route::get('instruksi_registrasi', [AsesiController::class, 'instruksi_registrasi'])->name('instruksi.registrasi');
+      Route::get('info_skema', [AsesiController::class, 'info_skema'])->name('info.skema');
+      Route::get('info_skema/show/{id}', [AsesiController::class, 'info_skema_show'])->name('info_skema.show');
+      Route::get('instruksi_registrasi', [AsesiController::class, 'instruksi_registrasi'])->name('instruksi.registrasi');
+      Route::get('koleksi_sertifikat', [AsesiController::class, 'koleksi_sertifikat'])->name('koleksi.sertifikat');
     // <------------------ XNXX  ------------------>
     Route::post('for_apl2', [XnxxController::class, 'token_store'])->name('token.store');
     Route::post('Registrasi_Validate', [XnxxController::class, 'token2_store'])->name('token2.store');
@@ -206,9 +206,10 @@ Route::group(['middleware' => ['auth', 'role:asesi', 'throttle:asesi', 'honeypot
     Route::delete('register/{register}', [XnxxController::class, 'destroy2'])->name('register.destroy');
     Route::resource('identitas', Upload_DokumenController::class);
     Route::get('sertifikat_show/{id}', [AsesiController::class, 'sertifikat_show'])->name('asesi.sertifikat_show');
-    Route::get('rekap_pendaftaran/{id}', [RegistrasiController::class, 'rekap_pendaftaran'])->name('rekap_pendaftaran');
-    Route::get('info_sertifikasi/{id}', [RegistrasiController::class, 'info_sertifikasi'])->name('info_sertifikasi');
-    Route::get('data_edit_tolak/{id}', [RegistrasiController::class, 'data_edit_tolak'])->name('data_edit_tolak');
+     Route::get('rekap_pendaftaran/{id}', [RegistrasiController::class, 'rekap_pendaftaran'])->name('rekap_pendaftaran');
+     Route::get('info_sertifikasi/{id}', [RegistrasiController::class, 'info_sertifikasi'])->name('info_sertifikasi');
+     Route::get('data_edit_tolak/{id}', [RegistrasiController::class, 'data_edit_tolak'])->name('data_edit_tolak');
+     Route::get('sertifikat_show/{id}', [AsesiController::class, 'sertifikat_show'])->name('asesi.sertifikat_show');
     // <------------------  PERMOHONAN SERTIFIKASI  ------------------>
     Route::resource('permohonan', PermohonanController::class);
     Route::get('get-unit-kompetensi/{skemaId}', [PermohonanController::class, 'getUnitKompetensi'])->name('get.unit.kompetensi');
@@ -218,7 +219,22 @@ Route::group(['middleware' => ['auth', 'role:asesi', 'throttle:asesi', 'honeypot
      Route::get('apl02', [\App\Http\Controllers\Apl02Controller::class, 'index'])->name('apl02.index');
     Route::get('apl02/create/{id}', [\App\Http\Controllers\Apl02Controller::class, 'create'])->name('apl02.create');
     Route::post('apl02/store', [\App\Http\Controllers\Apl02Controller::class, 'store'])->name('apl02.store');
-    Route::get('apl02/{id}', [\App\Http\Controllers\Apl02Controller::class, 'show'])->name('apl02.show');
+     Route::get('apl02/{id}', [\App\Http\Controllers\Apl02Controller::class, 'show'])->name('apl02.show');
+    // <------------------  FR.AK.01  ------------------>
+    Route::get('frak01', [\App\Http\Controllers\FrAk01Controller::class, 'index'])->name('frak01.index');
+    Route::get('frak01/create/{id}', [\App\Http\Controllers\FrAk01Controller::class, 'create'])->name('frak01.create');
+    Route::post('frak01/store', [\App\Http\Controllers\FrAk01Controller::class, 'store'])->name('frak01.store');
+    Route::get('frak01/{id}', [\App\Http\Controllers\FrAk01Controller::class, 'show'])->name('frak01.show');
+    // <------------------  FR.AK.03  ------------------>
+    Route::get('frak03', [\App\Http\Controllers\FrAk03Controller::class, 'index'])->name('frak03.index');
+    Route::get('frak03/create/{id}', [\App\Http\Controllers\FrAk03Controller::class, 'create'])->name('frak03.create');
+    Route::post('frak03/store', [\App\Http\Controllers\FrAk03Controller::class, 'store'])->name('frak03.store');
+    Route::get('frak03/{id}', [\App\Http\Controllers\FrAk03Controller::class, 'show'])->name('frak03.show');
+    // <------------------  FR.AK.04  ------------------>
+    Route::get('frak04', [\App\Http\Controllers\FrAk04Controller::class, 'index'])->name('frak04.index');
+    Route::get('frak04/create/{id}', [\App\Http\Controllers\FrAk04Controller::class, 'create'])->name('frak04.create');
+    Route::post('frak04/store', [\App\Http\Controllers\FrAk04Controller::class, 'store'])->name('frak04.store');
+    Route::get('frak04/{id}', [\App\Http\Controllers\FrAk04Controller::class, 'show'])->name('frak04.show');
     // <------------------ PROFIL ASESI ------------------>
     Route::get('edit', [AsesiController::class, 'edit'])->name('profil.edit');
     Route::put('edit', [AsesiController::class, 'update'])->name('profil.update');
@@ -228,7 +244,9 @@ Route::group(['middleware' => ['auth', 'role:asesi', 'throttle:asesi', 'honeypot
 
 // =============== AUTH ===============
 Route::get('asesion', [App\Http\Controllers\HomeController::class, 'index3'])->name('asesion');
-Route::middleware('role:admin')->get('admin', [App\Http\Controllers\Dashboard_adminController::class, 'index'])->name('admin');
+Route::middleware('role:admin')->group(function () {
+    Route::get('admin', [App\Http\Controllers\Dashboard_adminController::class, 'index'])->name('admin');
+});
 Route::middleware(['role:asesor', 'throttle:asesor'])->prefix('dashboard-asesor')->group(function () {
     Route::get('/', [AsesorDashboardController::class, 'index'])->name('dashboard.asesor');
     Route::get('profil', [AsesorDashboardController::class, 'profil'])->name('asesor.profil');
