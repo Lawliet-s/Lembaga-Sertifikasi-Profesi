@@ -143,6 +143,52 @@
         </div>
     </div>
 
+    <!-- Daftar Skema Sertifikasi -->
+    <div class="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Daftar Skema Sertifikasi<em></em></h2>
+                        <span>▬▬▬▬▬<em>▬▬▬▬▬</em></span>
+                    </div>
+                </div>
+                @forelse ($skema->take(6) as $item)
+                    <div class="col-md-4">
+                        <a href="{{ route('skema_detail', Crypt::encryptString($item->id)) }}" style="text-decoration:none; color:inherit;">
+                            <div class="service-item" style="min-height:320px;">
+                                @if($item->image)
+                                    <img src="{{ asset($item->image) }}" alt="{{ $item->skema }}" style="height:180px; object-fit:cover; width:100%;">
+                                @elseif($item->jurusan && $item->jurusan->image)
+                                    <img src="{{ asset($item->jurusan->image) }}" alt="{{ $item->skema }}" style="height:180px; object-fit:cover; width:100%;">
+                                @else
+                                    <div style="height:180px; background: linear-gradient(135deg, #9b0000, #550000); display:flex; align-items:center; justify-content:center;">
+                                        <i class="fas fa-certificate" style="font-size:60px; color:rgba(255,255,255,0.3);"></i>
+                                    </div>
+                                @endif
+                                <div class="down-content">
+                                    <span style="font-size:12px; color:#999;">{{ $item->kode_skema }}</span>
+                                    <h4>{{ $item->skema }}</h4>
+                                    <p>Jurusan: {{ $item->jurusan?->jurusan ?? '-' }}</p>
+                                    <span class="filled-button">Lihat Detail &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <div class="col-md-12 text-center">
+                        <p>Belum ada skema sertifikasi yang tersedia.</p>
+                    </div>
+                @endforelse
+                @if($skema->count() > 6)
+                    <div class="col-md-12 text-center mt-4">
+                        <a href="{{ route('client_skema') }}" class="filled-button">Lihat Semua Skema &rarr;</a>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
     <!-- Layanan -->
     <div style="background-image: url('{{ asset(optional($site_setting)->background_image ?? 'general/assets/images/back1.jpg') }}')" class="fun-facts">
         <div class="container">

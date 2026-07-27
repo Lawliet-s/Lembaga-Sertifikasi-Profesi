@@ -29,7 +29,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title"><i class="fas fa-suitcase"></i> {{ $skema->skema }}</h4>
-        <form action="{{ route('skema.update', $skema->id) }}" method="POST" class="form-sample">
+        <form action="{{ route('skema.update', $skema->id) }}" method="POST" class="form-sample" enctype="multipart/form-data">
         @csrf
         @method('put')
             <div class="card-description text-left">
@@ -122,6 +122,25 @@
                                 <option value="Nonaktif" @if ($skema->status_id == 'Nonaktif') selected @endif>Nonaktif</option>
                             </select>
                             @error('status_id')
+                                <div class="text-danger mt-2 text-sm">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Foto Skema</label>
+                        <div class="col-sm-9">
+                            @if($skema->image)
+                                <div class="mb-2">
+                                    <img src="{{ asset($skema->image) }}" alt="{{ $skema->skema }}" style="max-width:150px; max-height:100px; border-radius:6px; object-fit:cover;">
+                                </div>
+                            @endif
+                            <input type="file" name="image" class="form-control" accept="image/*" />
+                            <small class="text-muted">Format: jpg, png, gif, svg | Maks: 2MB</small>
+                            @error('image')
                                 <div class="text-danger mt-2 text-sm">{{ $message }}</div>
                             @enderror
                         </div>

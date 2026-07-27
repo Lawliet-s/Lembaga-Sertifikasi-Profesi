@@ -18,6 +18,7 @@ class Skema extends Model
         'asesor_id',
         'tuk_id',
         'status_id',
+        'image',
         'verifikasi_skema_id',
         'cekpendaftaran_id'
     ];

@@ -35,15 +35,14 @@
             </div>
             <div id="collapse-11" class="collapse" role="tabpanel" aria-labelledby="heading-11" data-parent="#accordion-4">
                 <div class="card-body">
-                    <form action="{{ route('skema.store') }}" method="POST" class="form-sample">
+                    <form action="{{ route('skema.store') }}" method="POST" class="form-sample" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Nama Skema</label>
                                     <div class="col-sm-9">
-                                        <input type="text" maxlength="100" name="skema" class="form-control"
-                                            placeholder="Nama Skema" />
+                                        <input type="text" maxlength="100" name="skema" class="form-control" placeholder="Nama Skema" />
                                         @error('skema')
                                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>
                                         @enderror
@@ -54,8 +53,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Kode Skema</label>
                                     <div class="col-sm-9">
-                                        <input type="text" maxlength="100" name="kode_skema" class="form-control"
-                                            placeholder="Kode Skema" />
+                                        <input type="text" name="kode_skema" class="form-control" maxlength="100" placeholder="Kode Skema" />
                                         @error('kode_skema')
                                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>
                                         @enderror
@@ -123,26 +121,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Verifikasi</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-control" name="verifikasi_skema_id">
-                                                <option value="" holder>Pilih Verifikasi</option>
-                                                @foreach ($verifikasi_skemas as $result)
-                                                    <option value="{{ $result->id }}">{{ $result->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Foto Skema</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" name="image" class="form-control" accept="image/*" style="width:100%" />
+                                        <small class="text-muted">Format: jpg, png, gif, svg | Maks: 2MB</small>
+                                        @error('image')
+                                            <div class="text-danger mt-2 text-sm">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-                            </div> -->
-
-                            <div class="card-description text-left">
-                            <button type="submit" class="btn btn-success btn-rounded btn-icon-text btn-block">
-                                <i class="fa fa-save btn-icon-prepend"></i> Simpan
-                            </button>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-success btn-rounded btn-icon-text">
+                                    <i class="fa fa-save btn-icon-prepend"></i> Simpan
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -181,6 +180,9 @@
                                                     rowspan="1" colspan="1"
                                                     aria-label="Customer: activate to sort column ascending"
                                                     style="width: 575.75px;">Skema</th>
+                                                <th class="sorting" tabindex="0" aria-controls="order-listing"
+                                                    rowspan="1" colspan="1"
+                                                    style="width: 80px;">Foto</th>
                                                 <!-- <th class="sorting" tabindex="0" aria-controls="order-listing"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Ship to: activate to sort column ascending"
@@ -230,6 +232,13 @@
                                                     </td>
                                                     <td class="">{{ $asu->kode_skema }}</td>
                                                     <td>{{ $asu->skema }}</td>
+                                                    <td>
+                                                        @if($asu->image)
+                                                            <img src="{{ asset($asu->image) }}" alt="{{ $asu->skema }}" style="width:70px; height:70px; object-fit:cover; border-radius:6px;">
+                                                        @else
+                                                            <span class="text-muted" style="font-style: italic;">No Image</span>
+                                                        @endif
+                                                    </td>
 
                                                     <td>{{ $asu->status_id }}</td>
 
