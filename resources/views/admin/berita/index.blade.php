@@ -70,7 +70,7 @@
                                     name="excerpt">
                             </div><br>
                             <label for="">Isi Konten Berita</label>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <textarea class="summernote" name="body"></textarea>
                             </div>
                             <br>

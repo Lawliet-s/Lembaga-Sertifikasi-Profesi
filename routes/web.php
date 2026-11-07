@@ -148,6 +148,7 @@ Route::group(['middleware' => ['role:admin', 'throttle:admin', 'honeypot']], fun
     Route::resource('delete_galeri_foto', DeleteGaleriFotoController::class);
     Route::post('upload_foto', [GaleriController::class, 'foto_store'])->name('foto.store');
     // <------------------ BERITA  ------------------>
+    Route::post('berita/upload-image', [BeritaController::class, 'uploadImage'])->name('berita.upload.image');
     Route::resource('berita', BeritaController::class);
     Route::resource('info', InfoController::class);
     Route::put('save_image/{save_image}', [InfoController::class, 'save_image'])->name('save_image');

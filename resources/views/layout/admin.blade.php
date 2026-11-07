@@ -488,6 +488,38 @@
     <script src="{{ asset('assets2/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('assets2/js/stisla.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 550,
+                minHeight: 400,
+                maxHeight: 800,
+                width: '100%',
+                callbacks: {
+                    onImageUpload: function(files) {
+                        let that = $(this);
+                        let data = new FormData();
+                        data.append("file", files[0]);
+                        data.append("_token", "{{ csrf_token() }}");
+                        $.ajax({
+                            url: "{{ route('berita.upload.image') }}",
+                            method: "POST",
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            success: function(response) {
+                                let imageUrl = typeof response === 'object' ? response.url : response;
+                                that.summernote('insertImage', imageUrl);
+                            },
+                            error: function(data) {
+                                console.log(data);
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    </script>
     <script src="{{ asset('assets2/modules/codemirror/lib/codemirror.js') }}"></script>
     <script src="{{ asset('assets2/modules/codemirror/mode/javascript/javascript.js') }}"></script>
     <script src="{{ asset('assets2/modules/jquery-selectric/jquery.selectric.min.js') }}"></script>

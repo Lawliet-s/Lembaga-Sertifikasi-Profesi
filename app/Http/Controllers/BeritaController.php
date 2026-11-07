@@ -55,6 +55,18 @@ class BeritaController extends Controller
     }
 
 
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $safeName = \Illuminate\Support\Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
+            $new_image = time() . '_' . $safeName;
+            $image->move(public_path('uploads/berita/content'), $new_image);
+            return response()->json(['url' => asset('uploads/berita/content/' . $new_image)]);
+        }
+        return response()->json(['error' => 'No file uploaded'], 400);
+    }
+
     public function show($id)
     {
         $decryptID = Crypt::decryptString($id);
@@ -98,7 +110,7 @@ class BeritaController extends Controller
                 'status' => \App\Helpers\HtmlSanitizer::plain($request->status),
                 'image' => 'uploads/berita/' . $new_image,
             ];
-        } else {
+        }else{
             $berita_data = [
                 'title' => \App\Helpers\HtmlSanitizer::plain($request->title),
                 'excerpt' => \App\Helpers\HtmlSanitizer::plain($request->excerpt),
@@ -107,15 +119,20 @@ class BeritaController extends Controller
             ];
         }
 
-        Berita::whereId($id)->update($berita_data);
-        return back()->with('success', 'Artikel Berita Anda  berhasil di Update');
+        $berita = Berita::findorfail($id);
+        $berita->update($berita_data);
+        return back()->with('success', 'Data berhasil di Update');
     }
 
 
     public function destroy($id)
     {
-        $berita = Berita::findorfail($id);
+        $decryptID = Crypt::decryptString($id);
+        $berita = Berita::findorfail($decryptID);
+        if ($berita->image && file_exists(public_path($berita->image))) {
+            @unlink(public_path($berita->image));
+        }
         $berita->delete();
-        return back()->with('success', 'Artikel Berita Anda  berhasil di Hapus');
+        return back()->with('success', 'Data Berita Anda berhasil di Berhasil di Dihapus');
     }
 }
