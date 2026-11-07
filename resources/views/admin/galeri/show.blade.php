@@ -62,20 +62,37 @@
                         <div id="collapse-10" class="   " role="tabpanel" aria-labelledby="heading-10"
                             data-parent="#accordion-4" style="">
                             <div class="card-body">
-                                <form action="{{ route('foto.store') }}" method="POST" enctype="multipart/form-data"
-                                    class="" id="mydropzone">
+                                <form action="{{ route('foto.store') }}" method="POST" enctype="multipart/form-data">
                                     <div class="card-body">
                                         @csrf
-                                        <div class="fallback">
+                                        <div class="form-group">
                                             <input type="hidden" name="group_galeri_id" value="{{ $galeri->id }}">
-                                            <input type="file" name="image[]" multiple="true">
-                                            <label class="badge badge-info" for="">Drag Gambar kesini</label>
-                                            <br><br>
+                                            <label class="text-dark font-weight-bold">Pilih Foto (Bisa Multiple)</label><br>
+                                            <input type="file" name="image[]" id="gallery-file-input" class="form-control-file" multiple required accept=".jpg,.jpeg,.png">
+                                            <span class="text-dark d-inline-block mt-1" id="gallery-file-chosen">No file chosen</span>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-rounded btn-success"><i
+                                    <button type="submit" class="btn btn-rounded btn-success py-2 font-weight-bold"><i
                                         class="fas fa-upload"> </i> Simpan Gambar</button>
                                 </form>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        const galleryInput = document.getElementById('gallery-file-input');
+                                        const galleryLabel = document.getElementById('gallery-file-chosen');
+                                        if (galleryInput) {
+                                            galleryInput.addEventListener('change', function(e) {
+                                                let count = e.target.files.length;
+                                                if (count > 1) {
+                                                    galleryLabel.textContent = count + " files chosen";
+                                                } else if (count === 1) {
+                                                    galleryLabel.textContent = e.target.files[0].name;
+                                                } else {
+                                                    galleryLabel.textContent = "No file chosen";
+                                                }
+                                            });
+                                        }
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>

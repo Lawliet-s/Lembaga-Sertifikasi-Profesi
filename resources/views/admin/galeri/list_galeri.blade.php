@@ -44,14 +44,26 @@
                         <form action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label class="text-dark" for="">Masukan Thumbnail Album</label><br>
-                                <input type="file" name="image">
+                                <label class="text-dark font-weight-bold">Masukan Thumbnail Album</label><br>
+                                <input type="file" name="image" id="album-file-input" class="form-control-file" accept=".jpg,.jpeg,.png">
+                                <span class="text-dark d-inline-block mt-1" id="album-file-chosen">No file chosen</span>
                             </div>
-                            <input type="text" name="galeri" class="form-control" placeholder="Nama Album"
-                                value=""><br>
-                            <button class="btn btn-success btn-rounded btn-sm btn-block" type="submit"><i
+                            <input type="text" name="galeri" class="form-control mb-3" placeholder="Nama Album" value="">
+                            <button class="btn btn-success btn-rounded btn-sm btn-block py-2 font-weight-bold" type="submit"><i
                                     class="fas fa-save"></i> Simpan</button>
                         </form>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const albumInput = document.getElementById('album-file-input');
+                                const albumLabel = document.getElementById('album-file-chosen');
+                                if (albumInput) {
+                                    albumInput.addEventListener('change', function(e) {
+                                        let fileName = e.target.files[0] ? e.target.files[0].name : "No file chosen";
+                                        albumLabel.textContent = fileName;
+                                    });
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
