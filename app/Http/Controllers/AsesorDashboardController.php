@@ -26,13 +26,33 @@ class AsesorDashboardController extends Controller
     }
 
     /**
+     * Dapatkan ID record asesor yang terhubung dengan user yang sedang login
+     */
+    private function getAsesorId()
+    {
+        $user = Auth::user();
+        if (!$user) return null;
+
+        $asesor = Asesor::where('user_id', $user->id)
+            ->orWhere('email', $user->email)
+            ->first();
+
+        return $asesor ? [$asesor->id, $user->id] : [$user->id];
+    }
+
+    private function findAsesiRegisterOrFail($id)
+    {
+        return Data_register::findOrFail($id);
+    }
+
+    /**
      * Tampilkan dashboard asesor
      */
     public function index()
     {
-        $userId = Auth::id();
+        $asesorIds = (array) $this->getAsesorId();
 
-        $semuaData = Data_register::where('asesor_id', $userId)
+        $semuaData = Data_register::whereIn('asesor_id', $asesorIds)
             ->with('tuk')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -60,27 +80,48 @@ class AsesorDashboardController extends Controller
         ));
     }
 
-    private function findAsesiRegisterOrFail($id)
-    {
-        return Data_register::where('asesor_id', Auth::id())->findOrFail($id);
-    }
-
     public function penilaian()
     {
-        $participants = Data_register::where('asesor_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        $asesorIds = (array) $this->getAsesorId();
+        $participants = Data_register::whereIn('asesor_id', $asesorIds)->orderBy('created_at', 'desc')->get();
 
         return view('asesor.penilaian', compact('participants'));
     }
 
     public function observasiIndex()
     {
-        $participants = Data_register::where('asesor_id', Auth::id())
+        $asesorIds = (array) $this->getAsesorId();
+        $participants = Data_register::whereIn('asesor_id', $asesorIds)
             ->with('observasis', 'penilaians')
             ->orderBy('created_at', 'desc')
             ->get();
 
         return view('asesor.observasi_index', compact('participants'));
     }
+
+    public function validasi()
+    {
+        $asesorIds = (array) $this->getAsesorId();
+        $participants = Data_register::whereIn('asesor_id', $asesorIds)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('asesor.validasi_index', compact('participants'));
+    }
+
+    public function rekomendasi()
+    {
+        $asesorIds = (array) $this->getAsesorId();
+        $participants = Data_register::whereIn('asesor_id', $asesorIds)
+            ->with('observasis', 'penilaians')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('asesor.rekomendasi_index', compact('participants'));
+    }
+
+
+
 
     public function penilaianShow($id)
     {
@@ -119,7 +160,7 @@ class AsesorDashboardController extends Controller
         $register->update([
             'status' => $allKompeten ? 'Kompeten' : 'Belum Kompeten',
             'keterangan' => $request->keterangan,
-            'asesor_id' => Auth::id(),
+            'asesor_id' => $this->getAsesorId(),
         ]);
 
         return redirect()->route('asesor.penilaian.show', $register->id)
@@ -168,22 +209,15 @@ class AsesorDashboardController extends Controller
 
         $register->update([
             'koreksi' => $request->catatan,
-            'asesor_id' => Auth::id(),
+            'asesor_id' => $this->getAsesorId(),
         ]);
 
         return redirect()->route('asesor.observasi.show', $register->id)
             ->with('success', 'Hasil observasi berhasil disimpan.');
     }
 
-    public function validasi()
-    {
-        $participants = Data_register::where('asesor_id', Auth::id())
-            ->with('observasis', 'penilaians')
-            ->orderBy('created_at', 'desc')
-            ->get();
 
-        return view('asesor.validasi_index', compact('participants'));
-    }
+
 
     public function validasiShow($id)
     {
@@ -228,22 +262,13 @@ class AsesorDashboardController extends Controller
                 'status_akhir' => $request->status_akhir,
             ],
             'status' => $allChecked ? $request->status_akhir : 'Validasi Ditolak',
-            'asesor_id' => Auth::id(),
+            'asesor_id' => $this->getAsesorId(),
         ]);
 
         return redirect()->route('asesor.validasi.show', $register->id)
             ->with('success', 'Validasi kompetensi berhasil disimpan.');
     }
 
-    public function rekomendasi()
-    {
-        $participants = Data_register::where('asesor_id', Auth::id())
-            ->with('observasis', 'penilaians')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return view('asesor.rekomendasi_index', compact('participants'));
-    }
 
     public function rekomendasiShow($id)
     {
@@ -279,9 +304,9 @@ class AsesorDashboardController extends Controller
                 'keputusan' => $request->keputusan,
                 'catatan' => $request->catatan,
             ],
-            'status' => $request->keputusan === 'Direkomendasikan Sertifikasi' ? 'Sertifikasi Selesai' : $request->keputusan,
+            'status' => 'Sertifikasi Selesai',
             'keterangan' => $request->catatan,
-            'asesor_id' => Auth::id(),
+            'asesor_id' => $this->getAsesorId(),
         ]);
 
         return redirect()->route('asesor.rekomendasi.show', $register->id)

@@ -248,7 +248,7 @@ Route::get('asesion', [App\Http\Controllers\HomeController::class, 'index3'])->n
 Route::middleware('role:admin')->group(function () {
     Route::get('admin', [App\Http\Controllers\Dashboard_adminController::class, 'index'])->name('admin');
 });
-Route::middleware(['role:asesor', 'throttle:asesor'])->prefix('dashboard-asesor')->group(function () {
+Route::middleware(['role:asesor', 'throttle:asesor', 'honeypot'])->prefix('dashboard-asesor')->group(function () {
     Route::get('/', [AsesorDashboardController::class, 'index'])->name('dashboard.asesor');
     Route::get('profil', [AsesorDashboardController::class, 'profil'])->name('asesor.profil');
     Route::put('profil', [AsesorDashboardController::class, 'updateProfil'])->name('asesor.profil.update');

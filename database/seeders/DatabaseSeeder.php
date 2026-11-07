@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AsesorSeeder::class);
         $this->call(VerifikasiSkemaSeeder::class);
         $this->call(SkemaDummySeeder::class);
+        $this->call(AsesorModuleDummySeeder::class);
     }
 }
