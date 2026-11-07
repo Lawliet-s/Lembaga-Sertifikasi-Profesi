@@ -172,7 +172,7 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $asu->name }}</td>
-                                                    <td>{{ $asu->role }}</td>
+                                                    <td>{{ $asu->roles->isNotEmpty() ? $asu->roles->pluck('name')->join(', ') : '-' }}</td>
                                                     <td>{{ $asu->created_at->format('d-M-Y') }}
                                                     </td>
 

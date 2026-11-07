@@ -74,7 +74,7 @@ class AsesiController extends Controller
 
         $request->validate([
             'name'     => 'required|string|max:100',
-            'nik'      => 'required|string|max:50',
+            'nik'      => 'required|numeric|digits:16',
             'email'    => 'required|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|max:255|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/',
             'image'    => 'nullable|image|mimes:jpeg,png,jpg|max:2048',

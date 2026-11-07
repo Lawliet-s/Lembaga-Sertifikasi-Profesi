@@ -30,13 +30,13 @@
         <div class="card">
             <div class="card-header" role="tab" id="heading-11">
                 <h6 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" href="#collapse-11" aria-expanded="true"
-                        aria-controls="collapse-11">
+                    <a class="{{ $errors->any() ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapse-11"
+                        aria-expanded="{{ $errors->any() ? 'true' : 'false' }}" aria-controls="collapse-11">
                         &plus; Klik disini Untuk Mengubah data TUK
                     </a>
                 </h6>
             </div>
-            <div id="collapse-11" class="collapse" role="tabpanel" aria-labelledby="heading-11" data-parent="#accordion-4">
+            <div id="collapse-11" class="collapse {{ $errors->any() ? 'show' : '' }}" role="tabpanel" aria-labelledby="heading-11" data-parent="#accordion-4">
                 <div class="card-body">
                     <form action="{{ route('tuk.update', $tuk->id) }}" enctype="multipart/form-data" method="POST"
                         class="form-sample">
@@ -48,7 +48,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">TUK</label>
                                     <div class="col-sm-9">
-                                        <input type="text" value="{{ $tuk->tuk }}" maxlength="100" name="tuk"
+                                        <input type="text" value="{{ $tuk->tuk }}" maxlength="255" name="tuk"
                                             class="form-control" />
                                         @error('tuk')
                                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>
@@ -58,7 +58,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Kode TUK</label>
                                     <div class="col-sm-9">
-                                        <input type="text" value="{{ $tuk->kode }}" maxlength="100" name="kode"
+                                        <input type="text" value="{{ $tuk->kode }}" maxlength="255" name="kode"
                                             class="form-control" />
                                         @error('kode')
                                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>
@@ -79,7 +79,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Alamat</label>
                                     <div class="col-sm-9">
-                                        <input type="text" value="{{ $tuk->alamat }}" maxlength="100" name="alamat"
+                                        <input type="text" value="{{ $tuk->alamat }}" maxlength="255" name="alamat"
                                             class="form-control" />
                                         @error('alamat')
                                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>
@@ -89,7 +89,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Penanggung Jawab</label>
                                     <div class="col-sm-9">
-                                        <input type="text" value="{{ $tuk->pengelola }}" maxlength="100"
+                                        <input type="text" value="{{ $tuk->pengelola }}" maxlength="255"
                                             name="pengelola" class="form-control" />
                                         @error('pengelola')
                                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>
@@ -99,7 +99,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Jenis TUK</label>
                                     <div class="col-sm-9">
-                                        <input type="text" value="{{ $tuk->jenis_tuk }}" maxlength="100"
+                                        <input type="text" value="{{ $tuk->jenis_tuk }}" maxlength="255"
                                             name="jenis_tuk" class="form-control" />
                                         @error('jenis_tuk')
                                             <div class="text-danger mt-2 text-sm">{{ $message }}</div>

@@ -29,7 +29,6 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'role' => ['required', 'in:User'],
             'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/'],
         ], [
             'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, dan angka.',
@@ -42,7 +41,6 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => explode('@', $data['email'])[0],
             'email' => $data['email'],
-            'role' => $data['role'],
             'password' => Hash::make($data['password']),
         ]);
 

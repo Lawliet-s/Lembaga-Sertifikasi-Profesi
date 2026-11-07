@@ -31,7 +31,7 @@
                                 <div class="col-sm-12">
                                     <table id="order-listing" class="table dataTable no-footer" role="grid">
                                          <thead>
-                                             <tr role="row" style="background-color: var(--secondary-color); color: #fff;">
+                                             <tr role="row" style="background-color: var(--primary-color); color: #fff;">
                                                  <th class="sorting" style="width: 10px;">#</th>
                                                  <th class="sorting" style="width: 80px;">Aksi</th>
                                                  <th class="sorting" style="width: 150px;">Kode Registrasi</th>

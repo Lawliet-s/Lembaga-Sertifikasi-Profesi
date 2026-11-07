@@ -40,7 +40,6 @@ class AsesorController extends Controller
             'name' => $request->nama,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'asesor',
         ]);
         $user->syncRoles(['asesor']);
 

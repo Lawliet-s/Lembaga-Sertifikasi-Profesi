@@ -41,7 +41,6 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Asesor',
                 'password' => bcrypt(env('SEEDER_ASESOR_PASSWORD', 'asesor')),
-                'role' => 'asesor',
                 'jurusan_id' => 1,
             ]
         );

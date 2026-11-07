@@ -15,7 +15,7 @@ class AsesorAuthController extends Controller
      */
     public function loginForm()
     {
-        if (Auth::check() && Auth::user()->role === 'asesor') {
+        if (Auth::check() && Auth::user()->hasRole('asesor')) {
             return redirect()->route('dashboard.asesor');
         }
         return view('auth.loginasesor');
@@ -36,9 +36,7 @@ class AsesorAuthController extends Controller
             'password.min' => 'Password minimal 8 karakter',
         ]);
 
-        $user = User::where('email', $credentials['email'])
-            ->where('role', 'asesor')
-            ->first();
+        $user = User::role('asesor')->where('email', $credentials['email'])->first();
 
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
             Log::channel('auth')->warning('Failed asesor login attempt', [

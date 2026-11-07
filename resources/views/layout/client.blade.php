@@ -226,7 +226,7 @@
                         @if (Auth::user())
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropbtn" style="color: var(--primary-color)"><i class="fa fa-user"></i>
-                                {{ Auth::user()->role }}
+                                {{ Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->pluck('name')->join(', ') : '-' }}
                                 </a>
                                 <div class="dropdown-content">
                                     @if(Auth::user()->hasRole('admin'))
@@ -234,7 +234,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">Logout</a>
-                                    @elseif(Auth::user()->role === 'asesor')
+                                    @elseif(Auth::user()->hasRole('asesor'))
                                         <a href="{{ route('dashboard.asesor') }}">Dashboard Asesor</a>
                                         <a href="{{ route('asesor.logout') }}"
                                             onclick="event.preventDefault();

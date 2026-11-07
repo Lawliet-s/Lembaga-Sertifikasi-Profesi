@@ -41,7 +41,6 @@
                 <div class="col-lg-6">
                     <form method="POST" action="{{ route('register') }}" id="registerForm">
                         @csrf
-                        <input type="hidden" name="role" value="User">
                         <div class="card2 card border-0 px-4 py-5">
                             <div class="row px-3 mt-4 mb-2 border-line" style="display: flex; justify-content: center; gap: 15px;">
                                 @forelse ($logos as $logo)

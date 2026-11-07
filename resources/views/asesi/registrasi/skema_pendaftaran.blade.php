@@ -29,7 +29,7 @@
                                     <table id="order-listing" class="table dataTable no-footer" role="grid"
                                         aria-describedby="order-listing_info">
                                         <thead>
-                                            <tr class="bg-danger text-white" role="row">
+                                            <tr role="row" style="background-color: var(--primary-color); color: #fff;">
                                                 <th class="sorting" tabindex="0" aria-controls="order-listing"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Order #: activate to sort column ascending"
