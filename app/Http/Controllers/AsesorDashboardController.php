@@ -6,6 +6,7 @@ use App\Models\Asesor;
 use App\Models\Data_register;
 use App\Models\Observasi;
 use App\Models\Penilaian;
+use App\Models\Skema;
 use App\Models\Tuk;
 use App\Models\Unikom;
 use App\Models\User;
@@ -31,13 +32,27 @@ class AsesorDashboardController extends Controller
     private function getAsesorId()
     {
         $user = Auth::user();
-        if (!$user) return null;
+        if (!$user) return [];
 
         $asesor = Asesor::where('user_id', $user->id)
             ->orWhere('email', $user->email)
             ->first();
 
-        return $asesor ? [$asesor->id, $user->id] : [$user->id];
+        $ids = [];
+        if ($asesor) {
+            $ids[] = $asesor->id;
+        }
+        $ids[] = $user->id;
+
+        // Also get IDs of skemas where this asesor is assigned
+        if ($asesor) {
+            $skemaAsesorIds = Skema::where('asesor_id', $asesor->id)->pluck('id')->toArray();
+            if (!empty($skemaAsesorIds)) {
+                $ids = array_merge($ids, $skemaAsesorIds);
+            }
+        }
+
+        return array_unique($ids);
     }
 
     private function findAsesiRegisterOrFail($id)
@@ -52,7 +67,11 @@ class AsesorDashboardController extends Controller
     {
         $asesorIds = (array) $this->getAsesorId();
 
-        $semuaData = Data_register::whereIn('asesor_id', $asesorIds)
+        $semuaData = Data_register::where(function($query) use ($asesorIds) {
+                $query->whereIn('asesor_id', $asesorIds)
+                      ->orWhereIn('skema_id', $asesorIds)
+                      ->orWhereIn('id_skema', $asesorIds);
+            })
             ->with('tuk')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -83,7 +102,11 @@ class AsesorDashboardController extends Controller
     public function penilaian()
     {
         $asesorIds = (array) $this->getAsesorId();
-        $participants = Data_register::whereIn('asesor_id', $asesorIds)->orderBy('created_at', 'desc')->get();
+        $participants = Data_register::where(function($query) use ($asesorIds) {
+                $query->whereIn('asesor_id', $asesorIds)
+                      ->orWhereIn('skema_id', $asesorIds)
+                      ->orWhereIn('id_skema', $asesorIds);
+            })->orderBy('created_at', 'desc')->get();
 
         return view('asesor.penilaian', compact('participants'));
     }
@@ -91,7 +114,11 @@ class AsesorDashboardController extends Controller
     public function observasiIndex()
     {
         $asesorIds = (array) $this->getAsesorId();
-        $participants = Data_register::whereIn('asesor_id', $asesorIds)
+        $participants = Data_register::where(function($query) use ($asesorIds) {
+                $query->whereIn('asesor_id', $asesorIds)
+                      ->orWhereIn('skema_id', $asesorIds)
+                      ->orWhereIn('id_skema', $asesorIds);
+            })
             ->with('observasis', 'penilaians')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -102,7 +129,11 @@ class AsesorDashboardController extends Controller
     public function validasi()
     {
         $asesorIds = (array) $this->getAsesorId();
-        $participants = Data_register::whereIn('asesor_id', $asesorIds)
+        $participants = Data_register::where(function($query) use ($asesorIds) {
+                $query->whereIn('asesor_id', $asesorIds)
+                      ->orWhereIn('skema_id', $asesorIds)
+                      ->orWhereIn('id_skema', $asesorIds);
+            })
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -112,7 +143,11 @@ class AsesorDashboardController extends Controller
     public function rekomendasi()
     {
         $asesorIds = (array) $this->getAsesorId();
-        $participants = Data_register::whereIn('asesor_id', $asesorIds)
+        $participants = Data_register::where(function($query) use ($asesorIds) {
+                $query->whereIn('asesor_id', $asesorIds)
+                      ->orWhereIn('skema_id', $asesorIds)
+                      ->orWhereIn('id_skema', $asesorIds);
+            })
             ->with('observasis', 'penilaians')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -157,10 +192,16 @@ class AsesorDashboardController extends Controller
 
         $allKompeten = collect($request->penilaian)->every(fn($v) => $v === 'kompeten');
 
+        $asesorIdSingle = Auth::user()->id;
+        $asesorRecord = Asesor::where('user_id', Auth::user()->id)->orWhere('email', Auth::user()->email)->first();
+        if ($asesorRecord) {
+            $asesorIdSingle = $asesorRecord->id;
+        }
+
         $register->update([
             'status' => $allKompeten ? 'Kompeten' : 'Belum Kompeten',
             'keterangan' => $request->keterangan,
-            'asesor_id' => $this->getAsesorId(),
+            'asesor_id' => $asesorIdSingle,
         ]);
 
         return redirect()->route('asesor.penilaian.show', $register->id)
@@ -207,9 +248,15 @@ class AsesorDashboardController extends Controller
             'file' => $filePath,
         ]);
 
+        $asesorIdSingle = Auth::user()->id;
+        $asesorRecord = Asesor::where('user_id', Auth::user()->id)->orWhere('email', Auth::user()->email)->first();
+        if ($asesorRecord) {
+            $asesorIdSingle = $asesorRecord->id;
+        }
+
         $register->update([
             'koreksi' => $request->catatan,
-            'asesor_id' => $this->getAsesorId(),
+            'asesor_id' => $asesorIdSingle,
         ]);
 
         return redirect()->route('asesor.observasi.show', $register->id)
@@ -256,13 +303,19 @@ class AsesorDashboardController extends Controller
             && $request->checklist['observasi_sesuai']
             && $request->checklist['nilai_konsisten'];
 
+        $asesorIdSingle = Auth::user()->id;
+        $asesorRecord = Asesor::where('user_id', Auth::user()->id)->orWhere('email', Auth::user()->email)->first();
+        if ($asesorRecord) {
+            $asesorIdSingle = $asesorRecord->id;
+        }
+
         $register->update([
             'validasi_data' => [
                 'checklist' => $request->checklist,
                 'status_akhir' => $request->status_akhir,
             ],
             'status' => $allChecked ? $request->status_akhir : 'Validasi Ditolak',
-            'asesor_id' => $this->getAsesorId(),
+            'asesor_id' => $asesorIdSingle,
         ]);
 
         return redirect()->route('asesor.validasi.show', $register->id)
@@ -299,6 +352,12 @@ class AsesorDashboardController extends Controller
             'catatan' => ['nullable', 'string', 'max:2000'],
         ]);
 
+        $asesorIdSingle = Auth::user()->id;
+        $asesorRecord = Asesor::where('user_id', Auth::user()->id)->orWhere('email', Auth::user()->email)->first();
+        if ($asesorRecord) {
+            $asesorIdSingle = $asesorRecord->id;
+        }
+
         $register->update([
             'rekomendasi_data' => [
                 'keputusan' => $request->keputusan,
@@ -306,7 +365,7 @@ class AsesorDashboardController extends Controller
             ],
             'status' => 'Sertifikasi Selesai',
             'keterangan' => $request->catatan,
-            'asesor_id' => $this->getAsesorId(),
+            'asesor_id' => $asesorIdSingle,
         ]);
 
         return redirect()->route('asesor.rekomendasi.show', $register->id)

@@ -69,6 +69,7 @@ class RegistrasiController extends Controller
             'alamat_kantor' => 'nullable|string|max:500',
         ]);
 
+            $skemaObj = Skema::find($request->skema_id);
             $data_register = Data_register::create([
                 'id' => $request->id,
                 'kode' => \App\Helpers\HtmlSanitizer::plain($request->kode),
@@ -76,7 +77,7 @@ class RegistrasiController extends Controller
                 'skema_name' => \App\Helpers\HtmlSanitizer::plain($request->skema_name ?? ''),
                 'tuk_id' => $request->tuk_id,
                 'kode_skema' => \App\Helpers\HtmlSanitizer::plain($request->kode_skema),
-                'asesor_id' => $request->asesor_id,
+                'asesor_id' => $request->asesor_id ?? ($skemaObj->asesor_id ?? null),
                 'status' => 'Lengkapi Data Anda',
                 'skema_id' => $request->skema_id,
                 'user_id' => auth()->id(),

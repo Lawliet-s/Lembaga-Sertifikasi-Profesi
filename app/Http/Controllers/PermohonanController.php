@@ -107,6 +107,7 @@ class PermohonanController extends Controller
             'skema_name' => \App\Helpers\HtmlSanitizer::plain($skema->skema ?? ''),
             'kode_skema' => \App\Helpers\HtmlSanitizer::plain($skema->kode_skema ?? ''),
             'id_skema' => (string) $request->skema_id,
+            'asesor_id' => $skema->asesor_id ?? null,
             'kode' => \App\Helpers\HtmlSanitizer::plain($request->tujuan_asesmen ?? ''),
             'status' => 'Menunggu Validasi',
             'nik' => \App\Helpers\HtmlSanitizer::plain($request->nik ?? ''),

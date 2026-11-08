@@ -24,7 +24,7 @@ class AsesorController extends Controller
         $request->validate([
             'no_registrasi' => ['required', 'max:19', 'unique:asesor,no_registrasi'],
             'nama' => ['required'],
-            'password' => ['required', 'string', 'min:8', 'max:255', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/'],
+            'password' => ['required', 'string', 'min:4', 'max:255'],
             'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ],[
             'no_registrasi.required' => 'No. Registrasi diperlukan',
